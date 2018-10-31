@@ -26,12 +26,12 @@ class CreateDetalleCotizacionTable extends Migration
             $table->increments('ID_DETALLE_COTIZACION');
             $table->integer('ID_PRODUCTO')->unsigned();
             $table->integer('ID_COTIZACION')->unsigned();
-            $table->integer('ID_CONVENIO')->nullable()->default(null)->unsigned();
+            //$table->integer('ID_CONVENIO')->nullable()->default(null)->unsigned();
             $table->string('UNIDAD', 30)->nullable()->default(null);
             $table->integer('CANTIDAD')->nullable()->default(null);
             $table->integer('TOTAL')->nullable()->default(null);
 
-            $table->index(["ID_CONVENIO"], 'FK_RELATIONSHIP_32');
+          //  $table->index(["ID_CONVENIO"], 'FK_RELATIONSHIP_32');
 
             $table->index(["ID_PRODUCTO"], 'FK_RELATIONSHIP_29');
 
@@ -48,10 +48,10 @@ class CreateDetalleCotizacionTable extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
 
-            $table->foreign('ID_CONVENIO', 'FK_RELATIONSHIP_32')
+           /* $table->foreign('ID_CONVENIO', 'FK_RELATIONSHIP_32')
                 ->references('ID_CONVENIO')->on('convenios')
                 ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onUpdate('restrict');*/
         });
     }
 

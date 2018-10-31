@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<title>Cotizaciones</title>
 	<style>
-
 		.badge {
 			float: right;
 		}
@@ -32,9 +31,10 @@ padding: 35px;">
         </div>
     </nav>
 
-
-
-			<form  action="{{ action('CotizacionController@store')}}" method="post" enctype="multipart/form-data">
+	<article id="main">
+			
+{!!Form::open(array('route'=>'store', 'id'=>'frmsave', 'method'=>'post'))!!}
+			
 					{{ csrf_field() }}
 		<div class="panel panel-success"style="width:100%;">
 				<div class="panel-heading">
@@ -64,37 +64,63 @@ padding: 35px;">
 
 			</div>
 		</div>
+		
 			<br><div class="panel panel-success" style="width:100%;"> 
 					<div class="panel-heading">
 					<h4>Datos de Producto</h4>
 						</div>
 					<div class="panel-body">
-					<p>
-						<input type="text" name="fecha_entrega" placeholder="Fecha entrega producto" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_llegada" class="form-control" required>
-					</p>
-					<p>
-						<input type="text" name="descripcion" placeholder="Descripción" class="form-control" maxlength="50"  required>
-					</p>
-					<p>
-						<input type="file" name="plano" id="plano" class="custom-file">
-					</p>
-	
-					<p>
-						<select name="tipo" class="form-control" >
-	
-									<option>Emergencia</option>
-									
-									<option>Normal</option>
 								
+					<div class="form-group">
+							{!!Form::submit('Save',array('class'=>'btn btn-success'))!!}
+						<table class="table table-bordered">
+												<thead>
+													
+														<th>Descripción</th>
+														<th>Tipo</th>
+														<th>Plano</th>
+														<th>Fecha</th>
+														<th><a href="#" class="addRow">+</a></th>
+														<!--<input type="button" value="Agregar" class="addRow"/>-->
+													
+												</thead>
+												<tbody>
+													<tr>
+														<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required>
+														</td>
+														<td><select name="tipo[]" class="form-control tipo">
+	
+																<option>Emergencia</option>
+																
+																<option>Normal</option>	
+																
+													</select></td>
+														<td>
+																<input type="file" name="plano[]"  class="custom-file plano">
+														</td>
+														<td>	<input type="text"  name="fecha_entrega[]" placeholder="Fecha entrega producto" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}"  class="form-control fecha_entrega" required></td>
+														<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>
+															</td>
+													</tr>
+												</tbody>
+												
+											</table>
+										</div>
 									
-						</select>					
-					</p>
+								
+								<br> 
+								<br>
+								<br>
+							</div>
+						
+					</article>
 					<p>
 						<input type="submit" value="Guardar" class="btn btn-success">
 					</p>
 				</div>
 			</div>
-			</form>
+			{!!Form::close()!!}
+		
 
 	</div>
 
@@ -103,7 +129,52 @@ padding: 35px;">
 	@endif
 	</div>
 	</div>
+
 </body>
+
 <script type="text/javascript" src="{{ URL::asset('js/solo_num.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/solo_letras.js') }}"></script>
+	<script type="text/javascript" src="{{ URL::asset('js/solo_letras.js') }}"></script>
+	<script type="text/javascript" src="{{ URL::asset('js/live.js') }}"></script>
+
+
+
+
+
+
+<script type="text/javascript">
+$('tbody').delegate('')
+$('.addRow').on('click',function() {
+	addRow();
+});
+function addRow() {
+	var tr='<tr>'+
+			'<tr>'+
+			'<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required>'+
+			'</td>'+
+			'<td><select name="tipo[]" class="form-control tipo">'+
+					'<option>Emergencia</option>'+
+					
+					'<option>Normal</option>'+
+					
+		'</select></td>'+
+			'<td>'+
+					'<input type="file" name="plano[]"  class="custom-file plano">'+
+			'</td>'+
+			'<td>	<input type="date"  name="fecha_entrega[]" placeholder="Fecha entrega producto" class="form-control fecha_entrega" required></td>'+
+			'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>'+
+				'</td>'+
+		'</tr>';
+			$('tbody').append(tr);
+};
+$('.remove').live('click', function() {
+	var l=$('tbody tr').length;
+	if (l==1) {
+		alert('No se puede eliminar');
+	}else{
+	$(this).parent().parent().remove();
+	}
+	
+});
+</script>
+	
 </html>

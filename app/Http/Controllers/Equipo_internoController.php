@@ -17,10 +17,15 @@ class Equipo_internoController extends Controller
      */
     public function index()
     {
-        $inventario = Inventario::all();
-        $producto = Producto::all();
-        $equipos_i = Equipos_y_o_herramientas::all();
-        return view('equipos_internos.index')->with('equipos_i',$equipos_i)->with('inventario',$inventario)->with('producto',$producto);
+
+      //  $equipos_i = Equipos_y_o_herramientas::all();
+        $equipos_i = \DB::table('equipos_y_o_herramientas')
+        ->select('producto.DESCRIPCION','inventario.NOMBRE','equipos_y_o_herramientas.ID_EH','equipos_y_o_herramientas.UNIDAD_E','equipos_y_o_herramientas.CANTIDAD_DIAS_E','equipos_y_o_herramientas.VALOR_TOTAL_E')
+        ->join('producto', 'equipos_y_o_herramientas.ID_PRODUCTO', '=', 'producto.ID_PRODUCTO')
+        ->join('inventario', 'equipos_y_o_herramientas.ID_INVENTARIO', '=', 'inventario.ID_INVENTARIO')
+        ->get();
+        //dd($equipos_i);
+        return view('equipos_internos.index')->with('equipos_i',$equipos_i);
     }
 
     /**

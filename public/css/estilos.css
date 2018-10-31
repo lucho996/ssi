@@ -1,19 +1,16 @@
-*{
-    margin:0;
-    padding: 0;
 
-}
 
 header{
     width: 100%;
 }
 header nav{
     width: 100%;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0px auto;
-    background: #cccccc;
-    opacity: 0.7;
-    border-radius: 20px 20px 20px 20px;
+    background: #F2F2F2;
+    box-shadow: 6px 6px 0px rgb(151, 151, 151);
+    opacity: 0.8;
+    border-radius: 0px 0px 30px 30px;    
 
     
 }
@@ -28,11 +25,13 @@ header nav ul{
 
 }
 header nav ul li{
-    float: left;
+
+float: left;
+margin: 0px auto 0px;
 }
 header nav ul li a{
     color: rgb(39, 39, 39);
-    padding: 15px;
+    padding: 20px;
     display: block;
     text-decoration: none; 
 }
@@ -41,7 +40,10 @@ header nav ul li span{
     margin-right:10px; 
 }
 header nav ul li a:hover{
-    background: rgb(165, 165, 165);
+    background: #5B9600;
+    box-shadow: 6px 6px 0px rgb(41, 68, 0);
+    border-radius: 0px 0px 10px 10px;
+    color: #fff;
 }
 
 

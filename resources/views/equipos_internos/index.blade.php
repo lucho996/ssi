@@ -55,8 +55,8 @@ padding: 35px;">
                       <tbody>
                           @foreach($equipos_i as $equipos_i)
                               <tr>
-                                  <td>{{ $equipos_i->ID_PRODUCTO}}</td>
-                                  <td>{{ $equipos_i->ID_INVENTARIO }}</td>
+                                  <td>{{ $equipos_i->DESCRIPCION}}</td>
+                                  <td>{{ $equipos_i->NOMBRE }}</td>
                                   <td>{{ $equipos_i->UNIDAD_E }}</td>
                                   <td>{{ $equipos_i->CANTIDAD_DIAS_E }}</td>
                                   <td>{{ $equipos_i->VALOR_TOTAL_E }}</td>

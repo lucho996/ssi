@@ -45,6 +45,7 @@ padding: 35px;">
                   <table class="table ">
                       <thead>
                           <tr>
+                                <th>ID</th>
                               <th>Cod Petición</th>
                               <th>Cliente</th>
                               <th>Entrega Cotizaciòn</th>
@@ -55,8 +56,9 @@ padding: 35px;">
                       <tbody>
                           @foreach($cotizacion as $cotizacion)
                               <tr>
+                                <td>{{ $cotizacion->ID_COTIZACION }}</td>
                                 <td>{{ $cotizacion->COD_PETICION_OFERTA }}</td>
-                                  <td>{{ $cotizacion->RUT_CLIENTE }}</td>
+                                  <td>{{ $cotizacion->NOMBRE_COMPLETO }}</td>
                                   <td>{{ $cotizacion->FECHA_RESPUESTA_COTIZACION }}</td>
 
                                   <td>{{ $cotizacion->FECHA_LLEGADA }}</td>
@@ -65,7 +67,7 @@ padding: 35px;">
                                   <td>
                                       <a href="/cotizacion/show/{{ $cotizacion->ID_COTIZACION }}"><span class="label label-info">Ver</span></a>
                                       <a href="/cotizacion/edit/{{ $cotizacion->ID_COTIZACION }}"><span class="label label-success">Editar</span></a>
-                                      <a href="/producto/verproductos/{{ $cotizacion->ID_COTIZACION }}"><span class="label label-success">Ver Producto</span></a>
+                                      <a href="/producto"><span class="label label-success">Ver Producto</span></a>
                                       
                                   </td>
                               </tr>

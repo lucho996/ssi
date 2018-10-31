@@ -54,6 +54,13 @@ class Cotizacion extends Model
         return $this->belongsTo('App\OrdenDeCompra', 'ID_ORDEN_COMPRA', 'ID_ORDEN_COMPRA');
     }
 
+    public function productos()
+{
+    return $this->belongsToMany('App\Producto','detalle_cotizacion','ID_COTIZACION', 'ID_PRODUCTO')
+    ->withPivot('UNIDAD', 'CANTIDAD', 'TOTAL');
+}
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -73,10 +80,6 @@ class Cotizacion extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function detalleCotizacions()
-    {
-        return $this->hasMany('App\DetalleCotizacion', 'ID_COTIZACION', 'ID_COTIZACION');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

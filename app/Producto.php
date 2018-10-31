@@ -57,12 +57,17 @@ class Producto extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function cotizacions()
+{
+    return $this->belongsToMany('App\Cotizacion','detalle_cotizacion','ID_COTIZACION', 'ID_PRODUCTO')
+    ->withPivot('UNIDAD', 'CANTIDAD', 'TOTAL');
+}
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function detalleCotizacions()
-    {
-        return $this->hasMany('App\DetalleCotizacion', 'ID_PRODUCTO', 'ID_PRODUCTO');
-    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

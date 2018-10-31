@@ -88,7 +88,7 @@ Route::resource('equipos_internos', 'Equipo_internoController');
 Route::get('/cotizacion/edit/{ID_COTIZACION}', 'CotizacionController@edit');
 Route::post('/cotizacion/edit/{ID_COTIZACION}', 'CotizacionController@edit');
 Route::get('/cotizacion/show/{ID_COTIZACION}', 'CotizacionController@show');
-Route::post('/cotizacion/store', 'CotizacionController@store');
+Route::post('/cotizacion/store', array('as'=>'store','uses'=>'CotizacionController@store'));
 Route::post('/cotizacion/update/{ID_COTIZACION}', 'CotizacionController@update');
 Route::get('/cotizacion/destroy/{ID_COTIZACION}', 'CotizacionController@destroy');
 Route::resource('cotizacion', 'CotizacionController');
