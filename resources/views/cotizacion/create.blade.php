@@ -33,8 +33,10 @@ padding: 35px;">
 
 	<article id="main">
 			
-{!!Form::open(array('route'=>'store', 'id'=>'frmsave', 'method'=>'post'))!!}
-			
+{!!Form::open(array('route'=>'store', 'id'=>'frmsave', 'method'=>'post','files'=>true))!!}
+@if(Session::has('message'))
+<div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
+@endif
 					{{ csrf_field() }}
 		<div class="panel panel-success"style="width:100%;">
 				<div class="panel-heading">
@@ -72,15 +74,14 @@ padding: 35px;">
 					<div class="panel-body">
 								
 					<div class="form-group">
-							{!!Form::submit('Save',array('class'=>'btn btn-success'))!!}
-						<table class="table table-bordered">
+						<table class="table">
 												<thead>
 													
 														<th>Descripción</th>
 														<th>Tipo</th>
 														<th>Plano</th>
-														<th>Fecha</th>
-														<th><a href="#" class="addRow">+</a></th>
+														<th>Fecha Entrega</th>
+														<th><a href="#" class="addRow"><img src="/images/png/mas.png" style="width:40px; height:35px;" alt=""></a></th>
 														<!--<input type="button" value="Agregar" class="addRow"/>-->
 													
 												</thead>
@@ -96,9 +97,9 @@ padding: 35px;">
 																
 													</select></td>
 														<td>
-																<input type="file" name="plano[]"  class="custom-file plano">
+																<input type="file" name="plano[]" accept="application/pdf" class="plano">
 														</td>
-														<td>	<input type="text"  name="fecha_entrega[]" placeholder="Fecha entrega producto" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}"  class="form-control fecha_entrega" required></td>
+														<td>	<input type="date"  name="fecha_entrega[]"    class="form-control fecha_entrega" required></td>
 														<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>
 															</td>
 													</tr>
@@ -108,27 +109,29 @@ padding: 35px;">
 										</div>
 									
 								
-								<br> 
-								<br>
-								<br>
+							
+
+
 							</div>
 						
 					</article>
 					<p>
 						<input type="submit" value="Guardar" class="btn btn-success">
 					</p>
+					
 				</div>
 			</div>
+			
 			{!!Form::close()!!}
 		
 
 	</div>
+	
+	</div>
 
-	@if(Session::has('message'))
-		<div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
-	@endif
 	</div>
-	</div>
+	
+
 
 </body>
 
@@ -158,9 +161,9 @@ function addRow() {
 					
 		'</select></td>'+
 			'<td>'+
-					'<input type="file" name="plano[]"  class="custom-file plano">'+
+					'<input type="file" name="plano[]" accept="application/pdf" class="custom-file plano">'+
 			'</td>'+
-			'<td>	<input type="date"  name="fecha_entrega[]" placeholder="Fecha entrega producto" class="form-control fecha_entrega" required></td>'+
+			'<td>	<input type="date"  name="fecha_entrega[]"  class="form-control fecha_entrega" required></td>'+
 			'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>'+
 				'</td>'+
 		'</tr>';

@@ -41,7 +41,7 @@ padding: 35px;">
                 </div>
       
                 <div class="panel-body">
-                  <table class="table ">
+                  <table class="table" id="example">
                       <thead>
                           <tr>
                               <th>Id</th>
@@ -59,8 +59,8 @@ padding: 35px;">
                                   <td>{{ $inventario->UBICACION }}</td>
                                   <td>{{ $inventario->ESTADO }}</td>
                                   <td>
-                                      <a href="/inventario/show/{{ $inventario->ID_INVENTARIO }}"><span class="label label-info">Ver</span></a>
-                                      <a href="/inventario/edit/{{ $inventario->ID_INVENTARIO }}"><span class="label label-success">Editar</span></a>
+                                      <a href="/inventario/show/{{ $inventario->ID_INVENTARIO }}"><img src="images/png/ver.png" alt="" style="width:20px;"></a>
+                                      <a href="/inventario/edit/{{ $inventario->ID_INVENTARIO }}"><img src="images/png/editar.png" alt="" style="width:20px;"></a>
                                    </td>
                               </tr>
                           @endforeach

@@ -45,7 +45,7 @@ padding: 35px;">
                 </div>
       
                 <div class="panel-body">
-                  <table class="table ">
+                  <table class="table " id="example">
                       <thead>
                           <tr>
                               <th>Rut</th>
@@ -60,8 +60,8 @@ padding: 35px;">
                                   <td>{{ $proveedor->NOMBRE }}</td>
 
                                   <td>
-                                      <a href="/proveedor/show/{{ $proveedor->RUT }}"><span class="label label-info">Ver</span></a>
-                                      <a href="/proveedor/edit/{{ $proveedor->RUT }}"><span class="label label-success">Editar</span></a>
+                                      <a href="/proveedor/show/{{ $proveedor->RUT }}"><img src="images/png/ver.png" alt="" style="width:20px;"></a>
+                                      <a href="/proveedor/edit/{{ $proveedor->RUT }}"><img src="images/png/editar.png" alt="" style="width:20px;"></a>
                                       
                                   </td>
                               </tr>

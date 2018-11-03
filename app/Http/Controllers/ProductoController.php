@@ -15,12 +15,17 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($ID_COTIZACION = null)
     {
-        $clientes = Clientes::all();
-        $cotizacion = Cotizacion::all();
-        $producto = Producto::orderBy('ID_PRODUCTO','ASC')->get();
-        return view('producto.index')->with('cotizacion',$cotizacion);
+        //dd($ID_COTIZACION);
+
+        $producto = \DB::table('detalle_cotizacion')
+        ->select('detalle_cotizacion.ID_COTIZACION','cotizacion.ID_COTIZACION','producto.ID_PRODUCTO','producto.DESCRIPCION','producto.TIPO_PRODUCTO','producto.PLANO_PRODUCTO','producto.FECHA_DE_ENTREGA_PRODUCTO')
+        ->join('cotizacion','detalle_cotizacion.ID_COTIZACION', '=','cotizacion.ID_COTIZACION')
+        ->join('producto','detalle_cotizacion.ID_PRODUCTO', '=','producto.ID_PRODUCTO')
+        ->where('cotizacion.ID_COTIZACION', '=',$ID_COTIZACION )
+        ->get();
+        return view('producto.index')->with('producto',$producto);
         
     }
 
@@ -85,7 +90,7 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($ID_PRODUCTO)
+    public function show($ID_PRODUCTO = null)
     {
         $producto =  Producto::where('ID_PRODUCTO', $ID_PRODUCTO)->first();
 
@@ -116,6 +121,7 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $ID_PRODUCTO = null)
     {
+        $nameE = null;
 
         if($request->hasFile('plano')){
             $file = $request->file('plano');

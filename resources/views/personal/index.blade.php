@@ -48,7 +48,7 @@ margin: 0px auto;">
                 </div>
       
                 <div class="panel-body">
-                  <table class="table">
+                  <table class="table" id="example">
                       <thead>
                           <tr>
                               <th>Rut</th>
@@ -64,8 +64,8 @@ margin: 0px auto;">
                                   <td>{{ $personal->NOMBREP }}</td>
                                   <td>{{ $personal->APELLIDOP }}</td>
                                   <td>
-                                      <a href="/personal/show/{{ $personal->RUTP }}"><span class="label label-info">Ver</span></a>
-                                      <a href="/personal/edit/{{ $personal->RUTP }}"><span class="label label-success">Editar</span></a>
+                                      <a href="/personal/show/{{ $personal->RUTP }}"><img src="images/png/ver.png" alt="" style="width:20px;"></a>
+                                      <a href="/personal/edit/{{ $personal->RUTP }}"><img src="images/png/editar.png" alt="" style="width:20px;"></a>
                                   </td>
                               </tr>
                           @endforeach

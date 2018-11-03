@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cotizaciones</title>
+    
     <style>
 
 		.badge {
@@ -37,15 +38,17 @@ padding: 35px;">
           </nav>
 
           <div class="panel panel-success">
+
                 <div class="panel-heading">
                     <h4>Lista de Cotizaciones</h4>
                 </div>
+
       
                 <div class="panel-body">
-                  <table class="table ">
+
+                  <table class="table table-hover table-striped" id="example"> 
                       <thead>
                           <tr>
-                                <th>ID</th>
                               <th>Cod Petición</th>
                               <th>Cliente</th>
                               <th>Entrega Cotizaciòn</th>
@@ -54,26 +57,28 @@ padding: 35px;">
                           </tr>
                       </thead>
                       <tbody>
-                          @foreach($cotizacion as $cotizacion)
+                          @foreach($cotizacion as $cot)
                               <tr>
-                                <td>{{ $cotizacion->ID_COTIZACION }}</td>
-                                <td>{{ $cotizacion->COD_PETICION_OFERTA }}</td>
-                                  <td>{{ $cotizacion->NOMBRE_COMPLETO }}</td>
-                                  <td>{{ $cotizacion->FECHA_RESPUESTA_COTIZACION }}</td>
 
-                                  <td>{{ $cotizacion->FECHA_LLEGADA }}</td>
+                                <td>{{ $cot->COD_PETICION_OFERTA }}</td>
+                                  <td>{{ $cot->NOMBRE_COMPLETO }}</td>
+                                  <td>{{ $cot->FECHA_RESPUESTA_COTIZACION }}</td>
+
+                                  <td>{{ $cot->FECHA_LLEGADA }}</td>
                              
                                   
                                   <td>
-                                      <a href="/cotizacion/show/{{ $cotizacion->ID_COTIZACION }}"><span class="label label-info">Ver</span></a>
-                                      <a href="/cotizacion/edit/{{ $cotizacion->ID_COTIZACION }}"><span class="label label-success">Editar</span></a>
-                                      <a href="/producto"><span class="label label-success">Ver Producto</span></a>
+                                      <a href="/cotizacion/show/{{ $cot->ID_COTIZACION }}"><img src="/images/png/ver.png" style="width:20px;" alt=""></a>
+                                      <a href="/cotizacion/edit/{{ $cot->ID_COTIZACION }}"><img src="/images/png/editar.png"style="width:20px;" alt=""></a>
+                                  <a href="/producto/index/{{$cot->ID_COTIZACION}}"><img src="/images/png/productos.png"style="width:20px;" alt=""></a>
+                      
                                       
                                   </td>
                               </tr>
                           @endforeach
                       </tbody>
                   </table>
+            
                 </div>
             </div>
 
@@ -81,4 +86,5 @@ padding: 35px;">
 	</div>
     
 </body>
+
 </html>

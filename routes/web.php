@@ -73,6 +73,8 @@ Route::get('/producto/show/{ID_PRODUCTO}', 'ProductoController@show');
 Route::post('/producto/store', 'ProductoController@store');
 Route::post('/producto/update/{ID_PRODUCTO}', 'ProductoController@update');
 Route::get('/producto/destroy/{ID_PRODUCTO}', 'ProductoController@destroy');
+Route::get('/producto/index/{ID_COTIZACION}', 'ProductoController@index');
+Route::post('/producto/index/{ID_COTIZACION}', 'ProductoController@index');
 Route::resource('producto', 'ProductoController');
 
 //Rutas para el equipo a utilizar
@@ -92,3 +94,4 @@ Route::post('/cotizacion/store', array('as'=>'store','uses'=>'CotizacionControll
 Route::post('/cotizacion/update/{ID_COTIZACION}', 'CotizacionController@update');
 Route::get('/cotizacion/destroy/{ID_COTIZACION}', 'CotizacionController@destroy');
 Route::resource('cotizacion', 'CotizacionController');
+

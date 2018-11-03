@@ -14,7 +14,12 @@
     <div  style="width: 100%; max-width:1000px; margin: 70px auto">
             <div id="after_submit" ></div>
             <form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
-              <div style="width:300px; float:left;">
+              
+              
+              
+              
+              
+                <div style="width:500px; float:left; ">
                 	<div class="panel panel-success">
                             <div class="panel-heading">
                                 <h4>Contactanos</h4>
@@ -35,21 +40,27 @@
                 <textarea id="message"  class="form-control" name="mensaje" rows="7" cols="30"></textarea><br />
                 <span id="message_validation" class="error_message"></span>
             
-
-                
                 <input id="submit_button" type="submit" class="btn btn-success" value="Enviar Email" />
-            
-            </div>
-            
+            </div>   
         </div>
-        
               </div>
-              <div id="googleMap" style="width:450px;height:400px;  float:right;"></div>
             </form>
-       
+       <div class="panel panel-default" style="width:350px; float:right;">
+           <div class="panel-heading">
+           </div>
+       <p> <strong>Dirección:</strong> Calle Bellavista N° 1424 Concepción, Región del Bio Bio.  </p> 
+            
+            <p><strong>Telefono:</strong> 41-2950458 </p> 
+            
+          <p> <strong> Contacto:</strong>  Octavio Ramires</p>
+          
+
+      
+       </div>
             
           
     </div>
+    <div id="googleMap" style="width:1000px;height:400px; margin: 0px auto; margin-top:600px;"></div>
     <script>
     function myMap() {
         var mapProp= {

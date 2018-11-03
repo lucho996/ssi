@@ -88,4 +88,9 @@ class Cotizacion extends Model
     {
         return $this->hasMany('App\Factura', 'ID_COTIZACION', 'ID_COTIZACION');
     }
+  /*  public function scopeName($query, $cliente){
+    if(trim($cliente) != ""){
+        $query-> where();
+    }
+    }*/
 }

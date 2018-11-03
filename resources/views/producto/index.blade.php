@@ -42,29 +42,31 @@ padding: 35px;">
                 </div>
       
                 <div class="panel-body">
-                  <table class="table ">
+                  <table class="table" id="example">
                       <thead>
                           <tr>
-                              <th>Cod Petición</th>
-                              <th>Cliente</th>
-                              <th>Entrega Cotizaciòn</th>
-                              <th>Fecha Cotizaciòn</th>
-                              <th>Acciones</th>
+                            <th>ID</th>
+                            <th>Descripción</th>
+                            <th>Tipo</th>
+                            <th>Plano</th>
+                            <th>Fecha de entrega</th>
+                            <th>Acciones</th>
                           </tr>
                       </thead>
                       <tbody>
-                          @foreach($cotizacion as $cotizacion)
+                          @foreach($producto as $producto)
                               <tr>
-                                <td>{{ $cotizacion->COD_PETICION_OFERTA }}</td>
-                                  <td>{{ $cotizacion->RUT_CLIENTE }}</td>
-                                  <td>{{ $cotizacion->FECHA_RESPUESTA_COTIZACION }}</td>
+                                <td>{{ $producto->ID_PRODUCTO }}</td>
+                                <td>{{ $producto->DESCRIPCION }}</td>
+                                <td>{{ $producto->TIPO_PRODUCTO }}</td>
+                                <td><a href="planos/{{ $producto->PLANO_PRODUCTO }}"><img src="images/png/pdf.png" style="width:30px;" alt=""></a></td>
 
-                                  <td>{{ $cotizacion->FECHA_LLEGADA }}</td>
+                                <td>{{ $producto->FECHA_DE_ENTREGA_PRODUCTO }}</td>
                              
                                   
                                   <td>
-                                      <a href="/producto/show/{{ $cotizacion->ID_COTIZACION }}"><span class="label label-info">Ver</span></a>
-                                      <a href="/producto/edit/{{ $cotizacion->ID_COTIZACION }}"><span class="label label-success">Editar</span></a>
+                                      <a href="/producto/show/{{ $producto->ID_PRODUCTO }}">Ver<img src="images/png/ver.png" alt="" style="width:20px;"></a>
+                                      <a href="/producto/edit/{{ $producto->ID_PRODUCTO }}">Editar<img src="images/png/editar.png" alt="" style="width:20px;"></a>
                                       
                                   </td>
                               </tr>

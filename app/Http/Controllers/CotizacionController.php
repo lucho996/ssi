@@ -20,12 +20,12 @@ class CotizacionController extends Controller
     {
        //$cotizacion = Cotizacion::orderBy('ID_COTIZACION','ASC')->get();
        //dd($cotizacion);
-       $cotizacion = \DB::table('cotizacion')
-       ->select('cotizacion.ID_COTIZACION','cotizacion.FECHA_RESPUESTA_COTIZACION','cotizacion.FECHA_LLEGADA','clientes.NOMBRE_COMPLETO','cotizacion.DESCRIPCION','cotizacion.COD_PETICION_OFERTA')
-       ->join('clientes', 'cotizacion.RUT_CLIENTE', '=', 'clientes.RUT_CLIENTE')
-       ->get();
-       //dd($cotizacion);
-       return view('cotizacion.index')->with('cotizacion',$cotizacion);
+    $cotizacion = \DB::table('detalle_cotizacion')
+    ->select('detalle_cotizacion.ID_COTIZACION','cotizacion.ID_COTIZACION','cotizacion.FECHA_RESPUESTA_COTIZACION','cotizacion.FECHA_LLEGADA','clientes.NOMBRE_COMPLETO','cotizacion.DESCRIPCION','cotizacion.COD_PETICION_OFERTA')
+    ->join('cotizacion','detalle_cotizacion.ID_COTIZACION', '=','cotizacion.ID_COTIZACION')
+    ->join('clientes', 'cotizacion.RUT_CLIENTE', '=', 'clientes.RUT_CLIENTE')
+    ->get();
+    return view('cotizacion.index')->with('cotizacion',$cotizacion);
     }
 
     /**
@@ -47,12 +47,6 @@ class CotizacionController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->hasFile('plano')){
-            $file = $request->file('plano');
-            $name = time().$file->getClientOriginalName();
-            $file->move(public_path().'/planos/',$name);
-           
-        }
         $cotizacion = new Cotizacion;
         
         $cotizacion->RUT_CLIENTE =$request->Input('cliente');
@@ -61,19 +55,38 @@ class CotizacionController extends Controller
         $cotizacion->FECHA_RESPUESTA_COTIZACION =$request->Input('fecha_resp_coti');
         $cotizacion->DESCRIPCION =$request->Input('descripcion_cot');
         $cotizacion->ESTADO ="En Espera";
-        //$detallac->ID_COTIZACION = $request->$cotizacion->ID_COTIZACION;
         if ($cotizacion->save()) {
          
             $desc =$request->descripcion;
             $count = count($desc);
-            for($i = 0; $i < $count; $i++){
-               $producto = new Producto;
 
+            
+            $files = $request->all();
+            for($i = 0; $i < $count; $i++){
+                $name = null;
+                
+                $producto = new Producto;
+               
+
+                
+                if($request->hasFile('plano')!=null){
+                    
+                    $file = $request->file('plano');
+                    $name = time().$file[$i]->getClientOriginalName();
+                    $file[$i]->move(public_path().'/planos/',$name);
+                    
+                }
+                
+              
                $producto->DESCRIPCION=$request->descripcion[$i];
                $producto->TIPO_PRODUCTO=$request->tipo[$i];
-               $producto->PLANO_PRODUCTO=$request->plano[$i];
+               $producto->PLANO_PRODUCTO=$name;
                $producto->FECHA_DE_ENTREGA_PRODUCTO=$request->fecha_entrega[$i];
+               $producto->ESTADO="Falta Cotizacion";
+        
                $producto->save();
+                
+                
 
                 $id=$cotizacion->ID_COTIZACION;
                 $id_product= $producto->ID_PRODUCTO;
@@ -89,23 +102,6 @@ class CotizacionController extends Controller
             Session::flash('class','danger');
         }
 
-       // $cotizacion->$detellac()
-
-        /*try{
-        if($producto->save() and $cotizacion->save()){
-            Session::flash('message','Guardado Correctamente');
-            Session::flash('class','success');
-        }else{
-            Session::flash('message','Ha ocurrido un error');
-            Session::flash('class','danger');
-        }
-        }catch(\Exception $e) {
-        Session::flash($e);
-        Session::flash('class','danger');
-        }*/
-       // dd($producto->ID_PRODUCTO);
-
-        //dd($producto, $cotizacion);
         return redirect()->route('cotizacion.create');
     }
 
@@ -123,6 +119,7 @@ class CotizacionController extends Controller
             'cotizacion' => $cotizacion,
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

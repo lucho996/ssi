@@ -20,16 +20,6 @@
 			@include('intranet.menu')
 			</div>    
 		<div style="width: 850px; float: right; position:relative;">
-	<nav class="navbar navbar-default" role="navigation">
-  		<div class="container-fluid">
-    		<div id="bs-example-navbar-collapse-1">
-      			<ul class="nav navbar-nav">
-        			<li><a href="#">Todos</a></li>
-        			<li><a href="#">Nuevo</a></li>
-        		</ul>
-        	</div>
-        </div>
-    </nav>
 
 	<div class="panel panel-success">
   		<div class="panel-heading">

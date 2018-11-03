@@ -39,7 +39,7 @@
   		<div class="panel-body">
   			
 				<p>
-					ID : <strong>{{$producto ->ID_PRODUCTO}}</strong>
+					ID: <strong>{{$producto ->ID_PRODUCTO}}</strong>
 					</p>
 					<p>
 					DESCRIPCIÓN: <strong>{{$producto ->DESCRIPCION}}</strong>
@@ -48,7 +48,7 @@
 					TIPO: <strong>{{$producto ->TIPO_PRODUCTO}}</strong>
 					</p>
 					<p>
-					PLANO: <strong><a href="/planos/{{$producto->PLANO_PRODUCTO }}"><img src="/images/pdf.png" style="width:30px;" alt=""></a></strong>
+					PLANO: <strong><a href="/planos/{{$producto->PLANO_PRODUCTO }}"><img src="/images/png/pdf.png" style="width:30px;" alt=""></a></strong>
 						</p>
 						<p>
 					FECHA DE ENTREGA: <strong>{{$producto ->FECHA_DE_ENTREGA_PRODUCTO}}</strong>
@@ -58,7 +58,7 @@
 								</p>
 
 
-        <a href="/producto" class="btn btn-default">Regresar</a>
+							<a href="/producto/index/{{}}" class="btn btn-default">Regresar</a>
 		</div>
 	</div>
 		</div>

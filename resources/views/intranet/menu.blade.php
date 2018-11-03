@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="{{ URL::asset('css/estilos2.css') }}">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     
     <title></title>
 </head>
@@ -33,6 +33,8 @@
                 </ul>
             </div>
             <script type="text/javascript" src="{{ URL::asset('https://code.jquery.com/jquery-3.3.1.min.js') }}"></script>
+            <script src="js/datatable.js"></script>
+<script src="js/funcioontable.js"></script>
             <script type="text/javascript" src="{{ URL::asset('js/jquery2.js') }}"></script>
 </body>
 </html>

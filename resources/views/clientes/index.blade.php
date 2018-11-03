@@ -41,7 +41,7 @@ padding: 35px;">
                 </div>
       
                 <div class="panel-body">
-                  <table class="table">
+                  <table class="table" id="example">
                       <thead>
                           <tr>
                               <th>Rut</th>
@@ -58,8 +58,8 @@ padding: 35px;">
                                   <td>{{ $clientes->NOMBRE_COMPLETO }}</td>
                                   <td>{{ $clientes->TIPO }}</td>
                                   <td>
-                                      <a href="/clientes/show/{{ $clientes->RUT_CLIENTE }}" ><span class="label label-info">Ver</span></a>
-                                        <a href="/clientes/edit/{{$clientes->RUT_CLIENTE}}"><span class="label label-success">Editar</span></a>
+                                      <a href="/clientes/show/{{ $clientes->RUT_CLIENTE }}" ><img src="images/png/ver.png" alt="" style="width:20px;"></a>
+                                        <a href="/clientes/edit/{{$clientes->RUT_CLIENTE}}"><img src="images/png/editar.png" alt="" style="width:20px;"></a>
                                   </td>
                               </tr>
                           @endforeach
