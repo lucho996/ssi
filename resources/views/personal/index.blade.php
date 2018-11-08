@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +20,7 @@
     
 
 <body>
-    @section('content')
+ 
     <div style="width: 1100px; margin:0px auto;">
     <div style="width: 200px; float:left; position:relative;">
     @include('intranet.menu')
@@ -30,10 +30,16 @@
                 <div class="container-fluid">
                   <div id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav" style="display:inline; float:left;">
-                          <li  class="active"><a href="/personal">Todos</a></li>
-                          <li><a href="/personal/create">Nuevo</a></li>
-                          <li><a href="/personal/createc">Nuevo Cargo</a></li>
-                      </ul>
+                                @can('personal')
+                                <li><a href="/personal">Todos</a></li>	
+                                @endcan
+                                @can('personal.create')
+                                <li><a href="/personal/create">Nuevo</a></li>
+                                @endcan
+                                @can('personal.createc')
+                                <li class="active"><a href="/personal/createc">Nuevo Cargo</a></li>
+                                @endcan	
+                        </ul>
                   </div>
               </div>
           </nav>
@@ -60,8 +66,14 @@
                                   <td>{{ $personal->NOMBREP }}</td>
                                   <td>{{ $personal->APELLIDOP }}</td>
                                   <td>
+                                      @can('personal.show')
                                       <a href="/personal/show/{{ $personal->RUTP }}"><img src="images/png/ver.png" alt="" style="width:20px;"></a>
+                                      @endcan
+                                      @can('personal.edit')
                                       <a href="/personal/edit/{{ $personal->RUTP }}"><img src="images/png/editar.png" alt="" style="width:20px;"></a>
+                                      @endcan
+                                     
+                                      
                                   </td>
                               </tr>
                           @endforeach
@@ -72,7 +84,7 @@
 
     </div>
 </div>
-@endsection
+
 </body>
 
 </html>

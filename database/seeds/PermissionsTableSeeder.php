@@ -15,13 +15,13 @@ class PermissionsTableSeeder extends Seeder
                Permission::create([
                 'name' =>'Navegacion de intranet',
                 'slug' =>'intranet.index',
-                'description' =>'Listar intranet',
+                'description' =>'Ver Inicio Intranet',
                ]);
                #usuarios
                Permission::create([
                 'name' =>'Navegar en Usuarios',
                 'slug' =>'users.index',
-                'description' =>'Listar y navegar el Usuarios',
+                'description' =>'Listar el Usuarios',
                ]);
                Permission::create([
                 'name' =>'Registrar Usuarios',
@@ -31,7 +31,7 @@ class PermissionsTableSeeder extends Seeder
                Permission::create([
                 'name' =>'Ver Usuarios',
                 'slug' =>'users.show',
-                'description' =>'ver detalle Usuarios del sistema',
+                'description' =>'Ver detalle de Usuarios',
                ]);
                Permission::create([
                 'name' =>'Editar Usuarios',
@@ -43,65 +43,65 @@ class PermissionsTableSeeder extends Seeder
                Permission::create([
                 'name' =>'Ver personal',
                 'slug' =>'personal.index',
-                'description' =>'Listar personal',
+                'description' =>'Listar Personal',
                ]);
                Permission::create([
                 'name' =>'Navegacion de personal',
                 'slug' =>'personal.create',
-                'description' =>'Crear personal',
+                'description' =>'Crear Personal',
                ]);
                Permission::create([
                 'name' =>'Crear cargo',
                 'slug' =>'personal.createc',
-                'description' =>'Crear cargo',
+                'description' =>'Crear Cargo',
                ]);
                Permission::create([
                 'name' =>'Ver detalle personal',
                 'slug' =>'personal.show',
-                'description' =>'ver detalle',
+                'description' =>'Ver Detalle de Personal',
                ]);
                Permission::create([
                 'name' =>'Edicion personal',
                 'slug' =>'personal.edit',
-                'description' =>'ver edicion personal',
+                'description' =>'Editar Personal',
                ]);
                #inventario
                Permission::create([
                 'name' =>'Navegar en inventario',
                 'slug' =>'inventario.index',
-                'description' =>'Listar y navegar el inventario',
+                'description' =>'Listar Inventario',
                ]);
                Permission::create([
                 'name' =>'Registrar inventario',
                 'slug' =>'inventario.create',
-                'description' =>'Registrar inventario',
+                'description' =>'Registrar Inventario',
                ]);
                Permission::create([
                 'name' =>'Ver inventario',
                 'slug' =>'inventario.show',
-                'description' =>'ver detalle inventario del sistema',
+                'description' =>'ver detalle Inventario',
                ]);
                Permission::create([
                 'name' =>'Editar inventario',
                 'slug' =>'inventario.edit',
-                'description' =>'Editar inventario',
+                'description' =>'Editar Inventario',
                ]);
         
                #producto
                Permission::create([
                 'name' =>'Navegar en Producto',
                 'slug' =>'producto.index',
-                'description' =>'Listar y navegar el Producto',
+                'description' =>'Listar Productos',
                ]);
                Permission::create([
                 'name' =>'Registrar de producto',
                 'slug' =>'producto.create',
-                'description' =>'Registrar producto',
+                'description' =>'Registrar Productos',
                ]);
                Permission::create([
                 'name' =>'Ver Producto',
                 'slug' =>'producto.show',
-                'description' =>'ver detalle producto del sistema',
+                'description' =>'Ver Detalle Producto',
                ]);
                Permission::create([
                 'name' =>'Editar producto',
@@ -113,51 +113,51 @@ class PermissionsTableSeeder extends Seeder
                Permission::create([
                 'name' =>'Navegar en proveedor',
                 'slug' =>'proveedor.index',
-                'description' =>'Listar y navegar el proveedor',
+                'description' =>'Listar los Proveedores',
                ]);
                Permission::create([
                 'name' =>'Registrar proveedor',
                 'slug' =>'proveedor.create',
-                'description' =>'Crear proveedor',
+                'description' =>'Crear Proveedores',
                ]);
                Permission::create([
                 'name' =>'Ver proveedor',
                 'slug' =>'proveedor.show',
-                'description' =>'ver detalle proveedor del sistema',
+                'description' =>'Ver Detalle Proveedor',
                ]);
                Permission::create([
                 'name' =>'Editar proveedor',
                 'slug' =>'proveedor.edit',
-                'description' =>'Editar proveedor',
+                'description' =>'Editar Proveedores',
                ]);
         
                #cotizacion
                Permission::create([
                 'name' =>'Navegar en cotización',
                 'slug' =>'cotizacion.index',
-                'description' =>'Listar y navegar el cotización',
+                'description' =>'Listar Cotizaciones',
                ]);
                Permission::create([
                 'name' =>'Registro de solicitud de cotización',
                 'slug' =>'cotizacion.create',
-                'description' =>'Crear proveedor',
+                'description' =>'Crear Solicitud de Cotizaciones',
                ]);
                Permission::create([
                 'name' =>'Ver cotizacion',
                 'slug' =>'cotizacion.show',
-                'description' =>'ver detalle cotización del sistema',
+                'description' =>'Ver Detalle Cotización',
                ]);
                Permission::create([
                 'name' =>'Editar cotización',
                 'slug' =>'cotizacion.edit',
-                'description' =>'Editar cotización',
+                'description' =>'Editar Cotizacion',
                ]);
         
             #clientes
             Permission::create([
                 'name' =>'Navegar en Clientes',
                 'slug' =>'clientes.index',
-                'description' =>'Listar y navegar el Clientes',
+                'description' =>'Listar Clientes',
                ]);
                Permission::create([
                 'name' =>'Registro de Clientes',
@@ -167,7 +167,7 @@ class PermissionsTableSeeder extends Seeder
                Permission::create([
                 'name' =>'Ver Clientes',
                 'slug' =>'clientes.show',
-                'description' =>'ver detalle clientes del sistema',
+                'description' =>'Ver Detalle Clientes',
                ]);
                Permission::create([
                 'name' =>'Editar Clientes',
@@ -179,22 +179,22 @@ class PermissionsTableSeeder extends Seeder
                Permission::create([
                 'name' =>'Navegar en rol',
                 'slug' =>'roles.index',
-                'description' =>'Listar y navegar roles del sistema',
+                'description' =>'Listar Roles',
                ]);
                Permission::create([
                 'name' =>'Registro de rol',
                 'slug' =>'roles.create',
-                'description' =>'Crear rol',
+                'description' =>'Crear Roles',
                ]);
                Permission::create([
                 'name' =>'Ver rol',
                 'slug' =>'roles.show',
-                'description' =>'ver detalle rol del sistema',
+                'description' =>'Ver Detalle Rol',
                ]);
                Permission::create([
                 'name' =>'Editar rol',
                 'slug' =>'roles.edit',
-                'description' =>'Editar rol',
+                'description' =>'Editar Roles',
                ]);
                }     
         

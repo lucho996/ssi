@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,43 +10,46 @@
 			float: right;
 		}
 	</style>
-	<div style="width: 1100px;
-	margin: 0px auto;
-	background: #cccccc;
-	padding: 35px;"></div>
+
 </head>
 <body >
-		<div style="width: 1100px; margin:20px auto;">
+		<div style="width: 1100px; margin:0px auto;">
 			<div style="width: 200px; float:left;  position:relative;">
 			@include('intranet.menu')
 			</div>    
 		<div style="width: 850px; float: right; position:relative;">
 
-	<div class="panel panel-success">
+	<div class="panel panel-success" style="margin-top: 20px;">
   		<div class="panel-heading">
   			<h4>Información Cotizaciòn</h4>
   		</div>
 
   		<div class="panel-body">
-  			
-				<p>
-					CLIENTE : <strong>{{$cotizacion ->RUT_CLIENTE}}</strong>
-					</p>
-					<p>
-						COD. PETICIÒN: <strong>{{$cotizacion ->COD_PETICION_OFERTA}}</strong>
-					</p>
-					<p>
-						FECHA DE COTIZACIÒN: <strong>{{$cotizacion ->FECHA_LLEGADA}}</strong>
-					</p>
-					<p>
-							FECHA LIMITE DE RESPUESTA: <strong>{{$cotizacion ->FECHA_RESPUESTA_COTIZACION}}</strong>
-						</p>
-						<p>
-								DESCRIPCIÒN: <strong>{{$cotizacion ->DESCRIPCION}}</strong>
-							</p>
-							<p>
-									ESTADO: <strong>{{$cotizacion ->ESTADO}}</strong>
-								</p>
+			  
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<td style="text-align:right;"><strong>Cliente:</strong> </td>
+							<td>{{$cotizacion ->RUT_CLIENTE}}</td>
+							<td style="text-align:right;"><strong>Fecha Limite Respuesta:</strong> </td>
+							<td>{{$cotizacion ->FECHA_RESPUESTA_COTIZACION}}</td>	
+						</tr>
+						<tr>
+							<td style="text-align:right;"><strong>Codigo Petición:</strong> </td>
+							<td>{{$cotizacion ->COD_PETICION_OFERTA}}</td>
+							<td style="text-align:right;"><strong>Descripción:</strong> </td>
+							<td>{{$cotizacion ->DESCRIPCION}}</td>	
+						</tr>
+						<tr>
+							<td style="text-align:right;"><strong>Fecha de Ingreso:</strong> </td>
+							<td>{{$cotizacion ->FECHA_LLEGADA}}</td>
+							<td style="text-align:right;"><strong>Estado:</strong> </td>
+							<td>{{$cotizacion ->ESTADO}}</td>	
+						</tr>
+					</tbody>
+				</table>
+
+
 								
 
         <a href="/cotizacion" class="btn btn-default">Regresar</a>

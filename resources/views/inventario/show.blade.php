@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,53 +12,47 @@
 			float: right;
 		}
 	</style>
-	<div style="width: 1100px;
-	margin: 0px auto;
-	background: #cccccc;
-	padding: 35px;"></div>
+
 </head>
 <body >
-		<div style="width: 1100px; margin:20px auto;">
+		<div style="width: 1100px; margin:0px auto;">
 			<div style="width: 200px; float:left;  position:relative;">
 			@include('intranet.menu')
 			</div>    
 		<div style="width: 850px; float: right; position:relative;">
-	<nav class="navbar navbar-default" role="navigation">
-  		<div class="container-fluid">
-    		<div id="bs-example-navbar-collapse-1">
-      			<ul class="nav navbar-nav">
-        			<li><a href="#">Todos</a></li>
-        			<li><a href="#">Nuevo</a></li>
-        		</ul>
-        	</div>
-        </div>
-    </nav>
 
-	<div class="panel panel-success">
+	<div class="panel panel-success" style="margin-top:20px;">
   		<div class="panel-heading">
   			<h4>Información de inventario</h4>
   		</div>
 
   		<div class="panel-body">
-  			@if(!@empty($inventario))
-				<p>
-						CODIGO : <strong>{{$inventario ->ID_INVENTARIO}}</strong>
-					</p>
-					<p>
-						NOMBRE: <strong>{{$inventario ->NOMBRE}}</strong>
-					</p>
-					<p>
-						MARCA: <strong>{{$inventario ->MARCA}}</strong>
-					</p>
-					<p>
-						UBICACION: <strong>{{$inventario ->UBICACION}}</strong>
-					</p>
-					<p>
-						VALOR: <strong>{{$inventario ->VALOR}}</strong>
-					</p>
-					<p>
-						ESTADO: <strong>{{$inventario ->ESTADO}}</strong>
-					</p>
+			  @if(!@empty($inventario))
+			  
+
+		<table class="table table-bordered">
+			<tbody>
+					<tr>
+						<td style="text-align:right;"><strong>Codigo:</strong> </td>
+						<td>{{$inventario ->ID_INVENTARIO}}</td>
+						<td style="text-align:right;"><strong>Ubicación:</strong> </td>
+						<td>{{$inventario ->UBICACION}}</td>	
+					</tr>
+					<tr>
+						<td style="text-align:right;"><strong>Nombre:</strong> </td>
+						<td>{{$inventario ->NOMBRE}}</td>
+						<td style="text-align:right;"><strong>Valor:</strong> </td>
+						<td>{{$inventario ->VALOR}}</td>	
+					</tr>
+					<tr>
+						<td style="text-align:right;"><strong>Marca:</strong> </td>
+						<td>{{$inventario ->MARCA}}</td>
+						<td style="text-align:right;"><strong>Estado:</strong> </td>
+						<td>{{$inventario ->ESTADO}}</td>	
+					</tr>
+			</tbody>
+		</table>
+
 	@else
 					<p>No existe el inventario</p>
 					@endif

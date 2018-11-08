@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,14 +12,10 @@
 			float: right;
 		}
 	</style>
-	<div style="width: 1100px;
-	margin: 0px auto;
-	background: #cccccc;
-	padding: 35px;">
-	</div>
+
 </head>
 <body>
-		<div style="width: 1100px; margin:20px auto;">
+		<div style="width: 1100px; margin:0px auto;">
 				<div style="width: 200px; float:left; position:relative;">
 				@include('intranet.menu')
 				</div>    
@@ -26,16 +23,22 @@
 	<nav class="navbar navbar-default" role="navigation">
   		<div class="container-fluid">
     		<div id="bs-example-navbar-collapse-1">
-      			<ul class="nav navbar-nav">
-        			<li><a href="/personal">Todos</a></li>
-        			<li ><a href="/personal/create">Nuevo</a></li>
-                    <li class="active"><a href="/personal/createc">Nuevo Cargo</a></li>
+      			<ul class="nav navbar-nav" style="display: inline;">
+						@can('personal')
+						<li><a href="/personal">Todos</a></li>	
+						@endcan
+						@can('personal.create')
+						<li ><a href="/personal/create">Nuevo</a></li>
+						@endcan
+						@can('personal.createc')
+						<li class="active"><a href="/personal/createc">Nuevo Cargo</a></li>
+						@endcan	
                 </ul>
         	</div>
         </div>
     </nav>
 
-	<div class="panel panel-success">
+	<div class="panel panel-success" >
   		<div class="panel-heading">
   			<h4>Nuevo Cargo</h4>
   		</div>

@@ -1,4 +1,4 @@
-
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,12 +12,12 @@
 </head>
 
         <body >
-                <div style="width: 1100px; margin:20px auto;">
+                <div style="width: 1100px; margin:0px auto;">
                     <div style="width: 200px; float:left;  position:relative;">
                     @include('intranet.menu')
                     </div>    
                 <div style="width: 850px; float: right; position:relative;">
-        <div class="panel panel-success">
+        <div class="panel panel-success" style="margin-top:20px;">
                 <div class="panel-heading">
                     <h4>Modificar cliente</h4>
                 </div>
@@ -47,6 +47,7 @@
                     </div>
                     <div class="form-group">
                         {{ Form::submit('Guardar', ['class' =>'btn btn-sm btn-success'])}}
+                    <a href="/users" class="btn btn-default">Volver</a>
                     </div>
                     {!! Form::close() !!}
                 </div>

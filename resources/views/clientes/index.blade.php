@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    @section('content')
+
         
         <div style="width: 1100px; margin:0px auto;">
         <div style="width: 200px; float:left; position:relative;">
@@ -77,7 +77,7 @@
         @endif
         </div>
         </div>
-        @endsection
+
     
 </body>
 </html>

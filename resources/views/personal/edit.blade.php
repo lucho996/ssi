@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,19 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Personal</title>
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
+
 </head>
 <body >
-        <div style="width: 1100px; margin:20px auto;">
+        <div style="width: 1100px; margin:0px auto;">
             <div style="width: 200px; float:left;  position:relative;">
             @include('intranet.menu')
             </div>    
         <div style="width: 850px; float: right; position:relative;">
-        <div class="panel panel-success">
+        <div class="panel panel-success" style="margin-top:20px;">
                 <div class="panel-heading">
                     <h4>Modificar Personal</h4>
                 </div>
@@ -41,13 +38,15 @@ padding: 35px;">
                         </tr>
                         <tr>
                             <td><input type="text" name="nombre" placeholder="Nombre" title="Nombre del personal"  value="{{$personal->NOMBREP}}" maxlength="30" class="form-control" onkeypress='return validar(event)' required></td>
-                            <td><select name="estado_civil" class="form-control" >
-                                <option>{{$personal->ESTADO_CIVIL}}</option>  
-                                <option>Soltero/a</option>	
-                                    <option>Casado/a</option>			
-                                    <option>Separado/a</option>
-                                    <option>Viudo/a</option>		
+                            <td><select name="estado_civil" style="height: 35px;" class="form-control" >
+                                    <option value="Solero/a" @if($personal->ESTADO_CIVIL =='Solero/a') selected @endif>Solero/a</option>
+                                    <option value="Casado/a" @if($personal->ESTADO_CIVIL =='Casado/a') selected @endif>Casado/a</option>
+                                    <option value="Separado/a" @if($personal->ESTADO_CIVIL =='Separado/a') selected @endif>Separado/a</option>
+                                    <option value="Viudo/a" @if($personal->ESTADO_CIVIL =='Viudo/a') selected @endif>Viudo/a</option>  
                             </select></td>
+
+
+
                         </tr>
                         <tr>
                             <td><input type="text" name="apellido" title="Apellido del personal"  value="{{$personal->APELLIDOP}}" placeholder="Apellido" maxlength="30" class="form-control" onkeypress='return validar(event)' required></td>
@@ -79,7 +78,6 @@ padding: 35px;">
         
                     
                     
-        
                 <table class="table " id="tabla_cargos_familiar">
                     <thead>
                         
@@ -93,16 +91,22 @@ padding: 35px;">
                     
                     
                     <tbody>
+   
                     @foreach ($carga as $item)
+                 
                     <tr>
                     <td><input type="text" name="rut[]" value="{{$item->RUT}}" class="form-control rut" placeholder="RUT"></td>
                     <td><input type="text" name="nombre_completo[]" value="{{$item->NOMBRE}}" class="form-control nombre_completo" placeholder="Nombre Completo" </td>
                     <td><input type="date" name="fecha_nacimiento[]"value="{{$item->FECHA_NACIMIENTO}}" class="form-control fecha_nacimiento" placeholder="Fecha Nacimiento" ></td>
-                        <td><a href="#" class="btn btn-danger removee">X</a></td>
+                    <td><a href="#" class="btn btn-danger removee">X</a></td>
                     </tr>
+                   
+					
+				
                     @endforeach
+
                     </tbody>
-        
+
         
                     </table>
                 </div>
@@ -124,7 +128,7 @@ padding: 35px;">
                             <tr>
                                     <td>
                                         
-                                    <select name="cargo[]"  class="form-control cargo" required>
+                                    <select name="cargo[]" style="height: 35px;" class="form-control cargo" required>
                                     @foreach ($cargo as $item)
                                     <option value="{{$item->ID_CARGO}}">{{$item->CARGO}}</option>
 
@@ -144,12 +148,15 @@ padding: 35px;">
                     <table class="table">
                             <tr>
                             <td style="width: 200px;">
-                            <select name="lugar_trabajo"  class="form-control" >
-                                    <option>{{$personal->LUGAR_TRABAJO}}</option>
-                                    <option>Taller</option>	
-                                    <option>Taller Abastible</option>			
-                                    <option>Taller Petroquim</option>		
-                            </select></td>
+                                    <select name="lugar_trabajo" style="height: 35px;" class="form-control" >
+                                            <option value="Taller" @if($personal->LUGAR_TRABAJO =='Taller') selected @endif>Taller</option>
+                                            <option value="Taller Abastible" @if($personal->LUGAR_TRABAJO =='Taller Abastible') selected @endif>Taller Abastible</option>
+                                            <option value="Taller Petroquim" @if($personal->LUGAR_TRABAJO =='Taller Petroquim') selected @endif>Taller Petroquim</option> 
+                                    </select></td>
+
+
+
+
                             <td style="width: 200px;"><input type="text" title="AFP del personal"  value="{{$personal->AFP}}" name="afp" placeholder="AFP" maxlength="30" class="form-control"  required></td>
                             <td style="width: 200px;"> <input type="text" name="prevision" title="Previsión del personal"  value="{{$personal->PREVISION}}" class="form-control" placeholder="Previción" ></td>
                             </tr>
@@ -175,7 +182,8 @@ padding: 35px;">
             </div>
                         
                             
-            <input type="submit" value="Guardar" class="btn btn-success">
+            <input type="submit" value="Actualizar" class="btn btn-success">
+            <a href="/personal" class="btn btn-default">Volver</a>
                       
                 </form>
               </div>
@@ -202,7 +210,7 @@ padding: 35px;">
                 '<tr>'+
                 '<td>'+
                                         
-                '<select name="cargo[]"  class="form-control cargo" required>'+
+                '<select name="cargo[]" style="height: 35px;"  class="form-control cargo" required>'+
                 '@foreach ($cargo as $item)'+
                 '<option value="{{$item->ID_CARGO}}">{{$item->CARGO}}</option>'+
 

@@ -29,7 +29,7 @@
         </div>
     </nav>
 
-	<div class="panel panel-success">
+	<div class="panel panel-success" style="margin-top: 20px;">
   		<div class="panel-heading">
   			<h4>Nuevo Cliente</h4>
   		</div>

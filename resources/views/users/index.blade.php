@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,25 +14,29 @@
 </head>
 
 <body>
-        <div style="width: 1100px; margin:20px auto;">
+        <div style="width: 1100px; margin:0px auto;">
         <div style="width: 200px; float:left; position:relative;">
         @include('intranet.menu')
         </div>    
         <div style="width: 850px; float: right; position:relative;">
-        <nav class="navbar navbar-default" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                    </div>
-                  <div id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                          <li class="active"><a href="/users">Todos</a></li>
-                          <li><a href="/users/create">Nuevo</a></li>
-                      </ul>
-                  </div>
-              </div>
-          </nav>
+                <nav class="navbar navbar-default" role="navigation">
+                        <div class="container-fluid">
 
-          <div class="panel panel-success">
+                          <div id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav" style="display: inline;">
+                                  @can('users')
+                                  <li class="active"><a href="/users">Todos</a></li>  
+                                  @endcan
+                                  @can('users.create')
+                                  <li><a href="/users/create">Nuevo</a></li>   
+                                  @endcan
+                                
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+
+          <div class="panel panel-success" style="margin-top:20px;">
                 <div class="panel-heading">
                     <h4>Lista de Usuarios</h4>
                 </div>

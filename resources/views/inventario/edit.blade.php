@@ -1,24 +1,21 @@
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Inventario</title>
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
+
 </head>
 <body >
-        <div style="width: 1100px; margin:20px auto;">
+        <div style="width: 1100px; margin:0px auto;">
             <div style="width: 200px; float:left;  position:relative;">
             @include('intranet.menu')
             </div>    
         <div style="width: 850px; float: right; position:relative;">
-        <div class="panel panel-success">
+        <div class="panel panel-success" style="margin-top:20px;">
                 <div class="panel-heading">
                     <h4>Modificar Equipos o Herramientas</h4>
                 </div>
@@ -38,10 +35,10 @@ padding: 35px;">
                           <input type="text" name="marca" value="{{ $inventario->MARCA }}" placeholder="Marca" maxlength="50" class="form-control" onkeypress='return validar(event)' required>
                       </p>
                       <p>
-                            <select name="ubicacion" class="form-control" >
-                                <option>Taller Abastible</option>
-                                <option>Taller Petroquim</option>
-                                <option>Taller</option>          
+                            <select name="ubicacion" style="height: 35px;" class="form-control" >
+                                    <option value="Taller" @if($inventario->UBICACION =='Taller') selected @endif>Taller</option>
+                                    <option value="Taller Abastible" @if($inventario->UBICACION =='Taller Abastible') selected @endif>Taller Abastible</option> 
+                                    <option value="Taller Petroquim" @if($inventario->UBICACION =='Taller Petroquim') selected @endif>Taller Petroquim</option> 
                             </select>
                         </p>
         
@@ -50,14 +47,18 @@ padding: 35px;">
                         </p>
         
                         <p>
-                            <select name="estado" class="form-control" >
-                                        <option>Defectuoso</option>
-                                        <option>En uso</option>
-                                        <option>Disponible</option>        
+
+                            <select name="estado" style="height: 35px;" class="form-control" >
+                                    <option value="Defectuoso" @if($inventario->ESTADO =='Defectuoso') selected @endif>Defectuoso</option>
+                                    <option value="En uso" @if($inventario->ESTADO =='En uso') selected @endif>En uso</option> 
+                                    <option value="Disponible" @if($inventario->ESTADO =='Disponible') selected @endif>Disponible</option> 
                             </select>
+                           
+
+
                         </p>
                       <p>
-                          <input type="submit" value="Guardar" class="btn btn-success">
+                          <input type="submit" value="Actualizar" class="btn btn-success">
                           <a href="/inventario" class="btn btn-default">Regresar</a>
                       </p>
                       

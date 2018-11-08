@@ -34,6 +34,8 @@ Route::middleware(['auth'])->group(function(){
 Route::get('/intranet/index', function () {
     return view('intranet.index');
 });
+
+
 //Rutas para el personal
 
 Route::get('personal/index', 'PersonalController@index')->name('personal.index')
@@ -173,6 +175,12 @@ Route::get('users', 'UserController@index')
 
 Route::put('users/{user}', 'UserController@update')->name('users.update')
 ->middleware('permission:users.edit');
+
+Route::get('users/create', 'UserController@create')->name('users.create')
+->middleware('permission:users.create');
+
+Route::post('users/store', 'UserController@store')->name('users.store')
+->middleware('permission:users.create');
 
 Route::get('users/{user}', 'UserController@show')->name('users.show')
 ->middleware('permission:users.show');

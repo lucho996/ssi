@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,13 +11,8 @@
 	</style>
 </head>
 
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
 <body >
-	<div style="width: 1100px; margin:20px auto;">
+	<div style="width: 1100px; margin:0px auto;">
 		<div style="width: 200px; float:left;  position:relative;">
 		@include('intranet.menu')
 		</div>
@@ -24,16 +20,22 @@ padding: 35px;">
 	<nav class="navbar navbar-default" role="navigation">
   		<div class="container-fluid">
     		<div id="bs-example-navbar-collapse-1">
-      			<ul class="nav navbar-nav">
-        			<li><a href="/personal">Todos</a></li>
+      			<ul class="nav navbar-nav" style="display: inline;">
+					@can('personal')
+					<li><a href="/personal">Todos</a></li>	
+					@endcan
+					@can('personal.create')
 					<li class="active"><a href="/personal/create">Nuevo</a></li>
+					@endcan
+					@can('personal.createc')
 					<li><a href="/personal/createc">Nuevo Cargo</a></li>
+					@endcan	
         		</ul>
         	</div>
         </div>
     </nav>
 
-	<div class="panel panel-success">
+	<div class="panel panel-success" style="margin-top:20px;">
   		<div class="panel-heading">
   			<h4>Nuevo personal</h4>
   		</div>
@@ -54,7 +56,7 @@ padding: 35px;">
 				</tr>
 				<tr>
 					<td><input type="text" name="nombre" placeholder="Nombre"  maxlength="30" class="form-control" onkeypress='return validar(event)' required></td>
-					<td><select name="estado_civil" class="form-control" >
+					<td><select name="estado_civil" style="height: 35px;" class="form-control" >
 							<option>Soltero/a</option>	
 							<option>Casado/a</option>			
 							<option>Separado/a</option>
@@ -133,7 +135,7 @@ padding: 35px;">
 			<table class="table " id="tablacargo" style="width: 350px;">
 					<tr>
 							<td>
-							<select name="cargo[]"  class="form-control cargo" required>
+							<select name="cargo[]" style="height: 35px;"  class="form-control cargo" required>
 							<option value="" selected="true" disabled="true">Seleccionar Cargos</option>
 							@foreach($cargo as $key => $c)
 									<option value="{!!$key!!}">{!!$c!!}</option>
@@ -154,7 +156,7 @@ padding: 35px;">
 
 					
 					<tr>
-					<td style="width: 200px;"><select name="lugar_trabajo"  class="form-control" >
+					<td style="width: 200px;"><select name="lugar_trabajo"  style="height: 35px;"   class="form-control" >
 									<option>Taller</option>	
 									<option>Taller Abastible</option>			
 									<option>Taller Petroquim</option>		
@@ -212,7 +214,7 @@ padding: 35px;">
 		var tr=
 				'<tr>'+
 				'<td>'+
-				'<select name="cargo[]"  class="form-control cargo" >'+
+				'<select name="cargo[]" style="height: 35px;"   class="form-control cargo" >'+
 				'<option value="" selected="true" disabled="true">Seleccionar Cargos</option>'+
 				'@foreach($cargo as $key => $c)'+
 						'<option value="{!!$key!!}">{!!$c!!}</option>'+

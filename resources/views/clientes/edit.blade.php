@@ -21,7 +21,7 @@
                     @include('intranet.menu')
                     </div>    
                 <div style="width: 850px; float: right; position:relative;">
-        <div class="panel panel-success">
+        <div class="panel panel-success" style="margin-top: 20px;">
                 <div class="panel-heading">
                     <h4>Modificar cliente</h4>
                 </div>
@@ -54,16 +54,13 @@
       
                       </p>
                       <p>
-                          <select name="tipo" class="form-control" required style="width:100%; height:30px;"  value="{{ $clientes->TIPO}}" >
-      
-                                
-                                <option value="" selected="false" disabled>Seleccione Tipo de Cliente</option>
-                                <option >{{$clientes->TIPO}}</option>
-                                <option >Fijo</option>
-                                <option >Esporadico</option>
-                               
-                              
-                          </select>
+                            <select name="tipo" style="height: 35px;" class="form-control" >
+                                    <option value="Fijo" @if($clientes->TIPO =='Fijo') selected @endif>Fijo</option>
+                                    <option value="Esporadico" @if($clientes->TIPO =='Esporadico') selected @endif>Esporadico</option> 
+                            </select>
+
+
+
                           
                       </p>
                       <p>

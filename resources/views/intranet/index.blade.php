@@ -1,4 +1,5 @@
 
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Inicio</title>
 </head>
-<div style="width: 1100px;
-	margin: 0px auto;
-	background: #cccccc;
-	padding: 35px;">
-    </div>
+
     <style>
     .asda{
         max-width: ;
@@ -19,7 +16,7 @@
     </style>
 </head>
 <body>
-		<div style="width: 1100px; margin:20px auto;">
+		<div style="width: 1100px; margin:0px auto;">
 				<div style="width: 200px; float:left; position:relative;">
 				@include('intranet.menu')
 				</div>    

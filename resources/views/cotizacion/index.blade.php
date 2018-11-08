@@ -51,8 +51,9 @@
                           <tr>
                               <th>Cod Petición</th>
                               <th>Cliente</th>
-                              <th>Entrega Cotizaciòn</th>
-                              <th>Fecha Cotizaciòn</th>
+                              <th>Entrega Cotización</th>
+                              <th>Fecha Cotización</th>
+                              <th>Estado</th>
                               <th>Acciones</th>
                           </tr>
                       </thead>
@@ -65,6 +66,7 @@
                                   <td>{{ $cot->FECHA_RESPUESTA_COTIZACION }}</td>
 
                                   <td>{{ $cot->FECHA_LLEGADA }}</td>
+                                    <td>{{$cot->ESTADO}}</td>
                              
                                   
                                   <td>

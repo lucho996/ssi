@@ -24,7 +24,7 @@
 			</div>    
 		<div style="width: 850px; float: right; position:relative;">
 
-	<div class="panel panel-success">
+	<div class="panel panel-success" style="margin-top: 20px;">
   		<div class="panel-heading">
   			<h4>Información Cliente</h4>
   		</div>

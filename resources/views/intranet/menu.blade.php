@@ -19,9 +19,17 @@
                 <a href="#" class="btn_menu">Menu</a>
                 <ul class="menu">
                     <li><a href="/intranet/index">Inicio</a></li>
+                    
+                    <li><a href="#">Gestion Usuarios</a>
+                    <ul>
                     @can('users')
                     <li><a href="/users">Usuarios</a></li>
                     @endcan
+                    @can('roles')
+                    <li><a href="/roles">Roles</a></li>
+                    @endcan
+                    </ul>
+                    </li>
                     @can('personal')
                     <li><a href="/personal">Personal</a></li>
                     @endcan

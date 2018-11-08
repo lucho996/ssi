@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,30 +10,16 @@
 			float: right;
 		}
 	</style>
-	<div style="width: 1100px;
-	margin: 0px auto;
-	background: #cccccc;
-	padding: 35px;"></div>
+
 </head>
 <body >
-		<div style="width: 1100px; margin:20px auto;">
+		<div style="width: 1100px; margin:0px auto;">
 				<div style="width: 200px; float:left;  position:relative;">
 				@include('intranet.menu')
 				</div>
 			<div style="width: 850px; float: right; position:relative;">  
-			<nav class="navbar navbar-default" role="navigation">
-				  <div class="container-fluid">
-					<div id="bs-example-navbar-collapse-1">
-						  <ul class="nav navbar-nav">
-							<li><a href="/personal">Todos</a></li>
-							<li class="active"><a href="/personal/create">Nuevo</a></li>
-							<li><a href="/personal/createc">Nuevo Cargo</a></li>
-						</ul>
-					</div>
-				</div>
-			</nav>
 		
-			<div class="panel panel-success">
+			<div class="panel panel-success" style="margin-top:20px;">
 				  <div class="panel-heading">
 				  <h4>Datos de Sr/a {{$personal->NOMBREP}} {{$personal->APELLIDOP}}</h4>
 				  </div>

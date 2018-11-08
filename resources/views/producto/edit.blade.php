@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,19 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Personal</title>
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
+
 </head>
 <body >
-        <div style="width: 1100px; margin:20px auto;">
+        <div style="width: 1100px; margin:0px auto;">
             <div style="width: 200px; float:left;  position:relative;">
             @include('intranet.menu')
             </div>    
         <div style="width: 850px; float: right; position:relative;">
-        <div class="panel panel-success">
+        <div class="panel panel-success" style="margin-top:20px;">
                 <div class="panel-heading">
                     <h4>Modificar Productos</h4>
                 </div>
@@ -40,7 +37,7 @@ padding: 35px;">
                             </p>
             
                             <p>
-                                <select name="tipo" class="form-control" >
+                                <select name="tipo" style="height: 35px;" class="form-control" >
             
                                             <option>Emergencia</option>
                                             
@@ -50,7 +47,7 @@ padding: 35px;">
                                 </select>					
                             </p>
                             <p>
-                                <input type="submit" value="Guardar" class="btn btn-success">
+                                <input type="submit" value="Actualizar" class="btn btn-success">
                                 <a href="javascript:history.back(-1);" class="btn btn-default" title="Ir la página anterior">Regresar</a>
                       </p>
                       

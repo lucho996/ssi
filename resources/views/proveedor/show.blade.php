@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,53 +10,48 @@
 			float: right;
 		}
 	</style>
-	<div style="width: 1100px;
-	margin: 0px auto;
-	background: #cccccc;
-	padding: 35px;"></div>
+
 </head>
 <body >
-		<div style="width: 1100px; margin:20px auto;">
+		<div style="width: 1100px; margin:0px auto;">
 			<div style="width: 200px; float:left;  position:relative;">
 			@include('intranet.menu')
 			</div>    
 		<div style="width: 850px; float: right; position:relative;">
-	<nav class="navbar navbar-default" role="navigation">
-  		<div class="container-fluid">
-    		<div id="bs-example-navbar-collapse-1">
-      			<ul class="nav navbar-nav">
-        			<li><a href="#">Todos</a></li>
-        			<li><a href="#">Nuevo</a></li>
-        		</ul>
-        	</div>
-        </div>
-    </nav>
 
-	<div class="panel panel-success">
+
+	<div class="panel panel-success" style="margin-top: 20px;">
   		<div class="panel-heading">
   			<h4>Información Proveedor</h4>
   		</div>
 
   		<div class="panel-body">
-  			@if(!@empty($proveedor))
-				<p>
-						RUT : <strong>{{$proveedor ->RUT}}</strong>
-					</p>
-					<p>
-						NOMBRE: <strong>{{$proveedor ->NOMBRE}}</strong>
-					</p>
-					<p>
-						DIRECCIÒN: <strong>{{$proveedor ->DIRECCION}}</strong>
-					</p>
-					<p>
-							CIUDAD: <strong>{{$proveedor ->CIUDAD}}</strong>
-						</p>
-						<p>
-								TELEFONO: <strong>{{$proveedor ->TELEFONO}}</strong>
-							</p>
-							<p>
-									CORREO: <strong>{{$proveedor ->CORREO}}</strong>
-								</p>
+			  @if(!@empty($proveedor))
+			  <table class="table table-bordered">
+				  <tbody>
+					<tr>
+						<td style="text-align:right;"><strong>Rut:</strong> </td>
+						<td>{{$proveedor->RUT}}</td>
+						<td style="text-align:right;"><strong>Nombre:</strong> </td>
+						<td>{{$proveedor->NOMBRE}}</td>
+					</tr>
+					<tr>
+							<td style="text-align:right;"><strong>Dirección:</strong> </td>
+						<td>{{$proveedor->DIRECCION}}</td>
+						<td style="text-align:right;"><strong>Ciudad:</strong> </td>
+						<td>{{$proveedor->CIUDAD}}</td>
+						
+					</tr>
+					<tr>
+							<td style="text-align:right;"><strong>Telefono:</strong> </td>
+						<td>{{$proveedor->TELEFONO}}</td>
+						<td style="text-align:right;"><strong>Correo:</strong> </td>
+						<td>{{$proveedor->CORREO}}</td>
+						
+					</tr>
+				  </tbody>
+			  </table>
+
 	@else
 	<p>No existe proveedor</p>
 	@endif

@@ -10,12 +10,12 @@
 
 </head>
 <body >
-        <div style="width: 1100px; margin:20px auto;">
+        <div style="width: 1100px; margin:0px auto;">
             <div style="width: 200px; float:left;  position:relative;">
             @include('intranet.menu')
             </div>    
         <div style="width: 850px; float: right; position:relative;">
-        <div class="panel panel-success">
+        <div class="panel panel-success" style="margin-top: 20px;">
                 <div class="panel-heading">
                     <h4>Modificar Cotizaciòn</h4>
                 </div>
@@ -27,10 +27,10 @@
                           <input name="_method" type="hidden" value="PUT">
                           <p>
                                 <select name="cliente" style="height: 35px;" class="form-control" >
-                                        @foreach($clientes as $cliente)
-                                            <option value="{{$cliente->RUT_CLIENTE}}">{{$cliente->NOMBRE_COMPLETO}}</option>
+
+                                        @foreach($clientes as $clientes)
+                                        <option value="{{$clientes->RUT_CLIENTE}}">{{$clientes->NOMBRE_COMPLETO}}</option>
                                         @endforeach
-                        
                                 </select>				
                             </p>
                             <p>
@@ -45,15 +45,14 @@
                             </p>
                             <P>
                                     <select name="estado" style="height: 35px;" class="form-control" >
-                                                <option>Aceptada</option>
-                                                <option>Rechazada</option>
-                                                <option>En Espera</option>
-                            
-                            
-                                    </select>	
+                                            <option value="Aceptada" @if($cotizacion->ESTADO =='Aceptada') selected @endif>Aceptada</option>
+                                            <option value="Rechazada" @if($cotizacion->ESTADO =='Rechazada') selected @endif>Rechazada</option>
+                                            <option value="En Espera" @if($cotizacion->ESTADO =='En Espera') selected @endif>En Espera</option>
+                        
+                                    </select>
                             </P>
                             <p>
-                                <input type="submit" value="Guardar" class="btn btn-success">
+                                <input type="submit" value="Actualizar" class="btn btn-success">
                           <a href="/cotizacion" class="btn btn-default">Regresar</a>
                       </p>
                       
