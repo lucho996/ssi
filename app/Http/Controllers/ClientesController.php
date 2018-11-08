@@ -58,7 +58,7 @@ class ClientesController extends Controller
             Session::flash('class','danger');
             }
             return redirect()->route('clientes.create');
-            }
+        }
 
     /**
      * Display the specified resource.

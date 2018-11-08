@@ -1,3 +1,4 @@
+@extends('layouts.app')
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,28 +13,16 @@
 		}
 	</style>
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
 <body>
 <body >
-		<div style="width: 1100px; margin:20px auto;">
+	@section('content')
+		
+
+		<div style="width: 1100px; margin:0px auto;">
 			<div style="width: 200px; float:left;  position:relative;">
 					@include('intranet.menu')
 			</div>    
 		<div style="width: 850px; float: right; position:relative;">
-	<nav class="navbar navbar-default" role="navigation">
-  		<div class="container-fluid">
-    		<div id="bs-example-navbar-collapse-1">
-      			<ul class="nav navbar-nav">
-        			<li><a href="#">Todos</a></li>
-        			<li><a href="#">Nuevo</a></li>
-        		</ul>
-        	</div>
-        </div>
-    </nav>
 
 	<div class="panel panel-success">
   		<div class="panel-heading">
@@ -43,30 +32,35 @@ padding: 35px;">
   		<div class="panel-body">
 				
 				@if(!@empty($clientes))
-				<p>
-					RUT: <strong>{{$clientes ->RUT_CLIENTE}}</strong>
-				</p>
-				<p>
-					NOMBRE: <strong>{{$clientes ->NOMBRE_COMPLETO}}</strong>
-				</p>
-				<p>
-					DIRECCION: <strong>{{$clientes ->DIRECCION}}</strong>
-				</p>
-				<p>
-					CIUDAD: <strong>{{$clientes ->CIUDAD}}</strong>
-				</p>
-				<p>
-					COMUNA: <strong>{{$clientes ->COMUNA}}</strong>
-				</p>
-				<p>
-					GIRO: <strong>{{$clientes ->GIRO}}</strong>
-				</p>
-				<p>
-					Telefono: <strong>{{$clientes ->TELEFONO}}</strong>
-				</p>
-				<p>
-					Tipo: <strong>{{$clientes ->TIPO}}</strong>
-				</p>
+
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td style="text-align:right;"><strong>Rut:</strong> </td>
+					<td>{{$clientes ->RUT_CLIENTE}}</td>
+					<td style="text-align:right;"><strong>Comuna:</strong> </td>
+					<td>{{$clientes ->COMUNA}}</td>		
+				</tr>
+				<tr>
+					<td style="text-align:right;"><strong>Nombre:</strong> </td>
+					<td>{{$clientes ->NOMBRE_COMPLETO}}</td>
+					<td style="text-align:right;"><strong>Giro:</strong> </td>
+					<td>{{$clientes ->GIRO}}</td>		
+				</tr>
+				<tr>
+					<td style="text-align:right;"><strong>Dirección:</strong> </td>
+					<td>{{$clientes ->DIRECCION}}</td>
+					<td style="text-align:right;"><strong>Telefono:</strong> </td>
+					<td>{{$clientes ->TELEFONO}}</td>		
+				</tr>
+				<tr>
+					<td style="text-align:right;"><strong>Ciudad:</strong> </td>
+					<td>{{$clientes ->CIUDAD}}</td>
+					<td style="text-align:right;"><strong>Tipo:</strong> </td>
+					<td>{{$clientes ->TIPO}}</td>		
+				</tr>
+			</tbody>
+		</table>
 
 		@else
 		<p>No existe el cliente</p>		
@@ -76,5 +70,6 @@ padding: 35px;">
 	</div>
 		</div>
 		</div>
+		@endsection
 </body>
 </html>

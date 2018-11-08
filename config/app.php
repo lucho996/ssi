@@ -161,6 +161,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Caffeinated\Shinobi\ShinobiServiceProvider::class,
         /*
          * Package Service Providers...
          */

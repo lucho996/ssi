@@ -28,34 +28,19 @@ padding: 35px;">
                
                           {{ csrf_field() }}
                           <input name="_method" type="hidden" value="PUT">
-                          <p>
-                                <select name="cliente" class="form-control" >
-                                        @foreach($clientes as $clientes)
-                                            <option value="{{$clientes->RUT_CLIENTE}}">{{$clientes->NOMBRE_COMPLETO}}</option>
-                                        @endforeach
-                        
-                                </select>				
-                            </p>
+
                             <p>
-                                </p>
-                                <p>
-                                <input type="text" name="fecha_resp_coti" value="{{$producto->FECHA_RESPUESTA_COTIZACION}}" placeholder="Fecha respuesta de cotización" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_llegada" class="form-control" required>
-                                </p>
-                                <p>
-                                    <input type="text" name="fecha_entrega" value="{{$producto->FECHA_DE_ENTREGA_PRODUCTO}}"placeholder="Fecha entrega producto" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_llegada" class="form-control" required>
-                                </p>
+                                <input type="text" name="fecha_entrega" value="{{$producto->FECHA_DE_ENTREGA_PRODUCTO}}"placeholder="Fecha entrega producto" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_llegada" class="form-control" required>
+                            </p>
                             <p>
                                 <input type="text" name="descripcion" value="{{$producto->DESCRIPCION}}" placeholder="Descripción" class="form-control" maxlength="50"  required>
-                            </p>
-                            <p>
-                                <input type="text" name="codigo_pet_oferta"value="{{$producto->COD_PETICION_OFERTA}}" placeholder="Cod. Petición" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required>
                             </p>
                             <p>
                                 <input type="file" name="plano" id="plano"value="{{$producto->PLANO_PRODUCTO}}" class="custom-file">
                             </p>
             
                             <p>
-                                    <select name="tipo" class="form-control" >
+                                <select name="tipo" class="form-control" >
             
                                             <option>Emergencia</option>
                                             
@@ -66,7 +51,7 @@ padding: 35px;">
                             </p>
                             <p>
                                 <input type="submit" value="Guardar" class="btn btn-success">
-                          <a href="/producto" class="btn btn-default">Regresar</a>
+                                <a href="javascript:history.back(-1);" class="btn btn-default" title="Ir la página anterior">Regresar</a>
                       </p>
                       
                

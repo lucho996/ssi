@@ -16,60 +16,197 @@
 </head>
 <body >
 		<div style="width: 1100px; margin:20px auto;">
-			<div style="width: 200px; float:left;  position:relative;">
-			@include('intranet.menu')
-			</div>    
-		<div style="width: 850px; float: right; position:relative;">
-	<nav class="navbar navbar-default" role="navigation">
-  		<div class="container-fluid">
-    		<div id="bs-example-navbar-collapse-1">
-      			<ul class="nav navbar-nav">
-        			<li><a href="#">Todos</a></li>
-        			<li><a href="#">Nuevo</a></li>
-        		</ul>
-        	</div>
-        </div>
-    </nav>
+				<div style="width: 200px; float:left;  position:relative;">
+				@include('intranet.menu')
+				</div>
+			<div style="width: 850px; float: right; position:relative;">  
+			<nav class="navbar navbar-default" role="navigation">
+				  <div class="container-fluid">
+					<div id="bs-example-navbar-collapse-1">
+						  <ul class="nav navbar-nav">
+							<li><a href="/personal">Todos</a></li>
+							<li class="active"><a href="/personal/create">Nuevo</a></li>
+							<li><a href="/personal/createc">Nuevo Cargo</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		
+			<div class="panel panel-success">
+				  <div class="panel-heading">
+				  <h4>Datos de Sr/a {{$personal->NOMBREP}} {{$personal->APELLIDOP}}</h4>
+				  </div>
+		
+				  <div class="panel-body">
+						<tr><div class="panel panel-default">
+								<div class="panel-heading">
+									<h5>Datos Personales</h5>
+								</div></tr>
+						<table class="table table-bordered" id="tablapersonal">
+						<tr>
+							<td style="text-align:right;"><strong>Rut:</strong> </td>
+							<td>{{$personal->RUTP}}</td>
+							<td style="text-align:right;"><strong>Ciudad:</strong> </td>
+							<td>{{$personal->CIUDAD}}</td>
+						</tr>
+							<td style="text-align:right;"><strong>Nombre:</strong> </td>
+							<td>{{$personal->NOMBREP}}</td>
+							<td style="text-align:right;"><strong>Dirección:</strong> </td>
+							<td>{{$personal->DIRECCION}}</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;"><strong>Apellido:</strong> </td>
+							<td>{{$personal->APELLIDOP}}</td>
+							<td style="text-align:right;"><strong>Estado Civil:</strong> </td>
+							<td>{{$personal->ESTADO_CIVIL}}</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;"><strong>Fecha de Nacimiento:</strong> </td>
+							<td>{{$personal->FECHANACIMIENTO}}</td>
+							<td style="text-align:right;"><strong>Titulo:</strong> </td>
+							<td>{{$personal->TITULO}}</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;"><strong>Telefono:</strong> </td>
+							<td>{{$personal->TELEFONOP}}</td>
+							<td style="text-align:right;"><strong>Nombre Cónyuge:</strong> </td>
+							<td>{{$personal->NOMBRE_CONYUGE}}</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;"><strong>Correo:</strong> </td>
+							<td>{{$personal->CORREOP}}</td>
+							<td style="text-align:right;"><strong>Telefono Cónyuge:</strong> </td>
+							<td>{{$personal->TELEFONO_CONYUGE}}</td>
+						</tr>
+						
+					
+		
+					</table>
+		
+					
+				</div>
+				<div class="panel panel-default">
+						<div class="panel-heading">
+							<h5>Carga Familiar</h5>
+						</div>
+		
+		
+					
+					
+		
+				<table class="table table-bordered " id="tabla_cargos_familiar">
+					<thead >
+			
+							<th style="text-align:center;">Rut</th>
+							<th style="text-align:center;">Nombre</th>
+							<th style="text-align:center;">Fecha Nacimiento</th>
+				
+						
+					</thead>
+					
+					
+					<tbody>
+					
+						@foreach ($carga as $item)
+						<tr style="text-align:center;">
+						<td>{{$item->RUT}}</td>
+						<td>{{$item->NOMBRE}}</td>
+						<td>{{$item->FECHA_NACIMIENTO}}</td>
+						</tr>
+						@endforeach
+					
+					</tbody>
+		
+		
+					</table>
+				</div>
+					
+							<div class="panel panel-default">
+									<div class="panel-heading">
+										<h5>Cargos</h5>
+									</div>
+		
+		
+								
+								
+															
+										
+					<table class="table table-bordered" id="tablacargo">
+							
+							<thead >
+			
+									<th style="text-align:center;">Cargo</th>
+									<th style="text-align:center;">Descripción</th>
+									<th style="text-align:center;">Fecha Cargo</th>
+						
+								
+							</thead>
+							
+							
+							<tbody>
+							
+								@foreach ($cargo as $item2)
+								<tr style="text-align:center;">
+							
+								<td>{{$item2->CARGO}}</td>
+								<td>{{$item2->DESCRIPCION}}</td>
+								<td>{{$item2->FECHA_CARGO}}</td>
+								</tr>
+								@endforeach
+							
+							</tbody>
+				
+				
+							</table>
+							</div>
 
-	<div class="panel panel-success">
-  		<div class="panel-heading">
-  			<h4>Información Personal</h4>
-  		</div>
+				
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h5>Datos del Contrato</h5>
+						</div>
+		
+					<table class="table table-bordered">
+		
+					<tr>
+						<td style="text-align:right;"><strong>Lugar de trabajo:</strong> </td>
+						<td>{{$personal->LUGAR_TRABAJO}}</td>
+						<td style="text-align:right;"><strong>Gratificación:</strong> </td>
+						<td>{{$personal->GRATIFICACION}}</td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><strong>AFP:</strong> </td>
+						<td>{{$personal->AFP}}</td>
+						<td style="text-align:right;"><strong>Movilización:</strong> </td>
+						<td>{{$personal->MOVILIZACION}}</td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><strong>Previsión:</strong> </td>
+						<td>{{$personal->PREVISION}}</td>
+						<td style="text-align:right;"><strong>Colación:</strong> </td>
+						<td>{{$personal->COLACION}}</td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><strong>Sueldo Base:</strong> </td>
+						<td>{{$personal->SUELDO_BASE}}</td>
+						<td style="text-align:right;"><strong>Inicio Contrato:</strong> </td>
+						<td>{{$personal->FECHA_INICIO_CONTRATO}}</td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><strong>Talla de ropa:</strong> </td>
+						<td>{{$personal->TALLA_ROPA}}</td>
+						<td style="text-align:right;"><strong>Termino Contrato:</strong> </td>
+						<td>{{$personal->FECHA_INICIO_CONTRATO}}</td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><strong>Numero de Zapatos:</strong> </td>
+						<td>{{$personal->NZAPATO}}</td>
 
-  		<div class="panel-body">
-  			
-				<p>
-						RUT : <strong>{{$personal ->RUTP}}</strong>
-					</p>
-					<p>
-						NOMBRE: <strong>{{$personal ->NOMBREP}}</strong>
-					</p>
-					<p>
-						APELLIDO: <strong>{{$personal ->APELLIDOP}}</strong>
-					</p>
-					<p>
-							TELEFONO: <strong>{{$personal ->TELEFONOP}}</strong>
-						</p>
-						<p>
-								CORREO: <strong>{{$personal ->CORREOP}}</strong>
-							</p>
-							<p>
-									HORA HOMBRE: <strong>{{$personal ->HORAHOMBRE}}</strong>
-								</p>
-								<p>
-										FECHA NACIMIENTO: <strong>{{$personal ->FECHANACIMIENTO}}</strong>
-									</p>
-									<p>
-											DIRECCIÒN: <strong>{{$personal ->DIRECCION}}</strong>
-										</p>
-										<p>
-												TIPO: <strong>{{$personal ->TIPO}}</strong>
-											</p>
-
-        <a href="/personal" class="btn btn-default">Regresar</a>
-		</div>
-	</div>
-		</div>
-		</div>
-</body>
+					</tr>						
+						
+							</table>
+			</div>
+			<a href="/personal" class="btn btn-default">Volver</a>
+			</div>
+		</body>
 </html>

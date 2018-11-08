@@ -1,3 +1,4 @@
+@extends('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,26 +12,26 @@
 		}
 	</style>
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
+
 <body>
-        <div style="width: 1100px; margin:20px auto;">
+    @section('content')
+        
+        <div style="width: 1100px; margin:0px auto;">
         <div style="width: 200px; float:left; position:relative;">
         @include('intranet.menu')
         </div>    
         <div style="width: 850px; float: right; position:relative;">
         <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
-                    <div class="navbar-header">
-                    </div>
                   <div id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                          <li class="active"><a href="/clientes">Todos</a></li>
-                          <li><a href="/clientes/create">Nuevo</a></li>
-                      </ul>
+                        <ul class="nav navbar-nav" style="display:inline; float:right;">
+                        @can('clientes')
+                        <li class="active"><a href="/clientes">Todos</a></li>
+                        @endcan
+                        @can('clientes.create')
+                            <li><a href="/clientes/create">Nuevo</a></li>
+                            @endcan
+                        </ul>
                   </div>
               </div>
           </nav>
@@ -58,8 +59,12 @@ padding: 35px;">
                                   <td>{{ $clientes->NOMBRE_COMPLETO }}</td>
                                   <td>{{ $clientes->TIPO }}</td>
                                   <td>
-                                      <a href="/clientes/show/{{ $clientes->RUT_CLIENTE }}" ><img src="images/png/ver.png" alt="" style="width:20px;"></a>
-                                        <a href="/clientes/edit/{{$clientes->RUT_CLIENTE}}"><img src="images/png/editar.png" alt="" style="width:20px;"></a>
+                                    @can('clientes.show')
+                                    <a href="/clientes/show/{{ $clientes->RUT_CLIENTE }}" ><img src="images/png/ver.png" alt="" style="width:20px;"></a>
+                                    @endcan
+                                    @can('clientes.edit')
+                                    <a href="/clientes/edit/{{$clientes->RUT_CLIENTE}}"><img src="images/png/editar.png" alt="" style="width:20px;"></a>
+                                    @endcan
                                   </td>
                               </tr>
                           @endforeach
@@ -72,6 +77,7 @@ padding: 35px;">
         @endif
         </div>
         </div>
+        @endsection
     
 </body>
 </html>

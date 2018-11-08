@@ -1,3 +1,5 @@
+
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,11 +13,6 @@
 		}
 	</style>
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
 <body>
         <div style="width: 1100px; margin:20px auto;">
                 <div style="width: 200px; float:left; position:relative;">

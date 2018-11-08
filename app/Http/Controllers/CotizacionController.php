@@ -20,9 +20,9 @@ class CotizacionController extends Controller
     {
        //$cotizacion = Cotizacion::orderBy('ID_COTIZACION','ASC')->get();
        //dd($cotizacion);
-    $cotizacion = \DB::table('detalle_cotizacion')
-    ->select('detalle_cotizacion.ID_COTIZACION','cotizacion.ID_COTIZACION','cotizacion.FECHA_RESPUESTA_COTIZACION','cotizacion.FECHA_LLEGADA','clientes.NOMBRE_COMPLETO','cotizacion.DESCRIPCION','cotizacion.COD_PETICION_OFERTA')
-    ->join('cotizacion','detalle_cotizacion.ID_COTIZACION', '=','cotizacion.ID_COTIZACION')
+    $cotizacion = \DB::table('cotizacion')
+    ->select('cotizacion.ID_COTIZACION','cotizacion.FECHA_RESPUESTA_COTIZACION','cotizacion.FECHA_LLEGADA','clientes.NOMBRE_COMPLETO','cotizacion.DESCRIPCION','cotizacion.COD_PETICION_OFERTA')
+
     ->join('clientes', 'cotizacion.RUT_CLIENTE', '=', 'clientes.RUT_CLIENTE')
     ->get();
     return view('cotizacion.index')->with('cotizacion',$cotizacion);

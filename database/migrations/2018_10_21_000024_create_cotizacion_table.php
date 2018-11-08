@@ -28,9 +28,9 @@ class CreateCotizacionTable extends Migration
             $table->integer('ID_IVA')->nullable()->default(null)->unsigned();
             $table->integer('RUT_CLIENTE')->nullable()->default(null)->unsigned();
             $table->string('DESCRIPCION', 50)->nullable()->default(null);
-            $table->dateTime('FECHA_COTIZACION')->nullable()->default(null);
+            $table->date('FECHA_COTIZACION')->nullable()->default(null);
             $table->dateTime('FECHA_LLEGADA')->nullable()->default(null);
-            $table->dateTime('FECHA_RESPUESTA_COTIZACION')->nullable()->default(null);
+            $table->date('FECHA_RESPUESTA_COTIZACION')->nullable()->default(null);
             $table->integer('VALOR_NETO')->nullable()->default(null);
             $table->integer('VALOR_TOTAL')->nullable()->default(null);
             $table->integer('COD_PETICION_OFERTA')->nullable()->default(null);

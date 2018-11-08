@@ -1,4 +1,5 @@
 
+@extends('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,13 +11,12 @@
 
     <title>Modificar Cliente</title>
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
+
         <body >
-                <div style="width: 1100px; margin:20px auto;">
+            @section('content')
+                
+            
+                <div style="width: 1100px; margin:0px auto;">
                     <div style="width: 200px; float:left;  position:relative;">
                     @include('intranet.menu')
                     </div>    
@@ -54,20 +54,20 @@ padding: 35px;">
       
                       </p>
                       <p>
-                          <select name="tipo" class="form-control" value="{{ $clientes->TIPO}}" >
+                          <select name="tipo" class="form-control" required style="width:100%; height:30px;"  value="{{ $clientes->TIPO}}" >
       
                                 
-
+                                <option value="" selected="false" disabled>Seleccione Tipo de Cliente</option>
                                 <option >{{$clientes->TIPO}}</option>
-                                <option >FIJO</option>
-                                <option >ESPORADICO</option>
+                                <option >Fijo</option>
+                                <option >Esporadico</option>
                                
                               
                           </select>
                           
                       </p>
                       <p>
-                          <input type="submit" value="Guardar" class="btn btn-success">
+                          <input type="submit" value="Actualizar" class="btn btn-success">
                           <a href="/clientes" class="btn btn-default">Regresar</a>
                       </p>
                       
@@ -81,6 +81,6 @@ padding: 35px;">
                 </div>
                 </div>
   </form>
-
+  @endsection
 </body>
 </html>

@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,29 +10,34 @@
 		}
 	</style>
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
+
+
 <body >
-	<div style="width: 1100px; margin:20px auto;">
+
+		
+	
+	<div style="width: 1100px; margin:0px auto;">
 		<div style="width: 200px; float:left;  position:relative;">
 		@include('intranet.menu')
 		</div>
 	<div style="width: 850px; float: right; position:relative;"> 
-	<nav class="navbar navbar-default" role="navigation">
-  		<div class="container-fluid">
-    		<div  id="bs-example-navbar-collapse-1">
-      			<ul class="nav navbar-nav">
-        			<li><a href="/cotizacion">Todos</a></li>
-        			<li class="active"><a href="/cotizacion/create">Nuevo</a></li>
-        		</ul>
-        	</div>
-        </div>
-    </nav>
-
-	<article id="main">
+	        <nav class="navbar navbar-default" role="navigation">
+					<div class="container-fluid">
+			
+					  <div  id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav" style="display: inline;">
+								@can('cotizacion')
+							  <li class="active"><a href="/cotizacion">Todos</a></li>
+							  @endcan
+							  @can('cotizacion.create')
+							  <li><a href="/cotizacion/create">Nuevo</a></li>				  
+							  @endcan
+							
+						  </ul>
+					  </div>
+				  </div>
+			  </nav>
+	
 			
 {!!Form::open(array('route'=>'store', 'id'=>'frmsave', 'method'=>'post','files'=>true))!!}
 @if(Session::has('message'))
@@ -46,7 +52,7 @@ padding: 35px;">
 				<div class="panel-body">
 
 				<p>
-					<select name="cliente" class="form-control" >
+					<select name="cliente" style="height:30px ;" class="form-control" >
 							@foreach($clientes as $cliente)
 								<option value="{{$cliente->RUT_CLIENTE}}">{{$cliente->NOMBRE_COMPLETO}}</option>
 							@endforeach
@@ -89,11 +95,11 @@ padding: 35px;">
 													<tr>
 														<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required>
 														</td>
-														<td><select name="tipo[]" class="form-control tipo">
+														<td><select name="tipo[]" style="height:35px;" class="form-control tipo">
 	
-																<option>Emergencia</option>
+																<option>Normal</option>
 																
-																<option>Normal</option>	
+																<option>Emergencia</option>	
 																
 													</select></td>
 														<td>
@@ -114,30 +120,23 @@ padding: 35px;">
 
 							</div>
 						
-					</article>
+				
 					<p>
 						<input type="submit" value="Guardar" class="btn btn-success">
 					</p>
 					
-				</div>
-			</div>
-			
 			{!!Form::close()!!}
-		
+		</div>
+	</div>	
 
-	</div>
-	
-	</div>
-
-	</div>
 	
 
 
 </body>
 
 <script type="text/javascript" src="{{ URL::asset('js/solo_num.js') }}"></script>
-	<script type="text/javascript" src="{{ URL::asset('js/solo_letras.js') }}"></script>
-	<script type="text/javascript" src="{{ URL::asset('js/live.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/solo_letras.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/live.js') }}"></script>
 
 
 
@@ -154,10 +153,10 @@ function addRow() {
 			'<tr>'+
 			'<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required>'+
 			'</td>'+
-			'<td><select name="tipo[]" class="form-control tipo">'+
-					'<option>Emergencia</option>'+
-					
+			'<td><select name="tipo[]" style="height:30px ;" class="form-control tipo">'+
 					'<option>Normal</option>'+
+					
+					'<option>Emergencia</option>'+
 					
 		'</select></td>'+
 			'<td>'+

@@ -56,9 +56,7 @@
 							<p>
 					ESTADO: <strong>{{$producto ->ESTADO}}</strong>
 								</p>
-
-
-							<a href="/producto/index/{{}}" class="btn btn-default">Regresar</a>
+								<a href="javascript:history.back(-1);" class="btn btn-default" title="Ir la página anterior">Regresar</a>
 		</div>
 	</div>
 		</div>

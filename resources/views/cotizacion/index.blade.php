@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,30 +14,29 @@
 		}
 	</style>
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
+
 <body >
-	<div style="width: 1100px; margin:20px auto;">
+	<div style="width: 1100px; margin:0px auto;">
 		<div style="width: 200px; float:left;  position:relative;">
 		@include('intranet.menu')
 		</div>
 	<div style="width: 850px; float: right; position:relative;"> 
-        <nav class="navbar navbar-default" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                    </div>
-                  <div  id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                          <li class="active"><a href="/cotizacion">Todos</a></li>
-                          <li><a href="/cotizacion/create">Nuevo</a></li>
-                      </ul>
-                  </div>
-              </div>
-          </nav>
-
+	        <nav class="navbar navbar-default" role="navigation">
+					<div class="container-fluid">
+			
+					  <div  id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav" style="display: inline;">
+								@can('cotizacion')
+							  <li class="active"><a href="/cotizacion">Todos</a></li>
+							  @endcan
+							  @can('cotizacion.create')
+							  <li><a href="/cotizacion/create">Nuevo</a></li>				  
+							  @endcan
+							
+						  </ul>
+					  </div>
+				  </div>
+			  </nav>
           <div class="panel panel-success">
 
                 <div class="panel-heading">
@@ -68,11 +68,16 @@ padding: 35px;">
                              
                                   
                                   <td>
-                                      <a href="/cotizacion/show/{{ $cot->ID_COTIZACION }}"><img src="/images/png/ver.png" style="width:20px;" alt=""></a>
+                                      @can('cotizacion.show')
+                                      <a href="/cotizacion/show/{{ $cot->ID_COTIZACION }}"><img src="/images/png/ver.png" style="width:20px;" alt=""></a>    
+                                      @endcan
+                                      @can('cotizacion.edit')
                                       <a href="/cotizacion/edit/{{ $cot->ID_COTIZACION }}"><img src="/images/png/editar.png"style="width:20px;" alt=""></a>
-                                  <a href="/producto/index/{{$cot->ID_COTIZACION}}"><img src="/images/png/productos.png"style="width:20px;" alt=""></a>
+                                      @endcan
+                                      @can('producto')
+                                      <a href="/producto/index/{{$cot->ID_COTIZACION}}"><img src="/images/png/productos.png"style="width:20px;" alt=""></a>      
+                                      @endcan
                       
-                                      
                                   </td>
                               </tr>
                           @endforeach

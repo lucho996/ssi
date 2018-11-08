@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Personal</title>
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
+
 </head>
 <body >
         <div style="width: 1100px; margin:20px auto;">
@@ -29,7 +26,7 @@ padding: 35px;">
                           {{ csrf_field() }}
                           <input name="_method" type="hidden" value="PUT">
                           <p>
-                                <select name="cliente" class="form-control" >
+                                <select name="cliente" style="height: 35px;" class="form-control" >
                                         @foreach($clientes as $cliente)
                                             <option value="{{$cliente->RUT_CLIENTE}}">{{$cliente->NOMBRE_COMPLETO}}</option>
                                         @endforeach
@@ -47,7 +44,7 @@ padding: 35px;">
                                 <input type="text" name="descripcion_cot" value="{{$cotizacion->DESCRIPCION}}"class="form-control" placeholder="Descripcion" onkeypress='return validar(event)' required >
                             </p>
                             <P>
-                                    <select name="estado" class="form-control" >
+                                    <select name="estado" style="height: 35px;" class="form-control" >
                                                 <option>Aceptada</option>
                                                 <option>Rechazada</option>
                                                 <option>En Espera</option>

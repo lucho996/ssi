@@ -1,21 +1,15 @@
+@extends('layouts.app')
 <!doctype html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Clientes</title>
-	<style>
-		.badge {
-			float: right;
-		}
-	</style>
+
 </head>
-<div style="width: 1100px;
-margin: 0px auto;
-background: #cccccc;
-padding: 35px;">
-</div>
+
 <body >
-	<div style="width: 1100px; margin:20px auto;">
+	@section('content')
+	<div style="width: 1100px; margin:0px auto;">
 		<div style="width: 200px; float:left;  position:relative;">
 		@include('intranet.menu')
 		</div>    
@@ -23,9 +17,13 @@ padding: 35px;">
 	<nav class="navbar navbar-default" role="navigation">
   		<div class="container-fluid">
     		<div id="bs-example-navbar-collapse-1">
-      			<ul class="nav navbar-nav">
-        			<li><a href="/clientes">Todos</a></li>
-        			<li class="active"><a href="/clientes/create">Nuevo</a></li>
+				  <ul class="nav navbar-nav" style="display:inline; float:left;">
+					@can('clientes')
+					<li><a href="/clientes">Todos</a></li>
+					@endcan
+					@can('clientes.create')
+					<li class="active"><a href="/clientes/create">Nuevo</a></li>
+					@endcan
         		</ul>
         	</div>
         </div>
@@ -62,7 +60,7 @@ padding: 35px;">
 
                 </p>
                 <p>
-                    <select name="tipo" class="form-control" >
+                    <select name="tipo" style="height:30px ;" class="form-control" >
 
                                 <option>Fijo</option>
                                 
@@ -81,6 +79,7 @@ padding: 35px;">
 	@endif
 	</div>
 	</div>
+	@endsection
 </body>
 <script type="text/javascript" src="{{ URL::asset('js/solo_num.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/solo_letras.js') }}"></script>

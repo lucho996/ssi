@@ -19,10 +19,22 @@
                 <a href="#" class="btn_menu">Menu</a>
                 <ul class="menu">
                     <li><a href="/intranet/index">Inicio</a></li>
+                    @can('users')
+                    <li><a href="/users">Usuarios</a></li>
+                    @endcan
+                    @can('personal')
                     <li><a href="/personal">Personal</a></li>
+                    @endcan
+                    @can('clientes')
                     <li><a href="/clientes">Clientes</a></li>
+                    @endcan
+                    @can('inventario')
                     <li><a href="/inventario">Inventario</a></li>
+                    @endcan
+                    @can('proveedor')
                     <li><a href="/proveedor">Proveedor</a></li>
+                    @endcan
+                    @can('cotizacion')
                     <li><a href="#">Cotizacion</a>
                     <ul>
                         <li><a href="/cotizacion">Solicitud Cotizaciòn</a></li>
@@ -30,11 +42,12 @@
                         
                     </ul>
                     </li>
+                    @endcan
                 </ul>
             </div>
             <script type="text/javascript" src="{{ URL::asset('https://code.jquery.com/jquery-3.3.1.min.js') }}"></script>
-            <script src="js/datatable.js"></script>
-<script src="js/funcioontable.js"></script>
+            <script type="text/javascript"src="{{ URL::asset('js/datatable.js')}}"></script>
+            <script type="text/javascript"src="{{ URL::asset('js/funcioontable.js')}}"></script>
             <script type="text/javascript" src="{{ URL::asset('js/jquery2.js') }}"></script>
 </body>
 </html>

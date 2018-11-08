@@ -10,6 +10,7 @@
 		}
 	</style>
 </head>
+
 <div style="width: 1100px;
 margin: 0px auto;
 background: #cccccc;
