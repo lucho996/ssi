@@ -37,7 +37,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
+
+        $request['password'] = bcrypt($request->password);
+
+
+      $user = User::create($request->all());
         return redirect()->route('users.create', $user->id)
         ->with('info','Usuario creado');
     }

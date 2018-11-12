@@ -9,7 +9,10 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div style="margin:10% auto; width:800px;">
+
+            <div>
+                    <center><img src="/images/png/logo.png" style="width:400px;" alt=""></center>
+                        </div>
         <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
@@ -77,7 +80,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+    
 </body>
 </html>
 

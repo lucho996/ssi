@@ -161,7 +161,7 @@ class PersonalController extends Controller
      */
     public function edit($RUTP = null)
     {      
-        $carga = \DB::table('carga_familiar')
+        /*$carga = \DB::table('carga_familiar')
         ->select('*')
         ->join('personal','carga_familiar.RUTP','=','personal.RUTP')
         ->where('personal.RUTP', '=', $RUTP)
@@ -171,10 +171,41 @@ class PersonalController extends Controller
         ->join('personal','cargo_personal.RUTP','=','personal.RUTP')
         ->join('cargo','cargo_personal.ID_CARGO','=','cargo.ID_CARGO')
         ->where('personal.RUTP', '=', $RUTP)
-        ->get();
+        ->get();*/
 
         $personal = Personal::findOrFail($RUTP);
-        return view('personal.edit',compact('personal'),compact('cargo'))->with('carga', $carga);
+        return view('personal.edit',compact('personal'));
+    }
+
+    public function carga_familiar($RUTP = null){
+
+        //$carga = Carga_Familiar::get();
+        $personal = Personal::findOrFail($RUTP);
+        $cargas = \DB::table('carga_familiar')
+        ->select('*')
+        ->join('personal','carga_familiar.RUTP','=','personal.RUTP')
+        ->where('personal.RUTP', '=', $RUTP)
+        ->get();
+   
+        return view('personal.carga_familiar')->with('cargas',$cargas)->with('personal',$personal);
+    }
+
+
+    public function store_carga(Request $request, $RUTP){
+     
+
+        $personal =  Personal::find($RUTP); 
+        dd($personal);
+        $personalinsert = new Personal;
+        $personalinsert->RUTP=$RUTP;
+        $personalinsert->RUT=$request->Input('rut');
+        $personalinsert->NOMBRE=$request->Input('nombre');
+        $personalinsert->FECHA_NACIMIENTO=$request->Input('fecha_nacimiento');
+        $personalinsert->save();
+        
+    
+  
+    return redirect()->route('personal.carga_familiar');
     }
 
     /**
@@ -187,6 +218,7 @@ class PersonalController extends Controller
     public function update(Request $request, $RUTP)
     {
         
+       // dd($request);
         $personal =  Personal::find($RUTP);
 
 		
@@ -218,7 +250,7 @@ class PersonalController extends Controller
         
         
             if($personal->save()){
-            $id = $personal->RUTP;
+           /* $id = $personal->RUTP;
             
             $r =$request->rut;
             $count = count($r);
@@ -230,6 +262,7 @@ class PersonalController extends Controller
                 $carga->RUT=$request->rut[$i];
                 $carga->NOMBRE=$request->nombre_completo[$i];
                 $carga->FECHA_NACIMIENTO=$request->fecha_nacimiento[$i];
+                dd($carga);
                 $carga->save();
                 }
                
@@ -243,16 +276,16 @@ class PersonalController extends Controller
                     'FECHA_CARGO'=>Carbon::now());
                 
                 Cargo_Personal::save($data);
-            }
+            }*/
     
-                Session::flash('message','Guardado Correctamente');
-                Session::flash('class','success');
+            Session::flash('message','Guardado Correctamente');
+            Session::flash('class','success');
             }else {
 			Session::flash('message','Ha ocurrido un error!');
 			Session::flash('class','danger');
 		}
 
-        return view('personal.edit');
+        return view('personal.edit',compact('personal'));
     
 }
 

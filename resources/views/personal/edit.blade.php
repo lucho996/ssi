@@ -70,48 +70,15 @@
         
                     
                 </div>
-                <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h5>Carga Familiar</h5>
-                        </div>
+
         
-        
-                    
-                    
-                <table class="table " id="tabla_cargos_familiar">
-                    <thead>
-                        
-                            <th>Rut</th>
-                            <th>Nombre</th>
-                            <th>Fecha Nacimiento</th>
-                            <th><a href="#" class="add" style="margin-left:8px; "><span class="btn btn-primary">+</span></a></th>
-        
-                        
-                    </thead>
-                    
-                    
-                    <tbody>
-   
-                    @foreach ($carga as $item)
-                 
-                    <tr>
-                    <td><input type="text" name="rut[]" value="{{$item->RUT}}" class="form-control rut" placeholder="RUT"></td>
-                    <td><input type="text" name="nombre_completo[]" value="{{$item->NOMBRE}}" class="form-control nombre_completo" placeholder="Nombre Completo" </td>
-                    <td><input type="date" name="fecha_nacimiento[]"value="{{$item->FECHA_NACIMIENTO}}" class="form-control fecha_nacimiento" placeholder="Fecha Nacimiento" ></td>
-                    <td><a href="#" class="btn btn-danger removee">X</a></td>
-                    </tr>
+        <!--tabla carga-->
+            <a href="/personal/carga_familiar/{{$personal->RUTP}}" class="btn btn-success">Modificar Cargas familiares</a>  
+                 <a href="/personal/cargos/{{$personal->RUTP}}" class="btn btn-success">Modificar Cargos</a>   
+
+              
                    
-					
-				
-                    @endforeach
-
-                    </tbody>
-
-        
-                    </table>
-                </div>
-                    
-                            <div class="panel panel-default">
+                            <div class="panel panel-default" style="margin-top:20px;">
                                     <div class="panel-heading">
                                         <h5>Datos del Contrato</h5>
                                     </div>
@@ -120,28 +87,7 @@
                                 
                                     <br>
                 
-                                    
-                <a href="#" class="addRow" style="margin-left:8px; "><span class="btn btn-success">Agregar Cargo</span></a>
-                                            
-                                        
-                    <table class="table " id="tablacargo" style="width: 350px;">
-                            <tr>
-                                    <td>
-                                        
-                                    <select name="cargo[]" style="height: 35px;" class="form-control cargo" required>
-                                    @foreach ($cargo as $item)
-                                    <option value="{{$item->ID_CARGO}}">{{$item->CARGO}}</option>
-
-                                    @endforeach
-                                    </select>
-                                    </td>
-                                    <td>
-                                    <a href="#" class="btn btn-danger remove">X</a>
-                                    </td>
-                    
-                                    </tr>
-                    
-                    </table>
+  <!-- Tabla CARGOS-->
                 
         
         
@@ -197,75 +143,5 @@
 </div>
 </body>
 <script type="text/javascript" src="{{ URL::asset('js/live.js') }}"></script>
-<script type="text/javascript">
-
-
-	$('#tablacargo').delegate('')
-	$('.addRow').on('click',function() {
-		addRow();
-	});
-	
-	function addRow() {
-		var tr=
-                '<tr>'+
-                '<td>'+
-                                        
-                '<select name="cargo[]" style="height: 35px;"  class="form-control cargo" required>'+
-                '@foreach ($cargo as $item)'+
-                '<option value="{{$item->ID_CARGO}}">{{$item->CARGO}}</option>'+
-
-                '@endforeach'+
-                '</select>'+
-                '</td>'+
-                '<td>'+
-                '<a href="#" class="btn btn-danger remove">X</a>'+
-                '</td>'+
-                '</tr>';
-				
-
-				$('#tablacargo').append(tr);
-	};
-	$('.remove').live('click', function() {
-		var l=$('tbody tr').length;
-		if (l==1) {
-			alert('No se puede eliminar');
-		}else{
-		$(this).parent().parent().remove();
-		}
-		
-
- });
-	</script>
-
-<script type="text/javascript">
-
-
-	$('#tabla_cargos_familiar').delegate('')
-	$('.add').on('click',function() {
-		add();
-	});
-	
-	function add() {
-		var trr=
-				'<tr>'+
-				'<td><input type="text" name="rut[]" class="form-control rut" placeholder="RUT"></td>'+
-				'<td><input type="text" name="nombre_completo[]"class="form-control nombre_completo" placeholder="Nombre Completo" </td>'+
-				'<td><input type="date" name="fecha_nacimiento[]"class="form-control fecha_nacimiento" placeholder="Fecha Nacimiento" ></td>'+
-				'<td><a href="#" class="btn btn-danger removee">X</a>'+
-				'</tr>';
-				
-
-				$('#tabla_cargos_familiar').append(trr);
-	};
-	$('.removee').live('click', function() {
-		var l=$('tbody tr').length;
-		if (l==1) {
-			alert('No se puede eliminar');
-		}else{
-		$(this).parent().parent().remove();
-		}
-		
-
- });
-	</script>
+<!---->
 </html>

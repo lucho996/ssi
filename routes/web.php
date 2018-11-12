@@ -46,6 +46,25 @@ Route::post('/personal/edit/{RUTP}', 'PersonalController@edit')
 ->middleware('permission:personal.edit');
 Route::get('/personal/show/{RUTP}', 'PersonalController@show')
 ->middleware('permission:personal.show');
+
+
+Route::get('/personal/carga_familiar/{RUTP}', 'PersonalController@carga_familiar')
+->middleware('permission:personal.carga_familiar');
+
+
+Route::post('/personal/store_carga/{RUTP}', 'PersonalController@store_carga')
+->middleware('permission:personal.carga_familiar');
+
+
+
+
+
+Route::post('/personal/cargos/{RUTP}', 'PersonalController@cargos')
+->middleware('permission:personal.cargos');
+Route::get('/personal/cargos/{RUTP}', 'PersonalController@cargos')
+->middleware('permission:personal.cargos');
+
+
 //Route::post('/personal/store', 'PersonalController@store');
 Route::post('/personal/storec', 'PersonalController@storec')
 ->middleware('permission:personal.createc');

@@ -29,7 +29,7 @@
                                 <select name="cliente" style="height: 35px;" class="form-control" >
 
                                         @foreach($clientes as $clientes)
-                                        <option value="{{$clientes->RUT_CLIENTE}}">{{$clientes->NOMBRE_COMPLETO}}</option>
+                                        <option value="{{$clientes->RUT_CLIENTE}}" @if($cotizacion->RUT_CLIENTE == $clientes->RUT_CLIENTE) selected @endif>{{$clientes->NOMBRE_COMPLETO}}</option>
                                         @endforeach
                                 </select>				
                             </p>

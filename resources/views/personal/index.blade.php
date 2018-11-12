@@ -31,13 +31,13 @@
                   <div id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav" style="display:inline; float:left;">
                                 @can('personal')
-                                <li><a href="/personal">Todos</a></li>	
+                                <li  class="active"><a href="/personal">Todos</a></li>	
                                 @endcan
                                 @can('personal.create')
                                 <li><a href="/personal/create">Nuevo</a></li>
                                 @endcan
                                 @can('personal.createc')
-                                <li class="active"><a href="/personal/createc">Nuevo Cargo</a></li>
+                                <li><a href="/personal/createc">Nuevo Cargo</a></li>
                                 @endcan	
                         </ul>
                   </div>

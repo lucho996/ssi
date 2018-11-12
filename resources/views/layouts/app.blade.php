@@ -111,16 +111,16 @@ ul.dropdown ul li a:hover{
         <nav class="navbar navbar-laravel" style="width:1100px; margin: 0px auto;">
            
             <div class="container">
-            <strong>SERVICIO DE INGENIERIA</strong> 
+            <img src="/images/png/logo.png" style="width:100px ; float:left;" alt=""> 
                 <div class="navbar-nav ml-auto" >
- 
+
                 <ul class="dropdown" style="margin-right:100%;">
                         @guest
 
                         @else
-                        <li><a href="#"><img src="https://www.kervangida.com/assets/admin/dist/img/user-flat.png" style="width:30px;" alt=""></a>
+                           
+                <li style="width:150px;"><a href="#" style="text-decoration:none; float:left; color:#000;"><label for="">{{Auth::user()->name}}</label></a><a href="#" style="float:right;"><img src="https://www.kervangida.com/assets/admin/dist/img/user-flat.png" style="width:30px;" alt=""></a>
                         <ul class="sub_menu">
-                
                         <li>      
                             <a style="text-decoration: none;" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
@@ -131,6 +131,9 @@ ul.dropdown ul li a:hover{
 
                         </ul>
                         </li>
+                   
+                      
+
 
 
 

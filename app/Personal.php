@@ -85,6 +85,11 @@ class Personal extends Model
         return $this->hasMany('App\ManoDeObra', 'RUTP', 'RUTP');
     }
 
+    public function Carga_Familiars()
+    {
+        return $this->hasMany('App\Carga_Familiar', 'RUTP', 'RUTP');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

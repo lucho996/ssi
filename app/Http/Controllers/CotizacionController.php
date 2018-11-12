@@ -62,21 +62,26 @@ class CotizacionController extends Controller
 
             
             $files = $request->all();
+            $ff="";
             for($i = 0; $i < $count; $i++){
                 $name = null;
                 
                 $producto = new Producto;
                
 
-                
+             
                 if($request->hasFile('plano')!=null){
                     
                     $file = $request->file('plano');
+                    if(array_key_exists($i, $file)){
+
+
                     $name = time().$file[$i]->getClientOriginalName();
+                    $ff=$ff."-".$name;
                     $file[$i]->move(public_path().'/planos/',$name);
                     
-                }
-                
+                } }
+            
               
                $producto->DESCRIPCION=$request->descripcion[$i];
                $producto->TIPO_PRODUCTO=$request->tipo[$i];
@@ -94,7 +99,7 @@ class CotizacionController extends Controller
                 $cotizacion = Cotizacion::find($id);
                 $cotizacion->productos()->attach($id_product);
             } 
-
+          
             Session::flash('message','Guardado Correctamente');
             Session::flash('class','success');
         }else{
@@ -134,6 +139,8 @@ class CotizacionController extends Controller
      
         return view('cotizacion.edit',compact('cotizacion'))->with('clientes',$clientes);
     }
+
+   
 
     /**
      * Update the specified resource in storage.
