@@ -56,6 +56,9 @@
                                       @can('producto.edit')
                                       <a href="/producto/edit/{{ $producto->ID_PRODUCTO }}"><img src="/images/png/editar.png" alt="" style="width:20px;"></a>   
                                       @endcan
+                                      @can('producto.create')
+                                      <a href="/producto/create/{{ $producto->ID_PRODUCTO }}"><img src="/images/png/editar.png" alt="" style="width:20px;"></a>   
+                                      @endcan
                                      
                                      
                                       

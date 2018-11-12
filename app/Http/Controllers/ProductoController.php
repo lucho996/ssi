@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Producto;
 use App\Clientes;
 use App\Cotizacion;
+use App\Personal;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -35,10 +36,12 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($ID_PRODUCTO)
     {
+        $personal=Personal::all();
+        $producto = Producto::findOrFail($ID_PRODUCTO);
         $clientes = Clientes::all();
-        return view('producto.create')->with('clientes',$clientes);
+        return view('producto.create')->with('clientes',$clientes)->with('producto',$producto)->with('personal',$personal);
     }
 
     /**

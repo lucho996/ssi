@@ -11,6 +11,7 @@ use App\Clientes;
 use App\Carga_Familiar;
 use Carbon\Carbon;
 use App\Cargo_Personal;
+use PDF;
 
 class PersonalController extends Controller
 {
@@ -152,6 +153,40 @@ class PersonalController extends Controller
         ])->with('carga',$carga)->with('cargo',$cargo);
 
     }
+    public function pdf($RUTP = null)
+    {
+
+        $carga = \DB::table('carga_familiar')
+        ->select('*')
+        ->join('personal','carga_familiar.RUTP','=','personal.RUTP')
+        ->where('personal.RUTP', '=', $RUTP)
+        ->get();
+        $cargo = \DB::table('cargo_personal')
+        ->select('*')
+        ->join('personal','cargo_personal.RUTP','=','personal.RUTP')
+        ->join('cargo','cargo_personal.ID_CARGO','=','cargo.ID_CARGO')
+        ->where('personal.RUTP', '=', $RUTP)
+        ->get();
+        $personal = Personal::where('RUTP', $RUTP)->first();
+
+        $view = view('personal.pdf', [
+            'personal' => $personal,
+        ])->with('carga',$carga)->with('cargo',$cargo);
+
+
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+return $pdf->stream('personal.pdf');
+       /* $pdf =PDF::loadview('personal.pdf',[
+
+        ]);*/
+
+
+
+
+    
+
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -176,6 +211,9 @@ class PersonalController extends Controller
         $personal = Personal::findOrFail($RUTP);
         return view('personal.edit',compact('personal'));
     }
+    public function carga_f(){
+        return view('personal.carga_familiar');
+    }
 
     public function carga_familiar($RUTP = null){
 
@@ -191,21 +229,35 @@ class PersonalController extends Controller
     }
 
 
-    public function store_carga(Request $request, $RUTP){
+
+    public function store_carga(Request $request){
      
 
-        $personal =  Personal::find($RUTP); 
-        dd($personal);
-        $personalinsert = new Personal;
-        $personalinsert->RUTP=$RUTP;
+     
+        $personal = Personal::find($request->Input('rutpu'));
+
+        $personalinsert = new Carga_Familiar;
+        $personalinsert->RUTP=$request->Input('rutpu');;
         $personalinsert->RUT=$request->Input('rut');
         $personalinsert->NOMBRE=$request->Input('nombre');
         $personalinsert->FECHA_NACIMIENTO=$request->Input('fecha_nacimiento');
-        $personalinsert->save();
-        
-    
-  
-    return redirect()->route('personal.carga_familiar');
+      
+       // dd($personalinsert);
+       try{
+        if($personalinsert->save()){
+            Session::flash('message','Guardado Correctamente');
+            Session::flash('class','success');
+            
+        }else{
+            Session::flash('message','Ha ocurrido un error');
+            Session::flash('class','danger');
+        }
+        }catch(\Exception $e) {
+        Session::flash('message','El RUT ingresado ya se encuentra registrado.');
+        Session::flash('class','danger');
+        }
+        return back()->withInput();
+       //return redirect()->action('PersonalController@edit');
     }
 
     /**
@@ -289,16 +341,50 @@ class PersonalController extends Controller
     
 }
 
+
+
+public function modificar_carga($ID_CARGA_FAMILIAR = null){
+    
+
+    $carga_familiar = carga_familiar::findOrFail($ID_CARGA_FAMILIAR);
+    return view('personal.modificar_carga',compact('carga_familiar','personal'));
+
+}
+
+public function updatee(Request $request, $ID_CARGA_FAMILIAR){
+
+    $carga_familiar =  carga_familiar::find($ID_CARGA_FAMILIAR);
+    $carga_familiar->RUT =$request->Input('rut');
+    $carga_familiar->NOMBRE =$request->Input('nombre');
+    $carga_familiar->FECHA_NACIMIENTO =$request->Input('fecha_nacimiento');
+
+    if ($carga_familiar->save()) {
+        Session::flash('message','Actualizado correctamente!');
+        Session::flash('class','success');
+    } else {
+        Session::flash('message','Ha ocurrido un error!');
+        Session::flash('class','danger');
+    }
+
+    return view('personal.modificar_carga',compact('carga_familiar'));
+
+}
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Personal  $personal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Personal $personal)
+    public function destroy($ID_CARGA_FAMILIAR)
     {
-        //
+        $carga_familiar = Carga_Familiar::find($ID_CARGA_FAMILIAR);
+       
+        $carga_familiar->delete();
+        return back()->with('info','Usuario Eliminado');
     }
+
+    
 
     public function storec(Request $request)
     {

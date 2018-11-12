@@ -25,9 +25,7 @@
                
                           {{ csrf_field() }}
                           <input name="_method" type="hidden" value="PUT">
-                      <p>   
-                          <input type="text" name="codigo" value="{{ $inventario->ID_INVENTARIO }}" placeholder="Codigo" class="form-control" onkeypress='return validaNumericos(event)' maxlength="9" minlength="9" required>
-                      </p>
+ 
                       <p>   
                             <input type="text" name="nombre" value="{{ $inventario->NOMBRE }}" placeholder="Nombre" class="form-control" onkeypress='return validaNumericos(event)' maxlength="20"  required>
                         </p>

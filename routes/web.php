@@ -47,13 +47,25 @@ Route::post('/personal/edit/{RUTP}', 'PersonalController@edit')
 Route::get('/personal/show/{RUTP}', 'PersonalController@show')
 ->middleware('permission:personal.show');
 
+Route::get('/personal/pdf/{RUTP}', 'PersonalController@pdf')
+->middleware('permission:personal.pdf');
 
 Route::get('/personal/carga_familiar/{RUTP}', 'PersonalController@carga_familiar')
 ->middleware('permission:personal.carga_familiar');
-
-
-Route::post('/personal/store_carga/{RUTP}', 'PersonalController@store_carga')
+Route::post('/personal/store_carga', 'PersonalController@store_carga')
 ->middleware('permission:personal.carga_familiar');
+
+Route::delete('/personal/carga_familiar/{carga_familiar}', 'PersonalController@destroy')->name('personal.destroy')
+->middleware('permission:personal.destroy');
+
+
+
+Route::put('/personal/updatee/{ID_CARGA_FAMILIAR}', 'PersonalController@updatee')->name('personal.updatee')
+->middleware('permission:personal.modificar_carga');
+Route::post('/personal/modificar_carga/{ID_CARGA_FAMILIAR}', 'PersonalController@modificar_carga')
+->middleware('permission:personal.modificar_carga');
+Route::get('/personal/modificar_carga/{ID_CARGA_FAMILIAR}', 'PersonalController@modificar_carga')
+->middleware('permission:personal.modificar_carga');
 
 
 
@@ -63,6 +75,7 @@ Route::post('/personal/cargos/{RUTP}', 'PersonalController@cargos')
 ->middleware('permission:personal.cargos');
 Route::get('/personal/cargos/{RUTP}', 'PersonalController@cargos')
 ->middleware('permission:personal.cargos');
+
 
 
 //Route::post('/personal/store', 'PersonalController@store');
@@ -76,12 +89,25 @@ Route::post('/personal/store2', array('as'=>'store2','uses'=>'PersonalController
 ->middleware('permission:personal.create');
 Route::post('/personal/update/{RUTP}', 'PersonalController@update')
 ->middleware('permission:personal.edit');
-Route::get('/personal/destroy/{RUTP}', 'PersonalController@destroy')
-->middleware('permission:personal.destroy');
+
 Route::resource('personal', 'PersonalController')
 ->middleware('permission:personal');
 
-
+//Rutas para el inventario
+Route::post('/inventario/store', 'InventarioController@store')
+->middleware('permission:inventario.create');
+Route::post('/inventario/update/{ID_INVENTARIO}', 'InventarioController@update')
+->middleware('permission:inventario.edit');
+Route::get('/inventario/edit/{ID_INVENTARIO}', 'InventarioController@edit')
+->middleware('permission:inventario.edit');
+Route::get('/inventario/destroy/{ID_INVENTARIO}', 'InventarioController@destroy')
+->middleware('permission:inventario.destroy');
+Route::post('/inventario/edit/{ID_INVENTARIO}', 'InventarioController@edit')
+->middleware('permission:inventario.edit');
+Route::resource('inventario', 'InventarioController')
+->middleware('permission:inventario');
+Route::get('/inventario/show/{ID_INVENTARIO}', 'InventarioController@show')
+->middleware('permission:inventario.show');
 //Rutas para el cliente
 Route::post('/clientes/store', 'ClientesController@store')
 ->middleware('permission:clientes.create');
@@ -97,25 +123,6 @@ Route::resource('clientes', 'ClientesController')
 ->middleware('permission:clientes');
 Route::get('/clientes/show/{RUT_CLIENTE}', 'ClientesController@show')
 ->middleware('permission:clientes.show');
-
-
-
-//Rutas para el inventario
-Route::post('/inventario/store', 'InventarioController@store')
-->middleware('permission:inventario.create');
-Route::post('/inventario/update/{ID_INVENTARIO}', 'InventarioController@update')
-->middleware('permission:inventario.edit');
-Route::get('/inventario/destroy/{ID_INVENTARIO}', 'InventarioController@destroy')
-->middleware('permission:inventario.destroy');
-Route::get('/inventario/edit/{ID_INVENTARIO}', 'InventarioController@edit')
-->middleware('permission:inventario.edit');
-Route::post('/inventario/edit/{ID_INVENTARIO}', 'InventarioController@edit')
-->middleware('permission:inventario.edit');
-Route::resource('inventario', 'InventarioController')
-->middleware('permission:inventario');
-Route::get('/inventario/show/{ID_INVENTARIO}', 'InventarioController@show')
-->middleware('permission:inventario.show');
-
 
 
 
@@ -180,6 +187,8 @@ Route::get('/cotizacion/show/{ID_COTIZACION}', 'CotizacionController@show')
 ->middleware('permission:cotizacion.show');
 Route::post('/cotizacion/store', array('as'=>'store','uses'=>'CotizacionController@store'))
 ->middleware('permission:cotizacion.create');
+Route::get('/producto/create/{ID_PRODUCTO}', 'ProductoController@create')
+->middleware('permission:producto.create');
 Route::post('/cotizacion/update/{ID_COTIZACION}', 'CotizacionController@update')
 ->middleware('permission:cotizacion.edit');
 Route::get('/cotizacion/destroy/{ID_COTIZACION}', 'CotizacionController@destroy')

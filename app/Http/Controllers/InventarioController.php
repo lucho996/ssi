@@ -98,8 +98,7 @@ class InventarioController extends Controller
     {
         $inventario =  Inventario::find($codigo);
 
-		
-        $inventario->ID_INVENTARIO =$request->Input('codigo');
+
         $inventario->NOMBRE =$request->Input('nombre');
         $inventario->MARCA =$request->Input('marca');
         $inventario->UBICACION =$request->Input('ubicacion');
