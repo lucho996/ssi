@@ -124,7 +124,37 @@ class PersonalController extends Controller
        // $persona->TIPO = Select::get('tipo');
     
     }
+    public function create_cargos($RUTP = null){
 
+        $personal = Personal::findOrFail($RUTP);
+
+        $cargos = \DB::table('cargo_personal')
+        ->select('*')
+        ->join('personal','cargo_personal.RUTP','=','personal.RUTP')
+        ->join('cargo','cargo.ID_CARGO','=','cargo_personal.ID_CARGO')
+        ->where('personal.RUTP', '=', $RUTP)
+        ->get();
+
+        $carg = \DB::table('cargo')
+        ->select('*')
+        ->get();
+        //dd($carg);
+       // dd($cargos);
+        return view('personal.cargos')->with('cargos',$cargos)->with('personal',$personal)->with('carg',$carg);
+
+    }
+
+    public function store_cargos(Request $request){
+        $insercion = new Cargo_Personal;
+        //dd($insercion->RUTP=$request->Input('rutpu'));
+        $insercion->ID_CARGO=$request->Input('cargoss');
+        $insercion->RUTP=$request->Input('rutpu');
+        $insercion->FECHA_CARGO=Carbon::now();
+        $insercion->save();
+
+        return back()->withInput();
+
+    }
 
 
     /**
@@ -381,6 +411,13 @@ public function updatee(Request $request, $ID_CARGA_FAMILIAR){
         $carga_familiar = Carga_Familiar::find($ID_CARGA_FAMILIAR);
        
         $carga_familiar->delete();
+        return back()->with('info','Usuario Eliminado');
+    }
+    public function destroy_c($ID_CARGO_PERSONAL)
+    {
+        $cargo_personal = Cargo_Personal::find($ID_CARGO_PERSONAL);
+       
+        $cargo_personal->delete();
         return back()->with('info','Usuario Eliminado');
     }
 

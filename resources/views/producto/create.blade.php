@@ -10,7 +10,8 @@
 		}
 	</style>
 </head>
-
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
 <body >
 
@@ -46,7 +47,7 @@
 					{{ csrf_field() }}
 		<div class="panel panel-success"style="width:100%;">
 				<div class="panel-heading">
-				<h4>Datos Del Producto</h4>
+				<h4>Cotización De Producto</h4>
 					</div>
 			
 				<div class="panel-body">
@@ -87,7 +88,11 @@
 												</thead>
 												<tbody>
 													<tr>
-															<td><select name="proveedor[]" >	<option>prueba</option></select>
+															<td><select name="proveedor[]" >
+																@foreach($proveedor as $proveedor)
+																<option value="{{$proveedor->RUT}}">{{$proveedor->NOMBRE}}</option>
+																@endforeach
+														</select>
 															</td>
 														<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required>
 														</td>
@@ -126,8 +131,8 @@
 									<table class="table" id="manodeobra">
 															<thead>
 																
-																	<th>Persona</th>
 																	<th>Cargo</th>
+																	<th>Persona</th>
 																	<th>Cantidad de horas</th>
 																	<th>Valor Hora Hombre</th>
 																	<th>Valor Total</th>
@@ -137,14 +142,23 @@
 															</thead>
 															<tbody>
 																<tr>
-																	
-																	<td><select name="persona[]" >	<option>prueba</option></select>
-																	</td>
-																	<td><select name="cargo[]" >	<option>prueba</option></select>
+																		
+																		<td><select name="cargop[]" id="cargop">
+																				<option value="0" disable="true" selected="true">=== Seleccione Cargo ===</option>
+																			@foreach($cargo as $key => $value)
+																		<option value="{{$value->ID_CARGO}}">{{$value->CARGO}}</option>
+																		@endforeach</select>
+																		
 			
 			
 																			
-																</td>
+																		</td>
+																		
+																	<td><select name="persona[]" id="personap">	
+																			<option value="0" disable="true" selected="true">=== Seleccione Persona ===</option>
+																		</select>
+																	</td>
+													
 																	<td>
 																			<input type="text" name="cantidadhoras[]" placeholder="Precio unitario" class="form-control cantidadhoras">
 																	</td>
@@ -184,22 +198,29 @@
 																			
 																		</thead>
 																		<tbody>
-																			<tr>
-																					<td><select name="equipo[]" >	<option>prueba</option></select>
-																					</td>
-																				<td><input name="cantidad[]" style="height:35px;" class="form-control tipo" type="text" placeholder="Cantidad">
-						
-						
-																						
-																			</td>
-																				<td>
-																						<input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario">
+																				<tr>
+																					<td><select name="equipo[]" class="form-control equipo"  style="height:35px;" id="equipo">
+																					<option value="0" disable="true" selected="true">=== Seleccione Inventario ===</option>	
+																					@foreach($inventario as $key =>$value)
+																					<option value="{{$value->ID_INVENTARIO}}">{{$value->NOMBRE}}</option>
+																					@endforeach</select>
 																				</td>
-																				<td>	<input type="text"  name="valortotal[]"    class="form-control valortotal" required disabled></td>
-																				<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>
-																					</td>
-																			</tr>
+																					<td><input type="text" name="cantidad[]" style="height:35px;" class="form-control cantidad" placeholder="Cantidad"></td>
+																					<td><input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario"></td>
+																					<td><input type="text" name="valortotal[]"    class="form-control valortotal" required disabled></td>
+																					<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a></td>
+																				</tr>
 																		</tbody>
+																		<tfoot>
+																			<tr>
+																				<td style="border: none;"></td>
+																				<td style="border: none;"></td>
+																				<td><b>Total</b></td>
+																				<td>$<b class="total" ></b></td>
+																				<td style="border: none;"></td>
+																				<td></td>
+																			</tr>
+																		</tfoot>
 																		
 																	</table>
 																</div>
@@ -277,11 +298,10 @@
 
 
 </body>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('js/solo_num.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/solo_letras.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/live.js') }}"></script>
-
 
 
 
@@ -299,8 +319,6 @@ function addRow() {
 			'<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required>'+
 			'</td>'+
 			'<td><input name="cantidad[]" style="height:35px;" class="form-control tipo" type="text" placeholder="Cantidad">'+
-
-
 					
 		'</td>'+
 			'<td>'+
@@ -324,27 +342,33 @@ $('.remove').live('click', function() {
 </script>
 
 <script type="text/javascript">
-$('#manodeobra').delegate('')
+$('#manodeobra').delegate('.cantidadhoras,.valorhh','keyup', function(){
+alert('test');
+});
 $('.addmano').on('click',function() {
 	addmo();
 });
-
 function addmo() {
 	var tr='<tr>'+
-			
-			'<td><select name="persona[]" >	<option>prueba</option></select>'+
-			'</td>'+
-			'<td><select name="cargo[]" >	<option>prueba</option></select>'+
-					
-		'</td>'+
-			'<td>'+
-					'<input type="text" name="cantidadhoras[]" placeholder="Precio unitario" class="form-control cantidadhoras">'+
+																		
+	'<td><select name="cargop[]" id="cargop">'+
+	'<option value="0" disable="true" selected="true">=== Seleccione Cargo ===</option>'+
+	'@foreach($cargo as $key => $value)'+
+	'<option value="{{$value->ID_CARGO}}">{{$value->CARGO}}</option>'+
+	'@endforeach</select>'+	
 	'</td>'+
-			'<td>	<input type="text"  name="valorhh[]"    class="form-control valorhh" required></td>'+
-			'<td>	<input type="text"  name="valortotal[]"    class="form-control valortotal" required></td>'+
-			'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>'+
-				'</td>'+
-		'</tr>';
+	'<td><select name="persona[]" id="personap">'+
+	'<option value="0" disable="true" selected="true">=== Seleccione Persona ===</option>'+
+	'</select>'+
+	'</td>'+
+	'<td>'+
+	'<input type="text" name="cantidadhoras[]" placeholder="Precio unitario" class="form-control cantidadhoras">'+
+	'</td>'+
+	'<td>	<input type="text"  name="valorhh[]"    class="form-control valorhh" required></td>'+
+	'<td>	<input type="text"  name="valortotal[]"    class="form-control valortotal" required disabled></td>'+
+	'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>'+
+	'</td>'+
+	'</tr>';
 			$('#manodeobra').append(tr);
 };
 $('.remove').live('click', function() {
@@ -358,23 +382,63 @@ $('.remove').live('click', function() {
 });
 </script>
 <script type="text/javascript">
-$('#equiposyherramientas').delegate('')
+$('#equiposyherramientas').delegate('.equipo','change',function(){
+	var tr = $(this).parent().parent();
+	var id= tr.find('.equipo').val();
+	var dataId={'id':id};
+	$.ajax({
+	type : 'GET',
+	url :	'{!!URL::route('findPrice')!!}',
+	dataType:'json',
+	data: dataId,
+	success:function(data){
+		
+		tr.find('.preciounitario').val(data.VALOR);
+	}
+	});
+});
+$('#equiposyherramientas').delegate('.equipo','change',function(){
+	var tr = $(this).parent().parent();
+	tr.find('.cantidad').focus();
+});
+$('#equiposyherramientas').delegate('.cantidad,.preciounitario','keyup', function(){
+var tr =$(this).parent().parent();
+var cantidad = tr.find('.cantidad').val();
+var preciounitario = tr.find('.preciounitario').val();
+var suma = (cantidad * preciounitario);
+tr.find('.valortotal').val(suma);
+total();
+});
+
 $('.addhr').on('click',function() {
 	addher();
 });
+function total(){
+	var total = 0;
+	$('.valortotal').each(function(i,e){
+		var suma = $(this).val()-0;
+		total += suma;
+	})
+	$('.total').html(total);
+};
+
 function addher() {
-	var tr='<tr>'+
-			'<td><select name="equipo[]" >	<option>prueba</option></select>'+
+var tr='<tr>'+
+		'<td><select name="equipo[]" class="form-control equipo" style="height:35px ;">'+
+			'<option value="0" disable="true" selected="true">=== Seleccione Inventario ===</option>'+
+			'@foreach($inventario as $key =>$value)'+
+			'<option value="{{$value->ID_INVENTARIO}}">{{$value->NOMBRE}}</option>'+
+			'@endforeach</select>'+
 			'</td>'+
-		'<td><input name="cantidad[]" style="height:35px;" class="form-control tipo" type="text" placeholder="Cantidad">'+
-		'</td>'+
-		'<td>'+
-				'<input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario">'+
-		'</td>'+
-		'<td>	<input type="text"  name="valortotal[]"    class="form-control valortotal" required></td>'+
-		'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>'+
+			'<td><input name="cantidad[]" style="height:35px;" class="form-control cantidad" type="text" placeholder="Cantidad">'+	
 			'</td>'+
-	'</tr>';
+			'<td>'+
+			'<input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario">'+
+			'</td>'+
+			'<td><input type="text"  name="valortotal[]"    class="form-control valortotal" required disabled></td>'+
+			'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>'+
+			'</td>'+
+			'</tr>';
 			$('#equiposyherramientas').append(tr);
 };
 $('.remove').live('click', function() {
@@ -384,7 +448,7 @@ $('.remove').live('click', function() {
 	}else{
 	$(this).parent().parent().remove();
 	}
-	
+	total();
 });
 </script>
 <script type="text/javascript">
@@ -397,8 +461,6 @@ $('.remove').live('click', function() {
 			'<td><input type="text" name="nombre[]"  placeholder="Descripción" class="form-control nombre" maxlength="50"  required>'+
 			'</td>'+
 			'<td><input name="marca[]" style="height:35px;" class="form-control tipo" type="text" placeholder="marca">'+
-
-
 					
 		'</td>'+
 			'<td>'+
@@ -413,6 +475,7 @@ $('.remove').live('click', function() {
 		'</tr>';
 				$('#equiposyserviciosarrendados').append(tr);
 	};
+	
 	$('.remove').live('click', function() {
 		var l=$('tbody tr').length;
 		if (l==1) {
@@ -423,6 +486,22 @@ $('.remove').live('click', function() {
 		
 	});
 	</script>
-	<script>
+  <script type="text/javascript">
+	$('#cargop').on('change', function(e){
+	  console.log(e);
+	
+	  var id_cargo = e.target.value;
+	  $.get('/json-personalcargo?id_cargo=' + id_cargo,function(data) {
+		console.log(data);
+		
+		$('#personap').empty();
+		$('#personap').append('<option value="0" disable="true" selected="true">=== Seleccione persona ===</option>');
+	
+		$.each(data, function(index, regenciesObj){
+		  $('#personap').append('<option value="'+ regenciesObj.RUTP +'">'+ regenciesObj.NOMBREP +'</option>');
+		})
+	  });
+	});
 	</script>
+	
 </html>

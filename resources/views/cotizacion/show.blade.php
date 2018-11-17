@@ -46,6 +46,17 @@
 							<td style="text-align:right;"><strong>Estado:</strong> </td>
 							<td>{{$cotizacion ->ESTADO}}</td>	
 						</tr>
+						<tr>
+							
+							@foreach ($orden as $orden)
+							@if($orden->RUTA <> "")
+							<td style="text-align:right;"><strong>Orden de Compra:</strong> </td>
+							<td><a href="/orden_compra_cliente/{{$orden->RUTA}}"><img src="/images/png/pdf.png" style="width:30px ;" alt=""></a></td>
+							@endif
+							@endforeach
+							
+	
+						</tr>
 					</tbody>
 				</table>
 

@@ -37,7 +37,6 @@ Route::get('/intranet/index', function () {
 
 
 //Rutas para el personal
-
 Route::get('personal/index', 'PersonalController@index')->name('personal.index')
 ->middleware('permission:personal.index');
 Route::get('/personal/edit/{RUTP}', 'PersonalController@edit')
@@ -46,18 +45,11 @@ Route::post('/personal/edit/{RUTP}', 'PersonalController@edit')
 ->middleware('permission:personal.edit');
 Route::get('/personal/show/{RUTP}', 'PersonalController@show')
 ->middleware('permission:personal.show');
-
 Route::get('/personal/pdf/{RUTP}', 'PersonalController@pdf')
 ->middleware('permission:personal.pdf');
 
-Route::get('/personal/carga_familiar/{RUTP}', 'PersonalController@carga_familiar')
-->middleware('permission:personal.carga_familiar');
-Route::post('/personal/store_carga', 'PersonalController@store_carga')
-->middleware('permission:personal.carga_familiar');
-
 Route::delete('/personal/carga_familiar/{carga_familiar}', 'PersonalController@destroy')->name('personal.destroy')
 ->middleware('permission:personal.destroy');
-
 
 
 Route::put('/personal/updatee/{ID_CARGA_FAMILIAR}', 'PersonalController@updatee')->name('personal.updatee')
@@ -67,14 +59,22 @@ Route::post('/personal/modificar_carga/{ID_CARGA_FAMILIAR}', 'PersonalController
 Route::get('/personal/modificar_carga/{ID_CARGA_FAMILIAR}', 'PersonalController@modificar_carga')
 ->middleware('permission:personal.modificar_carga');
 
+Route::post('/personal/store_carga', 'PersonalController@store_carga')
+->middleware('permission:personal.carga_familiar');
+Route::get('/personal/carga_familiar/{RUTP}', 'PersonalController@carga_familiar')
+->middleware('permission:personal.carga_familiar');
 
 
-
-
-Route::post('/personal/cargos/{RUTP}', 'PersonalController@cargos')
+Route::post('/personal/store_cargos', 'PersonalController@store_cargos')
 ->middleware('permission:personal.cargos');
-Route::get('/personal/cargos/{RUTP}', 'PersonalController@cargos')
+Route::get('/personal/cargos/{RUTP}', 'PersonalController@create_cargos')
 ->middleware('permission:personal.cargos');
+Route::delete('/personal/cargos/{cargo_personal}', 'PersonalController@destroy_c')->name('personal.destroy_c')
+->middleware('permission:personal.destroy_c');
+/*Route::post('/personal/cargos/{RUTP}', 'PersonalController@store_cargos')
+->middleware('permission:personal.cargos');
+Route::get('/personal/cargos/{RUTP}', 'PersonalController@store_cargos')
+->middleware('permission:personal.cargos');*/
 
 
 
@@ -159,6 +159,10 @@ Route::get('/producto/index/{ID_COTIZACION}', 'ProductoController@index')
 ->middleware('permission:producto.index');
 Route::post('/producto/index/{ID_COTIZACION}', 'ProductoController@index')
 ->middleware('permission:producto.index');
+Route::get('/json-personalcargo','ProductoController@personalcargo');
+
+Route::get('/findPrice',array('as'=>'findPrice','uses'=>'ProductoController@findPrice'));
+
 Route::resource('producto', 'ProductoController')
 ->middleware('permission:producto');
 
@@ -179,6 +183,16 @@ Route::resource('equipos_internos', 'Equipo_internoController')
 ->middleware('permission:equipos_internos');
 
 //rutas para las cotizaciones
+
+
+Route::post('/cotizacion/store_orden', 'CotizacionController@store_orden')->name('store_orden')
+->middleware('permission:cotizacion.guia');
+Route::get('/cotizacion/guia/{ID_COTIZACION}', 'CotizacionController@create_orden')
+->middleware('permission:cotizacion.guia');
+
+Route::get('/cotizacion/show', 'CotizacionController@show2')
+->middleware('permission:cotizacion.show');
+
 Route::get('/cotizacion/edit/{ID_COTIZACION}', 'CotizacionController@edit')
 ->middleware('permission:cotizacion.edit');
 Route::post('/cotizacion/edit/{ID_COTIZACION}', 'CotizacionController@edit')

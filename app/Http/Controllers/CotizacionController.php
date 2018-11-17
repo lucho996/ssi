@@ -8,6 +8,7 @@ use App\Cotizacion;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Orden_de_compra;
 
 class CotizacionController extends Controller
 {
@@ -39,6 +40,52 @@ class CotizacionController extends Controller
         return view('cotizacion.create')->with('clientes',$clientes);
     }
 
+    public function create_orden($ID_COTIZACION = null){
+
+        $cotizacion = Cotizacion::findOrFail($ID_COTIZACION);
+      
+        /*$orden = \DB::table('cargo_personal')
+        ->select('*')
+        ->join('personal','cargo_personal.RUTP','=','personal.RUTP')
+        ->join('cargo','cargo.ID_CARGO','=','cargo_personal.ID_CARGO')
+        ->where('personal.RUTP', '=', $RUTP)
+        ->get();*/
+        //dd($carg);
+       // dd($cargos);
+        return view('cotizacion.guia')->with('cotizacion',$cotizacion);
+    }
+    public function store_orden(Request $request){
+        
+        if($request->hasFile('ruta')!=null){
+                    
+            $file = $request->file('ruta');
+            $name = time().$file->getClientOriginalName();
+        
+            $file->move(public_path().'/orden_compra_cliente/',$name);  
+        }
+
+        if( $cotizacion = Cotizacion::find($request->Input('id_cot')) and  $cotizacion->ID_ORDEN_COMPRA == "" ){ 
+        $orden = new Orden_de_compra;
+        $orden->RUT_CLIENTE = $request->Input('run_c');
+        $orden->NUM_ORDEN_COMPRA = $request->Input('num_orden');
+        $orden->FECHA_INGRESO = Carbon::now();
+        $orden->RUTA = $name;
+        
+        if($orden->save()){ 
+        $cotizacion = Cotizacion::find($request->Input('id_cot'));
+        $cotizacion->ID_ORDEN_COMPRA = $orden->ID_ORDEN_COMPRA;
+      
+        $cotizacion->save();
+        Session::flash('message','Guardado Correctamente');
+        Session::flash('class','success');
+        }
+    }else{
+        Session::flash('message','Esta cotizacion ya tiene una Orden de compra asignada');
+        Session::flash('class','danger');
+    }
+        
+        return view('cotizacion.guia')->with('cotizacion',$cotizacion);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -116,13 +163,26 @@ class CotizacionController extends Controller
      * @param  \App\Cotizacion  $cotizacion
      * @return \Illuminate\Http\Response
      */
+    public function show2(){
+        $orden = \DB::table('orden_de_compra')
+        ->select('RUTA')
+        ->join('cotizacion','orden_de_compra.ID_ORDEN_COMPRA','=','cotizacion.ID_ORDEN_COMPRA')
+        ->where('cotizacion.ID_COTIZACION', '=', 27)
+        ->get();   
+        return view('cotizacion.show')->with('orden',$orden);
+    }
+
     public function show( $ID_COTIZACION = null)
     {
         $cotizacion =  Cotizacion::where('ID_COTIZACION', $ID_COTIZACION)->first();
-
-        return view('cotizacion.show', [
-            'cotizacion' => $cotizacion,
-        ]);
+        $orden = \DB::table('orden_de_compra')
+        ->select('*')
+        ->join('cotizacion','orden_de_compra.ID_ORDEN_COMPRA','=','cotizacion.ID_ORDEN_COMPRA')
+        ->where('cotizacion.ID_COTIZACION', '=', $ID_COTIZACION)
+        ->get();
+     
+       
+        return view('cotizacion.show')->with('cotizacion',$cotizacion)->with('orden',$orden);
     }
 
 

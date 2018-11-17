@@ -21,7 +21,7 @@ class Orden_de_compra extends Model
      * @var string
      */
     protected $table = 'orden_de_compra';
-
+    public $timestamps = false;
     /**
      * The primary key for the model.
      * 

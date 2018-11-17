@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Producto;
 use App\Clientes;
 use App\Cotizacion;
+use App\Inventario;
 use App\Personal;
+use App\Proveedor;
 use Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -36,13 +38,39 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($ID_PRODUCTO)
+    public function create(Request $request,$ID_PRODUCTO)
     {
+
+        
+        $inventario= Inventario::all();
         $personal=Personal::all();
         $producto = Producto::findOrFail($ID_PRODUCTO);
         $clientes = Clientes::all();
-        return view('producto.create')->with('clientes',$clientes)->with('producto',$producto)->with('personal',$personal);
+        $proveedor=Proveedor::all();
+        $cargo = \DB::table('cargo')
+        ->select('*')
+        ->get();
+        return view('producto.create')->with('clientes',$clientes)->with('producto',$producto)->with(compact('personal'))->with('proveedor',$proveedor)->with('inventario',$inventario)->with('cargo',$cargo);
     }
+
+    public function personalcargo(Request $request){
+    
+        $cargo = $request->Input('id_cargo');
+        $persona = \DB::table('cargo_personal')
+        ->select('*')
+        ->join('personal','cargo_personal.RUTP', '=','personal.RUTP')
+        ->join('cargo','cargo_personal.ID_CARGO', '=','cargo.ID_CARGO')
+        ->where('cargo_personal.ID_CARGO','=',$cargo)
+        ->get();
+
+        return response()->json($persona);
+      }
+      
+      public function findPrice(Request $request){
+      
+        $data=Inventario::select('VALOR')->where('ID_INVENTARIO',$request->id)->first(); 
+        return response()->json($data);
+      }
 
     /**
      * Store a newly created resource in storage.

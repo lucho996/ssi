@@ -79,6 +79,9 @@
                                       @can('producto')
                                       <a href="/producto/index/{{$cot->ID_COTIZACION}}"><img src="/images/png/productos.png"style="width:20px;" alt=""></a>      
                                       @endcan
+                                      @can('cotizacion.guia')
+                                      <a href="/cotizacion/guia/{{$cot->ID_COTIZACION}}"><img src="/images/png/orden.png"style="width:20px;" alt=""></a>      
+                                      @endcan
                       
                                   </td>
                               </tr>
