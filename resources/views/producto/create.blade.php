@@ -40,7 +40,7 @@
 			  </nav>
 	
 			
-{!!Form::open(array('route'=>'store', 'id'=>'frmsave', 'method'=>'post','files'=>true))!!}
+{!!Form::open(array('route'=>'store3', 'id'=>'frmsaveee', 'method'=>'post','files'=>true))!!}
 @if(Session::has('message'))
 <div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
 @endif
@@ -216,7 +216,7 @@
 																				<td style="border: none;"></td>
 																				<td style="border: none;"></td>
 																				<td><b>Total</b></td>
-																				<td>$<b class="total" ></b></td>
+																				<td>$ <label for="" name="totalito" class="total"></label></td>
 																				<td style="border: none;"></td>
 																				<td></td>
 																			</tr>

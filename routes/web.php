@@ -149,7 +149,7 @@ Route::post('/producto/edit/{ID_PRODUCTO}', 'ProductoController@edit')
 ->middleware('permission:producto.edit');
 Route::get('/producto/show/{ID_PRODUCTO}', 'ProductoController@show')
 ->middleware('permission:producto.show');
-Route::post('/producto/store', 'ProductoController@store')
+Route::post('/producto/store3',  array('as'=>'store3','uses'=>'ProductoController@store3'))
 ->middleware('permission:producto.create');
 Route::post('/producto/update/{ID_PRODUCTO}', 'ProductoController@update')
 ->middleware('permission:producto.edit');
@@ -209,6 +209,31 @@ Route::get('/cotizacion/destroy/{ID_COTIZACION}', 'CotizacionController@destroy'
 ->middleware('permission:cotizacion.destroy');
 Route::resource('cotizacion', 'CotizacionController')
 ->middleware('permission:cotizacion');
+
+//Convenios
+Route::post('/convenio/store_orden', 'ConvenioController@store_orden')->name('store_orden')
+->middleware('permission:convenio.guia');
+Route::get('/convenio/guia/{ID_CONVENIO}', 'ConvenioController@create_orden')
+->middleware('permission:convenio.guia');
+Route::get('/convenio/show', 'ConvenioController@show2')
+->middleware('permission:convenio.show');
+Route::get('/convenio/edit/{ID_CONVENIO}', 'ConvenioController@edit')
+->middleware('permission:convenio.edit');
+Route::post('/convenio/edit/{ID_CONVENIO}', 'ConvenioController@edit')
+->middleware('permission:convenio.edit');
+Route::get('/convenio/show/{ID_CONVENIO}', 'ConvenioController@show')
+->middleware('permission:convenio.show');
+Route::post('/convenio/store', array('as'=>'store3','uses'=>'ConvenioController@store'))
+->middleware('permission:convenio.create');
+
+Route::get('/producto/create/{ID_PRODUCTO}', 'ProductoController@create')
+->middleware('permission:producto.create');
+Route::post('/convenio/update/{ID_CONVENIO}', 'ConvenioController@update')
+->middleware('permission:convenio.edit');
+Route::get('/convenio/destroy/{ID_CONVENIO}', 'ConvenioController@destroy')
+->middleware('permission:convenio.destroy');
+Route::resource('convenio', 'ConvenioController')
+->middleware('permission:convenio');
 
 
 //rutas para usuarios

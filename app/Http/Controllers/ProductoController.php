@@ -78,40 +78,10 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store3(Request $request)
     {
-        if($request->hasFile('plano')){
-            $file = $request->file('plano');
-            $name = time().$file->getClientOriginalName();
-            $file->move(public_path().'/planos/',$name);
-           
-        }
-        $cotizacion = new Cotizacion;
-        $producto = new Producto;
-        $cotizacion->RUT_CLIENTE =$request->Input('cliente');
-        $cotizacion->COD_PETICION_OFERTA =$request->Input('codigo_pet_oferta');
-        $cotizacion->FECHA_LLEGADA = Carbon::now();
-        $cotizacion->FECHA_RESPUESTA_COTIZACION =$request->Input('fecha_resp_coti');
-        $cotizacion->DESCRIPCION =$request->Input('descripcion_cot');
-
-
-        $producto->DESCRIPCION =$request->Input('descripcion');
-        $producto->TIPO_PRODUCTO =$request->Input('tipo');
-        $producto->PLANO_PRODUCTO =$name;
-        $producto->FECHA_DE_ENTREGA_PRODUCTO =$request->Input('fecha_entrega');
-        $producto->ESTADO = "Falta Cotización";
-        try{
-        if($producto->save() and $cotizacion->save()){
-            Session::flash('message','Guardado Correctamente');
-            Session::flash('class','success');
-        }else{
-            Session::flash('message','Ha ocurrido un error');
-            Session::flash('class','danger');
-        }
-        }catch(\Exception $e) {
-        Session::flash($e);
-        Session::flash('class','danger');
-        }
+        dd($request);
+        
         return redirect()->route('producto.create');
     }
 

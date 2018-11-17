@@ -85,6 +85,7 @@
 													
 														<th>Descripción</th>
 														<th>Tipo</th>
+														<th>Cantidad</th>
 														<th>Plano</th>
 														<th>Fecha Entrega</th>
 														<th><a href="#" class="addRow"><img src="/images/png/mas.png" style="width:40px; height:35px;" alt=""></a></th>
@@ -101,7 +102,8 @@
 																
 																<option>Emergencia</option>	
 																
-													</select></td>
+														</select></td>
+														<td><input type="text" name="cantidad[]" class="form-control cantidad"></td>
 														<td>
 																<input type="file" name="plano[]" accept="application/pdf" class="plano">
 														</td>
@@ -159,6 +161,7 @@ function addRow() {
 					'<option>Emergencia</option>'+
 					
 		'</select></td>'+
+		'<td><input type="text" name="cantidad[]" class="form-control cantidad"></td>'+
 			'<td>'+
 					'<input type="file" name="plano[]" accept="application/pdf" class="custom-file plano">'+
 			'</td>'+

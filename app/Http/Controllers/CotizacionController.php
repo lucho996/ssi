@@ -9,6 +9,7 @@ use Session;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Orden_de_compra;
+use App\Detalle_C;
 
 class CotizacionController extends Controller
 {
@@ -94,6 +95,7 @@ class CotizacionController extends Controller
      */
     public function store(Request $request)
     {
+       // dd($request);
         $cotizacion = new Cotizacion;
         
         $cotizacion->RUT_CLIENTE =$request->Input('cliente');
@@ -129,7 +131,8 @@ class CotizacionController extends Controller
                     
                 } }
             
-              
+                
+                
                $producto->DESCRIPCION=$request->descripcion[$i];
                $producto->TIPO_PRODUCTO=$request->tipo[$i];
                $producto->PLANO_PRODUCTO=$name;
@@ -137,15 +140,21 @@ class CotizacionController extends Controller
                $producto->ESTADO="Falta Cotizacion";
         
                $producto->save();
-                
+              
                 
 
                 $id=$cotizacion->ID_COTIZACION;
                 $id_product= $producto->ID_PRODUCTO;
 
-                $cotizacion = Cotizacion::find($id);
-                $cotizacion->productos()->attach($id_product);
+                $dt = new Detalle_C;
+                $dt->ID_COTIZACION = $id;
+                $dt->ID_PRODUCTO = $id_product;
+                $dt->CANTIDAD = $request->cantidad[$i];
+                $dt->save();
+                //$cotizacion = Cotizacion::find($id);
+                //$cotizacion->productos()->attach($id_product);
             } 
+         
           
             Session::flash('message','Guardado Correctamente');
             Session::flash('class','success');

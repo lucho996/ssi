@@ -23,7 +23,7 @@
                 <div style="width:100% ; max-width: 850px;float: right; position:relative;">
                     <table>
                         <thead>
-                            
+                            <img src="https://portalinnova.cl/wp-content/uploads/2018/07/marco-fernandez-udec-cetma-inversion-tecnologica-en-pymes.jpg" alt="">
                         </thead>
                     </table>
                 </div>

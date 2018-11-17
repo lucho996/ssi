@@ -46,10 +46,11 @@
                     <li><a href="#">Cotizacion</a>
                     <ul>
                         <li><a href="/cotizacion">Solicitud Cotizaciòn</a></li>
-                        <li><a href="/equipos_internos">Equipos</a></li>
-                        
                     </ul>
                     </li>
+                    @endcan
+                    @can('convenio')
+                    <li><a href="/convenio">Convenios</a></li>
                     @endcan
                 </ul>
             </div>

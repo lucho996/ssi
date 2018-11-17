@@ -22,7 +22,7 @@ class Convenio extends Model
      * @var string
      */
     protected $primaryKey = 'ID_CONVENIO';
-
+    public $timestamps = false;
     /**
      * @var array
      */
