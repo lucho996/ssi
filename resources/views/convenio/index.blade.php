@@ -29,8 +29,8 @@
                         <li class="active"><a href="/convenio">Todos</a></li>
                         @endcan
                         @can('convenio.create')
-                            <li><a href="/convenio/create">Nuevo</a></li>
-                            @endcan
+                        <li ><a href="/convenio/create">Nuevo</a></li>
+                        @endcan
                         </ul>
                   </div>
               </div>
@@ -65,11 +65,8 @@
                                 <td>{{ $convenio->FECHA_TERMINO }}</td>
                                 <td>{{ $convenio->TOTAL }}</td>
                                 <td>
-                                    @can('convenio.show')
-                                    <a href="/convenio/show/{{ $convenio->ID_CONVENIO }}" ><img src="images/png/ver.png" alt="" style="width:20px;"></a>
-                                    @endcan
-                                    @can('convenio.edit')
-                                    <a href="/convenio/edit/{{$convenio->ID_CONVENIO}}"><img src="images/png/editar.png" alt="" style="width:20px;"></a>
+                                    @can('producto.index2')
+                                    <a href="/producto/index2/{{$convenio->ID_CONVENIO}}"><img src="images/png/productos.png" alt="" style="width:20px;"></a>
                                     @endcan
                                 </td>
                                 
@@ -84,6 +81,7 @@
         @endif
         </div>
         </div>
+        
 
     
 </body>

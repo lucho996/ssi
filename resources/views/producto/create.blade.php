@@ -8,6 +8,9 @@
 		.badge {
 			float: right;
 		}
+		thead th input { 
+	background:url('/images/png/mas.png' ) no-repeat; border:none;  width:40px; height:40px;; 
+	background-size: 40px;}
 	</style>
 </head>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
@@ -40,11 +43,12 @@
 			  </nav>
 	
 			
-{!!Form::open(array('route'=>'store3', 'id'=>'frmsaveee', 'method'=>'post','files'=>true))!!}
+{!!Form::open(array('route'=>'store4', 'id'=>'frmsave', 'method'=>'post','files'=>true))!!}
 @if(Session::has('message'))
 <div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
 @endif
 					{{ csrf_field() }}
+					<input type="hidden" name="idproducto" value="{{$producto->ID_PRODUCTO}}" >
 		<div class="panel panel-success"style="width:100%;">
 				<div class="panel-heading">
 				<h4>Cotización De Producto</h4>
@@ -53,18 +57,33 @@
 				<div class="panel-body">
 
 				<p>
-					<input type="text" name="descripcion" placeholder="descripcion" disabled="false" value="{{$producto->DESCRIPCION}}" class="form-control">			
+					<input type="text" name="descripcion" placeholder="descripcion" readonly value="{{$producto->DESCRIPCION}}" class="form-control">			
 				</p>
 				<p>
-					<input type="text" value="{{$producto->TIPO_PRODUCTO}}"name="tipo" placeholder="Cod. Petición" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required disabled="false">
+					<input type="text" value="{{$producto->TIPO_PRODUCTO}}"name="tipo" placeholder="Tipo de Producto" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required readonly>
 				</p>
+				@if($producto->PLANO_PRODUCTO!= null)
 				<p>
-						<input type="text" value="{{$producto->PLANO_PRODUCTO}}"name="PLANO" placeholder="Cod. Petición" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required disabled="false">
-					</p>
-				
+						<input type="text" value="{{$producto->PLANO_PRODUCTO}}"name="PLANO" placeholder="Plano" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required readonly>
+				</p>
+				@else 
+				<p>
+				<input type="text" value="Sin Plano"name="PLANO" placeholder="Plano" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required readonly>
+			</p>
+				@endif
 					<p>
-							<input type="text" value="{{$producto->FECHA_DE_ENTREGA_PRODUCTO}}"name="FECHA" placeholder="Cod. Petición" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required disabled="false">
+							<input type="text" value="{{$producto->FECHA_DE_ENTREGA_PRODUCTO}}"name="FECHA" placeholder="Fecha Entrega" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required readonly>
 						</p>
+						@if($producto->CODIGO_SAP!= null)
+						<p>
+							<input type="text" name="CODIGO_SAP" class="form-control" value="{{$producto->CODIGO_SAP}}" readonly>
+						</p>
+						@else 
+						<p>
+							<input type="text" name="CODIGO_SAP" class="form-control" value="Sin Codigo Sap" readonly>
+						</p>
+						@endif
+						
 			</div>
 		</div>
 		
@@ -82,33 +101,45 @@
 														<th>Cantidad</th>
 														<th>Precio unitario</th>
 														<th>Valor total</th>
-														<th><a href="#" class="addRow"><img src="/images/png/mas.png" style="width:40px; height:35px;" alt=""></a></th>
+														<th><input type="button"  id="boton"  class="addRow"></th>
 														<!--<input type="button" value="Agregar" class="addRow"/>-->
 													
 												</thead>
 												<tbody>
 													<tr>
-															<td><select name="proveedor[]" >
-																@foreach($proveedor as $proveedor)
-																<option value="{{$proveedor->RUT}}">{{$proveedor->NOMBRE}}</option>
+															<td><select name="proveedor[]" class="form-control proveedor" style="width:130px; height: 35px;"required >
+																<option value="" selected="true" disabled="true">Seleccione Proveedor</option>
+																@foreach($proveedor as $key =>$value)
+																<option value="{{$value->RUT}}">{{$value->NOMBRE}}</option>
 																@endforeach
 														</select>
 															</td>
 														<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required>
 														</td>
-														<td><input name="cantidad[]" style="height:35px;" class="form-control tipo" type="text" placeholder="Cantidad">
+														<td><input name="cantidadm[]" style="height:35px;" class="form-control cantidadm" type="text" placeholder="Cantidad" required onkeypress="return validaNumericos(event);">
 
 
 																
 													</td>
 														<td>
-																<input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario">
+																<input type="text" name="preciounitariom[]" placeholder="Precio unitario" class="form-control preciounitariom" required  onkeypress="return validaNumericos(event);">
 														</td>
-														<td>	<input type="text"  name="valortotal[]"    class="form-control valortotal" required disabled></td>
-														<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>
+														<td>	<input type="text"  name="valortotalm[]" id="valorM"  class="form-control valortotalm"  readonly></td>
+														<td><input type="button" class="btn btn-danger remove" value="X"></td>
 															</td>
 													</tr>
 												</tbody>
+												<tfoot>
+													<tr>
+														<td style="border: none;"></td>
+														<td style="border: none;"></td>
+														
+														<td style="border: none;"></td>
+														<td><b>Total</b></td>
+														<td>$<b class="totalmater" ></b></td>
+														<td></td>
+													</tr>
+												</tfoot>
 												
 											</table>
 										</div>
@@ -136,39 +167,51 @@
 																	<th>Cantidad de horas</th>
 																	<th>Valor Hora Hombre</th>
 																	<th>Valor Total</th>
-																	<th><a href="#" class="addmano"><img src="/images/png/mas.png" style="width:40px; height:35px;" alt=""></a></th>
+																	<th><input type="button"  id="boton"  class="addmano"></th>
+																	
 																	<!--<input type="button" value="Agregar" class="addRow"/>-->
 																
 															</thead>
 															<tbody>
 																<tr>
 																		
-																		<td><select name="cargop[]" id="cargop">
-																				<option value="0" disable="true" selected="true">=== Seleccione Cargo ===</option>
+																		<td><select name="cargop[]" class="form-control cargop" style="width:150px; height: 35px;" required>
+																				<option value="" disable="true" selected="true">Seleccione Cargo</option>
 																			@foreach($cargo as $key => $value)
 																		<option value="{{$value->ID_CARGO}}">{{$value->CARGO}}</option>
-																		@endforeach</select>
+																		@endforeach
+																	</select>
 																		
 			
 			
 																			
 																		</td>
 																		
-																	<td><select name="persona[]" id="personap">	
-																			<option value="0" disable="true" selected="true">=== Seleccione Persona ===</option>
+																	<td><select name="persona[]"  class="form-control persona" style="height: 35px;"required>	
+																			<option value="" disable="true" selected="true" >Seleccione Persona</option>
 																		</select>
 																	</td>
-													
+																	
 																	<td>
-																			<input type="text" name="cantidadhoras[]" placeholder="Precio unitario" class="form-control cantidadhoras">
+																			<input type="text" name="cantidadhorasma[]" placeholder="Cantidad Horas" class="form-control cantidadhorasma" onkeypress="return validaNumericos(event);" required>
 																	</td>
-																	<td>	<input type="text"  name="valorhh[]"    class="form-control valorhh" required></td>
-																	<td>	<input type="text"  name="valortotal[]"    class="form-control valortotal" required disabled></td>
-																	<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>
+																	<td>	<input type="text"  name="valorhhma[]"    class="form-control valorhhma" required ></td>
+																	<td>	<input type="text"  name="valortotalma[]"    class="form-control valortotalma" required readonly ></td>
+																	<td><input type="button" class="btn btn-danger removemano" id="removemano" value="X"></td>
 																		</td>
 																</tr>
 															</tbody>
-															
+															<tfoot>
+																<tr>
+																	<td style="border: none;"></td>
+																	<td style="border: none;"></td>
+
+																	<td style="border: none;"></td>
+																	<td><b>Total</b></td>
+																	<td>$<b class="totalma" ></b></td>
+																	<td></td>
+																</tr>
+															</tfoot>
 														</table>
 													</div>
 								</div>
@@ -190,34 +233,38 @@
 																		<thead>
 																			
 																				<th>Equipo</th>
+																				<th>Unidad</th>
 																				<th>Cantidad</th>
 																				<th>Precio unitario</th>
 																				<th>Valor total</th>
-																				<th><a href="#" class="addhr"><img src="/images/png/mas.png" style="width:40px; height:35px;" alt=""></a></th>
+																				<th><input type="button"  id="boton"  class="addhr"></th>
+																				
 																				<!--<input type="button" value="Agregar" class="addRow"/>-->
 																			
 																		</thead>
 																		<tbody>
 																				<tr>
-																					<td><select name="equipo[]" class="form-control equipo"  style="height:35px;" id="equipo">
-																					<option value="0" disable="true" selected="true">=== Seleccione Inventario ===</option>	
+																					<td><select name="equipo[]" class="form-control equipo"  style="height:35px;" id="equipo" required>
+																					<option value="" disable="true" selected="true">Seleccione Inventarios</option>	
 																					@foreach($inventario as $key =>$value)
 																					<option value="{{$value->ID_INVENTARIO}}">{{$value->NOMBRE}}</option>
 																					@endforeach</select>
 																				</td>
-																					<td><input type="text" name="cantidad[]" style="height:35px;" class="form-control cantidad" placeholder="Cantidad"></td>
-																					<td><input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario"></td>
-																					<td><input type="text" name="valortotal[]"    class="form-control valortotal" required disabled></td>
-																					<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a></td>
+																					<td><input type="text" name="unidadeq[]" class="form-control unidadeq" placeholder="Unidad"  onkeypress="return validar(event);" required></td>
+																					<td><input type="text" name="cantidad[]" style="height:35px;"  class="form-control cantidad"  onkeypress="return validaNumericos(event);" placeholder="Cantidad" required></td>
+																					<td><input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario"  onkeypress="return validaNumericos(event);" readonly required></td>
+																					<td><input type="text" name="valortotal[]" id="totalHe"   class="form-control valortotal" required readonly></td>
+																					<td><input type="button" class="btn btn-danger remove" value="X"></td>
 																				</tr>
 																		</tbody>
 																		<tfoot>
 																			<tr>
 																				<td style="border: none;"></td>
 																				<td style="border: none;"></td>
-																				<td><b>Total</b></td>
-																				<td>$ <label for="" name="totalito" class="total"></label></td>
+																		
 																				<td style="border: none;"></td>
+																				<td><b>Total</b></td>
+																				<td>$<b class="total" ></b></td>
 																				<td></td>
 																			</tr>
 																		</tfoot>
@@ -242,38 +289,51 @@
 														<div class="form-group">
 															<table class="table" id="equiposyserviciosarrendados">
 																					<thead>
-																						
-																							<th>Nombre</th>
-																							<th>Marca</th>
-																							<th>Precio unitario</th>
 																							<th>Unidad</th>
 																							<th>Cantidad</th>
+																							<th>Nombre</th>
+																							<th>Marca</th>
+																							
+																							<th>Precio unitario</th>
+																							
 																							<th>Valor Total</th>
-																							<th><a href="#" class="addes"><img src="/images/png/mas.png" style="width:40px; height:35px;" alt=""></a></th>
+																							<th><input type="button"  id="boton"  class="addes"></th>
+																							
 																							<!--<input type="button" value="Agregar" class="addRow"/>-->
 																						
 																					</thead>
 																					<tbody>
 																						<tr>
+																								<td>	<input type="text"  name="unidad[]"    class="form-control unidad" placeholder="Unidad"  onkeypress="return validar(event);" required></td>
+
+																								<td>	<input type="text"  name="cantidada[]"  placeholder="Cantidad"  onkeypress="return validaNumericos(event);"  class="form-control cantidada" required></td>
+
 																							<td><input type="text" name="nombre[]"  placeholder="Descripción" class="form-control nombre" maxlength="50"  required>
 																							</td>
-																							<td><input name="marca[]" style="height:35px;" class="form-control tipo" type="text" placeholder="marca">
-									
-									
-																									
+																							<td><input name="marca[]" style="height:35px;" class="form-control tipo" type="text" placeholder="marca" required>
 																						</td>
+																							
 																							<td>
-																									<input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario">
-																							</td>
-																							<td>	<input type="text"  name="unidad[]"    class="form-control unidad" required></td>
-																							<td>	<input type="text"  name="cantidad[]"    class="form-control cantidad" required></td>
-																							<td>	<input type="text"  name="valortotal[]"  disabled  class="form-control valortotal" required></td>
-																						
-																							<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>
+																								<input type="text" name="preciounitarioa[]"  placeholder="Precio unitario"  onkeypress="return validaNumericos(event);" class="form-control preciounitarioa">
+																						</td>
+																							<td>	<input type="text"  name="valortotala[]" id="valorAr"   class="form-control valortotala" required readonly></td>
+																							<td><input type="button" class="btn btn-danger remove" value="X"></td>
+																							
 																								</td>
 																						</tr>
 																					</tbody>
-																					
+																					<tfoot>
+																						<tr>
+																							<td style="border: none;"></td>
+																							<td style="border: none;"></td>
+																	
+																							<td style="border: none;"></td>
+																							<td style="border: none;"></td>
+																							<td><b>Total</b></td>
+																							<td>$<b class="totalaa" ></b></td>
+																							<td></td>
+																						</tr>
+																					</tfoot>
 																				</table>
 																			</div>
 																		
@@ -284,20 +344,60 @@
 									
 									
 																</div>
+
+																<br><div class="panel panel-success" style="width:100%;"> 
+																	<div class="panel-heading">
+																	<h4>Detalle general</h4>
+																		</div>
+																	<div class="panel-body">
+																				
+																	<div class="form-group">
+																		<table class="table" id="detalle">
+																		<thead>
+																		<td><b>Total Material</b></td>
+																		<td><b>Total Mano De Obra</b></td>
+																		<td><b>Total equiposyherramientas</b></td>
+																		<td><b>Total equipos y herramientas arrendados</b></td>
+																		<td><b>Total Cotizacion</b></td>
+																		</thead>
+																		<!--<td>$<b class="totalcoti " id="cotizar" ></b></td>-->
+																								
+																							
+																		<tbody>
+																			<td>$<b class="totalmater"></b></td>
+																			<td>$<b class="totalma"></b></td>
+																			<td>$<b class="total"></b></td>
+																			<td>$<b class="totalaa"></b></td>
+																			<td>$<b class="totalcoti"></b></td>
+																		</tbody>
+																	</table>
+																						</div>
+																					
+																	</div>
+																	
+																
+																			
+												
+												
+																			</div>
 				
 					<p>
+								
 						<input type="submit" value="Guardar" class="btn btn-success">
 					</p>
 					
 			{!!Form::close()!!}
 		</div>
 	</div>	
-
+	@if(Session::has('message'))
+		<div class="alert alert-{{ Session::get('class') }}">{{ Session::get('message')}}</div>
+	@endif
 </div>
 </div>
 
 
 </body>
+<script type="text/javascript" src="{{ URL::asset('js/jquery-3.1.1.min.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('js/solo_num.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/solo_letras.js') }}"></script>
@@ -307,27 +407,39 @@
 
 
 
+<!--Material-->
 <script type="text/javascript">
-$('#material').delegate('')
 $('.addRow').on('click',function() {
 	addRow();
 });
+$('#material').delegate('.cantidadm,.preciounitariom','keyup', function(){
+	var tr =$(this).parent().parent();
+	var cantidad = tr.find('.cantidadm').val();
+	var preciounitario = tr.find('.preciounitariom').val();
+	var suma = (cantidad * preciounitario);
+	tr.find('.valortotalm').val(suma);
+	totalmater();
+	
+	});
 function addRow() {
 	var tr='<tr>'+
-				'<td><select name="proveedor[]" >	<option>prueba</option></select>'+
-				'</td>'+
+			'<td><select name="proveedor[]" class="form-control proveedor" style="width:130px; height: 35px;" required >'+
+			'<option value="" selected="true" disabled="true">Seleccione Proveedor</option>'+
+				'@foreach($proveedor as $key =>$value)'+
+				'<option value="{{$value->RUT}}">{{$value->NOMBRE}}</option>'+
+				'@endforeach'+
+			'</select>'+
+			'</td>'+
 			'<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required>'+
 			'</td>'+
-			'<td><input name="cantidad[]" style="height:35px;" class="form-control tipo" type="text" placeholder="Cantidad">'+
-					
-		'</td>'+
-			'<td>'+
-					'<input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario">'+
+			'<td><input name="cantidadm[]" style="height:35px;" class="form-control cantidadm" required onkeypress="return validaNumericos(event);"  type="text" placeholder="Cantidad" required>	'+		
 			'</td>'+
-			'<td>	<input type="text"  name="valortotal[]"    class="form-control valortotal" required></td>'+
-			'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>'+
-				'</td>'+
-         '</tr>';
+			'<td>'+
+			'<input type="text" name="preciounitariom[]" placeholder="Precio unitario" required onkeypress="return validaNumericos(event);" class="form-control preciounitariom" required>'+
+			'</td>'+
+			'<td><input type="text"  name="valortotalm[]" id="valorM"  class="form-control valortotalm" readonly ></td>'+
+			'<td><input type="button" class="btn btn-danger remove" value="X"></td>'+
+			'</tr>';
 			$('#material').append(tr);
 };
 $('.remove').live('click', function() {
@@ -339,40 +451,91 @@ $('.remove').live('click', function() {
 	}
 	
 });
+function totalmater(){
+	var totalmater = 0;
+	$('.valortotalm').each(function(i,e){
+		var suma = $(this).val()-0;
+		totalmater += suma;
+	})
+	$('.totalmater').html(totalmater);
+};
 </script>
 
+
+
+
+<!--Mano de obra -->
 <script type="text/javascript">
-$('#manodeobra').delegate('.cantidadhoras,.valorhh','keyup', function(){
-alert('test');
-});
+$('#manodeobra').delegate('.cantidadhorasma,.valorhhma','keyup', function(){
+	var tr =$(this).parent().parent();
+	var cantidad = tr.find('.cantidadhorasma').val();
+	var preciounitario = tr.find('.valorhhma').val();
+	var suma = (cantidad * preciounitario);
+	tr.find('.valortotalma').val(suma);
+	totalmano();
+	
+	});
 $('.addmano').on('click',function() {
 	addmo();
 });
 function addmo() {
-	var tr='<tr>'+
-																		
-	'<td><select name="cargop[]" id="cargop">'+
-	'<option value="0" disable="true" selected="true">=== Seleccione Cargo ===</option>'+
-	'@foreach($cargo as $key => $value)'+
-	'<option value="{{$value->ID_CARGO}}">{{$value->CARGO}}</option>'+
-	'@endforeach</select>'+	
-	'</td>'+
-	'<td><select name="persona[]" id="personap">'+
-	'<option value="0" disable="true" selected="true">=== Seleccione Persona ===</option>'+
-	'</select>'+
-	'</td>'+
-	'<td>'+
-	'<input type="text" name="cantidadhoras[]" placeholder="Precio unitario" class="form-control cantidadhoras">'+
-	'</td>'+
-	'<td>	<input type="text"  name="valorhh[]"    class="form-control valorhh" required></td>'+
-	'<td>	<input type="text"  name="valortotal[]"    class="form-control valortotal" required disabled></td>'+
-	'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>'+
-	'</td>'+
-	'</tr>';
-			$('#manodeobra').append(tr);
+	var tr='<tr>'+														
+			'<td><select name="cargop[]" class="form-control cargop" style="height: 35px;"required>'+
+				'<option value="" disable="true" selected="true">Seleccione Cargo</option>'+
+				'@foreach($cargo as $key => $value)'+
+				'<option value="{{$value->ID_CARGO}}">{{$value->CARGO}}</option>'+
+				'@endforeach</select>'+
+			'</td>'+
+			
+			'<td><select name="persona[]" class="form-control persona" style="height: 35px;"required>	'+
+				'<option value="" disable="true" selected="true">Seleccione Persona</option>'+
+			'</select>'+
+			'</td>'+
+		
+			'<td>'+
+			'<input type="text" name="cantidadhorasma[]" placeholder="Cantidad Horas"onkeypress="return validaNumericos(event);" class="form-control cantidadhorasma">'+
+			'</td>'+
+			'<td><input type="text"  name="valorhhma[]"    class="form-control valorhhma" required></td>'+
+			'<td><input type="text"  name="valortotalma[]"    class="form-control valortotalma" required readonly></td>'+
+			'<td><input type="button" class="btn btn-danger removemano" id="removemano"value="X"></td>'+
+			'</tr>';
+	$('#manodeobra').append(tr);
+			
 };
-$('.remove').live('click', function() {
-	var l=$('tbody tr').length;
+$('#manodeobra').delegate('.persona','change',function(){
+	var tr = $(this).parent().parent();
+	var id= tr.find('.persona').val();
+	console.log(id);
+	var dataId={'id':id};
+	$.ajax({
+	type : 'GET',
+	url :	'{!!URL::route('findPrice2')!!}',
+	dataType:'json',
+	data: dataId,
+	success:function(data){
+		
+		tr.find('.valorhhma').val(data.SUELDO_BASE);
+	}
+	});
+});
+$('#manodeobra').delegate('.cargop','change', function(e){
+		
+	 	var tr = $(this).parent().parent();
+		 var id_cargo= tr.find('.cargop').val();
+	  //var id_cargo = e.target.value;
+	  $.get('/json-personalcargo?id_cargo=' + id_cargo,function(data) {
+		
+		tr.find($('.persona')).empty();
+		tr.find($('.persona')).append('<option value="" disable="true" selected="true">Seleccione Persona</option>');
+	
+		$.each(data, function(index, regenciesObj){
+		  tr.find($('.persona')).append('<option value="'+ regenciesObj.RUTP +'">'+ regenciesObj.NOMBREP +'</option>');
+		  
+		})
+	  });
+	});
+$('.removemano').live('click', function() {
+	var l=$('#manodeobra tbody tr').length;
 	if (l==1) {
 		alert('No se puede eliminar');
 	}else{
@@ -380,7 +543,22 @@ $('.remove').live('click', function() {
 	}
 	
 });
+function totalmano(){
+	var totalmano = 0;
+	$('.valortotalma').each(function(i,e){
+		var suma = $(this).val()-0;
+		totalmano += suma;
+	})
+	$('.totalma').html(totalmano);
+};
 </script>
+
+
+
+
+
+
+<!--Equipos o herramientas Internos -->
 <script type="text/javascript">
 $('#equiposyherramientas').delegate('.equipo','change',function(){
 	var tr = $(this).parent().parent();
@@ -409,7 +587,6 @@ var suma = (cantidad * preciounitario);
 tr.find('.valortotal').val(suma);
 total();
 });
-
 $('.addhr').on('click',function() {
 	addher();
 });
@@ -421,24 +598,20 @@ function total(){
 	})
 	$('.total').html(total);
 };
-
 function addher() {
-var tr='<tr>'+
-		'<td><select name="equipo[]" class="form-control equipo" style="height:35px ;">'+
-			'<option value="0" disable="true" selected="true">=== Seleccione Inventario ===</option>'+
-			'@foreach($inventario as $key =>$value)'+
-			'<option value="{{$value->ID_INVENTARIO}}">{{$value->NOMBRE}}</option>'+
-			'@endforeach</select>'+
-			'</td>'+
-			'<td><input name="cantidad[]" style="height:35px;" class="form-control cantidad" type="text" placeholder="Cantidad">'+	
-			'</td>'+
-			'<td>'+
-			'<input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario">'+
-			'</td>'+
-			'<td><input type="text"  name="valortotal[]"    class="form-control valortotal" required disabled></td>'+
-			'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>'+
-			'</td>'+
-			'</tr>';
+	var tr='<tr>'+
+		'<td><select name="equipo[]" class="form-control equipo"  style="height:35px;" id="equipo" required>'+
+		'<option value="" disable="true" selected="true">Seleccione Inventario</option>	'+
+		'@foreach($inventario as $key =>$value)'+
+		'<option value="{{$value->ID_INVENTARIO}}">{{$value->NOMBRE}}</option>'+
+		'@endforeach</select>'+
+		'</td>'+
+		'<td><input type="text" name="unidadeq[]" class="form-control unidadeq" placeholder="Unidad"  onkeypress="return validar(event);" required></td>'+
+		'<td><input type="text" name="cantidad[]" style="height:35px;" class="form-control cantidad" placeholder="Cantidad" required onkeypress="return validaNumericos(event);"></td>'+
+		'<td><input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario" readonly></td>'+
+		'<td><input type="text" name="valortotal[]" id="totalHe"   class="form-control valortotal" required readonly></td>'+
+		'<td><input type="button" class="btn btn-danger remove" value="X"></td>'+
+		'</tr>';
 			$('#equiposyherramientas').append(tr);
 };
 $('.remove').live('click', function() {
@@ -451,27 +624,41 @@ $('.remove').live('click', function() {
 	total();
 });
 </script>
+
+
+
+<!--Equipos o herramientas arrendados -->
 <script type="text/javascript">
 	$('#equiposyserviciosarrendados').delegate('')
 	$('.addes').on('click',function() {
 		addesa();
 	});
+	$('#equiposyserviciosarrendados').delegate('.cantidada,.preciounitarioa','keyup', function(){
+var tr =$(this).parent().parent();
+var cantidad = tr.find('.cantidada').val();
+var preciounitario = tr.find('.preciounitarioa').val();
+var suma = (cantidad * preciounitario);
+tr.find('.valortotala').val(suma);
+totalal();
+});
 	function addesa() {
-		var tr='<tr>'+
+var tr='<tr>'+
+		'<td>	<input type="text"  name="unidad[]"   placeholder="Unidad" class="form-control unidad" required></td>'+
+		'<td>	<input type="text"  name="cantidada[]"  placeholder="Cantidad"  class="form-control cantidada" required></td>'+
 			'<td><input type="text" name="nombre[]"  placeholder="Descripción" class="form-control nombre" maxlength="50"  required>'+
 			'</td>'+
-			'<td><input name="marca[]" style="height:35px;" class="form-control tipo" type="text" placeholder="marca">'+
-					
+			'<td><input name="marca[]" style="height:35px;" class="form-control tipo" type="text" placeholder="Marca">'+
 		'</td>'+
+			
+			
 			'<td>'+
-					'<input type="text" name="preciounitario[]" placeholder="Precio unitario" class="form-control preciounitario">'+
-			'</td>'+
-			'<td>	<input type="text"  name="unidad[]"    class="form-control unidad" required></td>'+
-			'<td>	<input type="text"  name="cantidad[]"    class="form-control cantidad" required></td>'+
-			'<td>	<input type="text"  name="valortotal[]"    class="form-control valortotal" required></td>'+
+				'<input type="text" name="preciounitarioa[]" placeholder="Precio unitario" class="form-control preciounitarioa">'+
+		'</td>'+
+			
+			'<td>	<input type="text"  name="valortotala[]" id="valorAr"   class="form-control valortotala" required></td>'+
 		
-			'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a>'+
-				'</td>'+
+			'<td><input type="button" class="btn btn-danger remove" value="X"></td>'+
+				
 		'</tr>';
 				$('#equiposyserviciosarrendados').append(tr);
 	};
@@ -485,23 +672,21 @@ $('.remove').live('click', function() {
 		}
 		
 	});
-	</script>
-  <script type="text/javascript">
-	$('#cargop').on('change', function(e){
-	  console.log(e);
+	function totalal(){
+	var totalal = 0;
+	$('.valortotala').each(function(i,e){
+		var suma = $(this).val()-0;
+		totalal += suma;
+	})
+	$('.totalaa').html(totalal);
+	};
+</script>
+
+
+
+
+
 	
-	  var id_cargo = e.target.value;
-	  $.get('/json-personalcargo?id_cargo=' + id_cargo,function(data) {
-		console.log(data);
-		
-		$('#personap').empty();
-		$('#personap').append('<option value="0" disable="true" selected="true">=== Seleccione persona ===</option>');
-	
-		$.each(data, function(index, regenciesObj){
-		  $('#personap').append('<option value="'+ regenciesObj.RUTP +'">'+ regenciesObj.NOMBREP +'</option>');
-		})
-	  });
-	});
-	</script>
-	
+	<script type="text/javascript" src="jquery.dataTables.js"></script>
+
 </html>

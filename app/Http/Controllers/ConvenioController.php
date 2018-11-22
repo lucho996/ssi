@@ -112,7 +112,8 @@ class ConvenioController extends Controller
             Session::flash('class','danger');
         }
 
-        return view('convenio.create')->with('clientes',$clientes);
+        return redirect()->route('convenio.create');
+        
     
 
 

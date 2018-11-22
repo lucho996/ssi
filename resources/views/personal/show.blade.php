@@ -56,13 +56,13 @@
 						<tr>
 							<td style="text-align:right;"><strong>Telefono:</strong> </td>
 							<td>{{$personal->TELEFONOP}}</td>
-							<td style="text-align:right;"><strong>Nombre Cónyuge:</strong> </td>
+							<td style="text-align:right;"><strong>Persona Emergencia:</strong> </td>
 							<td>{{$personal->NOMBRE_CONYUGE}}</td>
 						</tr>
 						<tr>
 							<td style="text-align:right;"><strong>Correo:</strong> </td>
 							<td>{{$personal->CORREOP}}</td>
-							<td style="text-align:right;"><strong>Telefono Cónyuge:</strong> </td>
+							<td style="text-align:right;"><strong>Telefono Emergencia:</strong> </td>
 							<td>{{$personal->TELEFONO_CONYUGE}}</td>
 						</tr>
 						

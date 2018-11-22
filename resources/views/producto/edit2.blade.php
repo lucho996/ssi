@@ -7,7 +7,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Personal</title>
 </head>
+<style>
+.btn-file {
+  position: relative;
+  overflow: hidden;
 
+  }
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}</style>
 </head>
 <body >
         <div style="width: 1100px; margin:0px auto;">
@@ -17,32 +38,22 @@
         <div style="width: 850px; float: right; position:relative;">
         <div class="panel panel-success" style="margin-top:20px;">
                 <div class="panel-heading">
-                    <h4>Modificar Productos</h4>
+                    <h4>Subir O Modificar Planos</h4>
                 </div>
                
                 <div class="panel-body">
-                <form action="{{ route('producto.update', $producto->ID_PRODUCTO)}}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('producto.update2', $producto->ID_PRODUCTO)}}" method="POST" enctype="multipart/form-data">
                
                           {{ csrf_field() }}
                           <input name="_method" type="hidden" value="PUT">
+                            <p>
 
-                            <p>
-                                <input type="text" name="fecha_entrega" value="{{$producto->FECHA_DE_ENTREGA_PRODUCTO}}"placeholder="Fecha entrega producto" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_llegada" class="form-control" required>
-                            </p>
-                            <p>
-                                <input type="text" name="descripcion" value="{{$producto->DESCRIPCION}}" placeholder="Descripción" class="form-control" maxlength="50"  required>
-                            </p>
-                            <p>
-                            <a href="/producto/subir_plano/{{$producto->ID_PRODUCTO}}" class="btn btn-primary">Subir o Modificar Plano</a>
-                               
+                                <span class="btn-file">
+                                    <a href="#"> <img src="/images/png/subir.png" style="width:200px ;" alt=""></a>
+                                <input type="file"  name="plano" id="plano" accept="application/pdf" class="custom-file" required>
+                            </span>
                             </p>
             
-                            <p>
-                                <select name="tipo" style="height: 35px;" class="form-control" >
-                                <option value="Normal" @if($producto->TIPO_PRODUCTO =='Normal') selected @endif>Normal</option>
-                                <option value="Emergencia" @if($producto->TIPO_PRODUCTO == 'Emergencia') selected @endif>Emergencia</option>           
-                                </select>					
-                            </p>
                             <p>
                                 <input type="submit" value="Actualizar" class="btn btn-success">
                                 <a href="javascript:history.back(-1);" class="btn btn-default" title="Ir la página anterior">Regresar</a>

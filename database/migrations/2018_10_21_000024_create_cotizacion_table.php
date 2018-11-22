@@ -45,18 +45,18 @@ class CreateCotizacionTable extends Migration
 
             $table->foreign('ID_ORDEN_COMPRA', 'FK_RELATIONSHIP_14')
                 ->references('ID_ORDEN_COMPRA')->on('orden_de_compra')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
                 
             $table->foreign('RUT_CLIENTE', 'FK_solicita')
                 ->references('RUT_CLIENTE')->on('clientes')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('ID_IVA', 'FK_RELATIONSHIP_25')
                 ->references('ID_IVA')->on('iva')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

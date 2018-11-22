@@ -1,3 +1,4 @@
+@extends('menu')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +8,18 @@
     <title>Nosotros</title>
 </head>
 <body>
-    @include('menu')
-    <div  style="width: 100%; max-width:1100px; margin: 100px auto 0px">
+  @section('contenido')
+      
+  
+    <div  style="width: 100%; max-width:1100px; margin: 30px auto;">
+       
+<img src="/images/png/nosotros.jpg" style="width:100%;" alt="">
+<div  style="width: 100%; max-width:900px; margin: 50px auto 0px">  
+   
+        asdasdasd
 
-        </div>
+</div>
+    </div>
+    @endsection
 </body>
 </html>

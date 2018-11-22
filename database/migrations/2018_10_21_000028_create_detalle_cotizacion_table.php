@@ -40,13 +40,13 @@ class CreateDetalleCotizacionTable extends Migration
 
             $table->foreign('ID_COTIZACION', 'FK_RELATIONSHIP_28')
                 ->references('ID_COTIZACION')->on('cotizacion')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('ID_PRODUCTO', 'FK_RELATIONSHIP_29')
                 ->references('ID_PRODUCTO')->on('producto')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
            /* $table->foreign('ID_CONVENIO', 'FK_RELATIONSHIP_32')
                 ->references('ID_CONVENIO')->on('convenios')

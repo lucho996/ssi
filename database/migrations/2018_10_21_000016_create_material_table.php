@@ -31,14 +31,14 @@ class CreateMaterialTable extends Migration
             $table->string('DESCRIPCION', 50)->nullable()->default(null);
             $table->string('ESTADO', 20)->nullable()->default(null);
             $table->integer('TOTAL')->nullable()->default(null);
-
+            $table->string('USER_C',30)->nullable()->default(null);
             $table->index(["ID_PRODUCTO"], 'FK_REQUIERE');
 
 
             $table->foreign('ID_PRODUCTO', 'FK_REQUIERE')
                 ->references('ID_PRODUCTO')->on('producto')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

@@ -23,7 +23,7 @@ class CotizacionController extends Controller
        //$cotizacion = Cotizacion::orderBy('ID_COTIZACION','ASC')->get();
        //dd($cotizacion);
     $cotizacion = \DB::table('cotizacion')
-    ->select('cotizacion.ID_COTIZACION','cotizacion.ESTADO','cotizacion.FECHA_RESPUESTA_COTIZACION','cotizacion.FECHA_LLEGADA','clientes.NOMBRE_COMPLETO','cotizacion.DESCRIPCION','cotizacion.COD_PETICION_OFERTA')
+    ->select('cotizacion.ID_COTIZACION','cotizacion.VALOR_TOTAL','cotizacion.ESTADO','cotizacion.FECHA_RESPUESTA_COTIZACION','cotizacion.FECHA_LLEGADA','clientes.NOMBRE_COMPLETO','cotizacion.DESCRIPCION','cotizacion.COD_PETICION_OFERTA')
 
     ->join('clientes', 'cotizacion.RUT_CLIENTE', '=', 'clientes.RUT_CLIENTE')
     ->get();
@@ -38,7 +38,13 @@ class CotizacionController extends Controller
     public function create()
     {
         $clientes = Clientes::all();
-        return view('cotizacion.create')->with('clientes',$clientes);
+        $cli = \DB::table('clientes')
+        ->select('NOMBRE_COMPLETO','RUT_CLIENTE')
+        ->where('RUT_CLIENTE','=','190907937')
+        ->first();
+        
+
+        return view('cotizacion.create')->with('clientes',$clientes)->with('cli',$cli);
     }
 
     public function create_orden($ID_COTIZACION = null){
@@ -132,7 +138,7 @@ class CotizacionController extends Controller
                 } }
             
                 
-                
+                $producto->CODIGO_SAP=$request->codsap[$i];
                $producto->DESCRIPCION=$request->descripcion[$i];
                $producto->TIPO_PRODUCTO=$request->tipo[$i];
                $producto->PLANO_PRODUCTO=$name;
@@ -150,6 +156,7 @@ class CotizacionController extends Controller
                 $dt->ID_COTIZACION = $id;
                 $dt->ID_PRODUCTO = $id_product;
                 $dt->CANTIDAD = $request->cantidad[$i];
+                $dt->UNIDAD = $request->unidad[$i];
                 $dt->save();
                 //$cotizacion = Cotizacion::find($id);
                 //$cotizacion->productos()->attach($id_product);
@@ -184,14 +191,20 @@ class CotizacionController extends Controller
     public function show( $ID_COTIZACION = null)
     {
         $cotizacion =  Cotizacion::where('ID_COTIZACION', $ID_COTIZACION)->first();
-        $orden = \DB::table('orden_de_compra')
+        $orden = \DB::table('cotizacion')
         ->select('*')
-        ->join('cotizacion','orden_de_compra.ID_ORDEN_COMPRA','=','cotizacion.ID_ORDEN_COMPRA')
+        ->join('orden_de_compra','cotizacion.ID_ORDEN_COMPRA','=','orden_de_compra.ID_ORDEN_COMPRA')
         ->where('cotizacion.ID_COTIZACION', '=', $ID_COTIZACION)
         ->get();
-     
-       
-        return view('cotizacion.show')->with('cotizacion',$cotizacion)->with('orden',$orden);
+        
+        $iva = \DB::table('cotizacion')
+        ->select('iva.IVA')
+        ->join('iva','cotizacion.id_iva','=','iva.id_iva')
+        ->where('cotizacion.ID_COTIZACION', '=', $ID_COTIZACION)
+        ->get();
+ 
+        
+        return view('cotizacion.show')->with('cotizacion',$cotizacion)->with('orden',$orden)->with('iva',$iva);
     }
 
 

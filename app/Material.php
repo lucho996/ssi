@@ -1,9 +1,6 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * @property int $ID_MATERIAL
  * @property int $ID_PRODUCTO
@@ -24,19 +21,17 @@ class Material extends Model
      * @var string
      */
     protected $table = 'material';
-
+    public $timestamps = false;
     /**
      * The primary key for the model.
      * 
      * @var string
      */
     protected $primaryKey = 'ID_MATERIAL';
-
     /**
      * @var array
      */
-    protected $fillable = ['ID_PRODUCTO', 'CANTIDAD', 'NOMBRE', 'PRECIO_UNITARIO', 'DESCRIPCION', 'ESTADO', 'TOTAL'];
-
+    protected $fillable = ['ID_PRODUCTO', 'CANTIDAD', 'NOMBRE', 'PRECIO_UNITARIO', 'DESCRIPCION', 'ESTADO', 'TOTAL','USER_C'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -44,7 +39,6 @@ class Material extends Model
     {
         return $this->belongsTo('App\Producto', 'ID_PRODUCTO', 'ID_PRODUCTO');
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

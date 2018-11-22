@@ -36,13 +36,13 @@ class CreateFacturaTable extends Migration
 
             $table->foreign('ID_COTIZACION', 'FK_RELATIONSHIP_27')
                 ->references('ID_COTIZACION')->on('cotizacion')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('RUT_CLIENTE', 'FK_RELATIONSHIP_38')
                 ->references('RUT_CLIENTE')->on('clientes')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

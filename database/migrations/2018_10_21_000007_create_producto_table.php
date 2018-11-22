@@ -29,6 +29,8 @@ class CreateProductoTable extends Migration
             $table->string('PLANO_PRODUCTO', 50)->nullable()->default(null);
             $table->date('FECHA_DE_ENTREGA_PRODUCTO')->nullable()->default(null);
             $table->string('ESTADO', 50)->nullable()->default(null);
+            $table->integer('CODIGO_SAP')->nullable()->default(null);
+            $table->string('ESTADO_CONV',30)->nullable()->default(null);
             $table->integer('UTILIDADES')->nullable()->default(null);
             $table->integer('GASTOS_GENERALES')->nullable()->default(null);
             $table->integer('TOTAL')->nullable()->default(null);

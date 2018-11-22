@@ -47,38 +47,24 @@ Route::get('/personal/show/{RUTP}', 'PersonalController@show')
 ->middleware('permission:personal.show');
 Route::get('/personal/pdf/{RUTP}', 'PersonalController@pdf')
 ->middleware('permission:personal.pdf');
-
 Route::delete('/personal/carga_familiar/{carga_familiar}', 'PersonalController@destroy')->name('personal.destroy')
 ->middleware('permission:personal.destroy');
-
-
 Route::put('/personal/updatee/{ID_CARGA_FAMILIAR}', 'PersonalController@updatee')->name('personal.updatee')
 ->middleware('permission:personal.modificar_carga');
 Route::post('/personal/modificar_carga/{ID_CARGA_FAMILIAR}', 'PersonalController@modificar_carga')
 ->middleware('permission:personal.modificar_carga');
 Route::get('/personal/modificar_carga/{ID_CARGA_FAMILIAR}', 'PersonalController@modificar_carga')
 ->middleware('permission:personal.modificar_carga');
-
 Route::post('/personal/store_carga', 'PersonalController@store_carga')
 ->middleware('permission:personal.carga_familiar');
 Route::get('/personal/carga_familiar/{RUTP}', 'PersonalController@carga_familiar')
 ->middleware('permission:personal.carga_familiar');
-
-
 Route::post('/personal/store_cargos', 'PersonalController@store_cargos')
 ->middleware('permission:personal.cargos');
 Route::get('/personal/cargos/{RUTP}', 'PersonalController@create_cargos')
 ->middleware('permission:personal.cargos');
 Route::delete('/personal/cargos/{cargo_personal}', 'PersonalController@destroy_c')->name('personal.destroy_c')
 ->middleware('permission:personal.destroy_c');
-/*Route::post('/personal/cargos/{RUTP}', 'PersonalController@store_cargos')
-->middleware('permission:personal.cargos');
-Route::get('/personal/cargos/{RUTP}', 'PersonalController@store_cargos')
-->middleware('permission:personal.cargos');*/
-
-
-
-//Route::post('/personal/store', 'PersonalController@store');
 Route::post('/personal/storec', 'PersonalController@storec')
 ->middleware('permission:personal.createc');
 Route::get('/personal/createc', 'PersonalController@createc')
@@ -89,7 +75,6 @@ Route::post('/personal/store2', array('as'=>'store2','uses'=>'PersonalController
 ->middleware('permission:personal.create');
 Route::post('/personal/update/{RUTP}', 'PersonalController@update')
 ->middleware('permission:personal.edit');
-
 Route::resource('personal', 'PersonalController')
 ->middleware('permission:personal');
 
@@ -108,6 +93,7 @@ Route::resource('inventario', 'InventarioController')
 ->middleware('permission:inventario');
 Route::get('/inventario/show/{ID_INVENTARIO}', 'InventarioController@show')
 ->middleware('permission:inventario.show');
+
 //Rutas para el cliente
 Route::post('/clientes/store', 'ClientesController@store')
 ->middleware('permission:clientes.create');
@@ -123,7 +109,6 @@ Route::resource('clientes', 'ClientesController')
 ->middleware('permission:clientes');
 Route::get('/clientes/show/{RUT_CLIENTE}', 'ClientesController@show')
 ->middleware('permission:clientes.show');
-
 
 
 //Rutas para el proveedor
@@ -142,6 +127,7 @@ Route::get('/proveedor/destroy/{RUT}', 'ProveedorController@destroy')
 Route::resource('proveedor', 'ProveedorController')
 ->middleware('permission:proveedor');
 
+
 //Rutas para el producto
 Route::get('/producto/edit/{ID_PRODUCTO}', 'ProductoController@edit')
 ->middleware('permission:producto.edit');
@@ -149,20 +135,54 @@ Route::post('/producto/edit/{ID_PRODUCTO}', 'ProductoController@edit')
 ->middleware('permission:producto.edit');
 Route::get('/producto/show/{ID_PRODUCTO}', 'ProductoController@show')
 ->middleware('permission:producto.show');
-Route::post('/producto/store3',  array('as'=>'store3','uses'=>'ProductoController@store3'))
-->middleware('permission:producto.create');
+Route::get('/findPrice2',array('as'=>'findPrice2','uses'=>'ProductoController@findPrice2'));
+
+
+
+
 Route::post('/producto/update/{ID_PRODUCTO}', 'ProductoController@update')
 ->middleware('permission:producto.edit');
-Route::get('/producto/destroy/{ID_PRODUCTO}', 'ProductoController@destroy')
+
+Route::get('/producto/edit2/{ID_PRODUCTO}', 'ProductoController@edit2')
+->middleware('permission:producto.edit2');
+
+Route::get('/producto/subir_plano/{ID_PRODUCTO}', 'ProductoController@subir_plano')
+->middleware('permission:producto.subir_plano');
+Route::put('/producto/update_p/{ID_PRODUCTO}', 'ProductoController@update_p')->name('producto.update_p')
+->middleware('permission:producto.subir_plano');
+
+Route::post('/producto/edit2/{ID_PRODUCTO}', 'ProductoController@edit2')
+->middleware('permission:producto.edit2');
+Route::get('/producto/orden_trabajo/{ID_PRODUCTO}', 'ProductoController@orden_trabajo')
+->middleware('permission:producto.orden_trabajo');
+Route::put('/producto/update2/{ID_PRODUCTO}', 'ProductoController@update2')->name('producto.update2')
+->middleware('permission:producto.edit2');
+
+Route::delete('/producto/destroy/{ID_PRODUCTO}', 'ProductoController@destroy')
 ->middleware('permission:producto.destroy');
+Route::post('/producto/store4',  array('as'=>'store4','uses'=>'ProductoController@store4'))
+->middleware('permission:producto.create');
+
 Route::get('/producto/index/{ID_COTIZACION}', 'ProductoController@index')
 ->middleware('permission:producto.index');
 Route::post('/producto/index/{ID_COTIZACION}', 'ProductoController@index')
 ->middleware('permission:producto.index');
+
+Route::post('/producto/store_pro', 'ProductoController@store_pro')
+->middleware('permission:producto.index2');
+
+Route::post('/producto/store_pro_coti', 'ProductoController@store_pro_coti')
+->middleware('permission:producto.index');
+
+Route::delete('/producto/index2/{ID_PRODUCTO}', 'ProductoController@destroy_pro')->name('producto.destroy_pro')
+->middleware('permission:producto.destroy_pro');
+
+Route::get('/producto/index2/{ID_CONVENIO}', 'ProductoController@index2')
+->middleware('permission:producto.index2');
+Route::post('/producto/index2/{ID_CONVENIO}', 'ProductoController@index2')
+->middleware('permission:producto.index2');
 Route::get('/json-personalcargo','ProductoController@personalcargo');
-
 Route::get('/findPrice',array('as'=>'findPrice','uses'=>'ProductoController@findPrice'));
-
 Route::resource('producto', 'ProductoController')
 ->middleware('permission:producto');
 
@@ -211,10 +231,9 @@ Route::resource('cotizacion', 'CotizacionController')
 ->middleware('permission:cotizacion');
 
 //Convenios
-Route::post('/convenio/store_orden', 'ConvenioController@store_orden')->name('store_orden')
-->middleware('permission:convenio.guia');
-Route::get('/convenio/guia/{ID_CONVENIO}', 'ConvenioController@create_orden')
-->middleware('permission:convenio.guia');
+
+
+
 Route::get('/convenio/show', 'ConvenioController@show2')
 ->middleware('permission:convenio.show');
 Route::get('/convenio/edit/{ID_CONVENIO}', 'ConvenioController@edit')
@@ -225,7 +244,6 @@ Route::get('/convenio/show/{ID_CONVENIO}', 'ConvenioController@show')
 ->middleware('permission:convenio.show');
 Route::post('/convenio/store', array('as'=>'store3','uses'=>'ConvenioController@store'))
 ->middleware('permission:convenio.create');
-
 Route::get('/producto/create/{ID_PRODUCTO}', 'ProductoController@create')
 ->middleware('permission:producto.create');
 Route::post('/convenio/update/{ID_CONVENIO}', 'ConvenioController@update')

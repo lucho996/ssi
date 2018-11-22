@@ -33,8 +33,8 @@ class CreateCargaFamiliarTable extends Migration
            
             $table->foreign('RUTP', 'RUT_PER_FK')
                 ->references('RUTP')->on('personal')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

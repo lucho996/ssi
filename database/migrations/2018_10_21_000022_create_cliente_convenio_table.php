@@ -32,13 +32,13 @@ class CreateClienteConvenioTable extends Migration
 
             $table->foreign('ID_CONVENIO', 'FK_RELATIONSHIP_23')
                 ->references('ID_CONVENIO')->on('convenios')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('RUT_CLIENTE', 'cliente_convenio_RUT_CLIENTE')
                 ->references('RUT_CLIENTE')->on('clientes')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

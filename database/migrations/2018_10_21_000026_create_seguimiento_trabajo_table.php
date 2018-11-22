@@ -34,8 +34,8 @@ class CreateSeguimientoTrabajoTable extends Migration
 
             $table->foreign('ID_OT', 'FK_RELATIONSHIP_17')
                 ->references('ID_OT')->on('orden_trabajo')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

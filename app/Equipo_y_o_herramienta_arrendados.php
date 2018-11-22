@@ -1,9 +1,6 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * @property int $ID_EQ_ARRENDADOS
  * @property int $ID_PRODUCTO
@@ -23,12 +20,11 @@ class Equipo_y_o_herramienta_arrendados extends Model
      * @var string
      */
     protected $primaryKey = 'ID_EQ_ARRENDADOS';
-
+    public $timestamps = false;
     /**
      * @var array
      */
-    protected $fillable = ['ID_PRODUCTO', 'NOMBRE', 'MARCA', 'VALOR', 'UNIDAD', 'CANTIDAD', 'VALOR_TOTAL'];
-
+    protected $fillable = ['ID_PRODUCTO', 'NOMBRE', 'MARCA', 'VALOR', 'UNIDAD', 'CANTIDAD', 'VALOR_TOTAL','USER_C'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

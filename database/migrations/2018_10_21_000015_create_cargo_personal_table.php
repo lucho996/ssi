@@ -35,13 +35,13 @@ class CreateCargoPersonalTable extends Migration
 
             $table->foreign('RUTP', 'FK_RELATIONSHIP_36')
                 ->references('RUTP')->on('personal')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('ID_CARGO', 'FK_RELATIONSHIP_37')
                 ->references('ID_CARGO')->on('cargo')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

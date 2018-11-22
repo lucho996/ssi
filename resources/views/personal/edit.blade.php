@@ -61,8 +61,8 @@
                             <td><input type="text" name="direccion" class="form-control"title="Dirección del personal"  value="{{$personal->DIRECCION}}" placeholder="Dirección"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" name="nombre_conyuge" class="form-control" title="Nombre conyuge del personal"  value="{{$personal->NOMBRE_CONYUGE}}" placeholder="Nombre Conyuge" onkeypress='return validar(event)'></td>
-                            <td><input type="text" name="telefono_conyuge" class="form-control" title="Telefono conyuge del personal"  value="{{$personal->TELEFONO_CONYUGE}}" placeholder="Telefono Conyuge" onkeypress='return validarNumericos(event)'></td>
+                            <td><input type="text" name="nombre_conyuge" class="form-control" title="Persona Emergencia"  value="{{$personal->NOMBRE_CONYUGE}}" placeholder="Nombre Conyuge" onkeypress='return validar(event)'></td>
+                            <td><input type="text" name="telefono_conyuge" class="form-control" title="Telefono Emergencia"  value="{{$personal->TELEFONO_CONYUGE}}" placeholder="Telefono Conyuge" onkeypress='return validarNumericos(event)'></td>
                         </tr>
                     
         

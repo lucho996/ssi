@@ -37,13 +37,13 @@ class CreateDetalleGuiaDespachoTable extends Migration
 
             $table->foreign('ID_PRODUCTO', 'FK_RELATIONSHIP_30')
                 ->references('ID_PRODUCTO')->on('producto')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('ID_GUIA_DESPACHO', 'FK_RELATIONSHIP_31')
                 ->references('ID_GUIA_DESPACHO')->on('guia_despacho')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

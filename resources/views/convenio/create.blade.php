@@ -6,7 +6,11 @@
 	<title>Clientes</title>
 
 </head>
-
+<style>
+		thead th input { 
+	background:url('/images/png/mas.png' ) no-repeat; border:none;  width:40px; height:40px;; 
+	background-size: 40px;}
+</style>
 <body >
 
 	<div style="width: 1100px; margin:0px auto;">
@@ -20,10 +24,10 @@
 						  <div  id="bs-example-navbar-collapse-1">
 								<ul class="nav navbar-nav" style="display: inline;">
 									@can('convenio')
-								  <li class="active"><a href="/convenio">Todos</a></li>
+								  <li  ><a href="/convenio">Todos</a></li>
 								  @endcan
 								  @can('convenio.create')
-								  <li><a href="/convenio/create">Nuevo</a></li>				  
+								  <li class="active"><a href="/convenio/create">Nuevo</a></li>				  
 								  @endcan
 								
 							  </ul>
@@ -81,8 +85,7 @@
 															<th>Precio Unitario</th>
 															<th>Cantidad</th>
 															<th>Total</th>
-															<th><a href="#" class="addRow"><img src="/images/png/mas.png" style="width:40px; height:35px;" alt=""></a></th>
-															<!--<input type="button" value="Agregar" class="addRow"/>-->
+															<th><input type="button"  id="boton"  class="addRow"></th>															<!--<input type="button" value="Agregar" class="addRow"/>-->
 														
 													</thead>
 													<tbody>
@@ -93,7 +96,7 @@
 															<td><input type="text" name="cantidad[]"  placeholder="Cantidad" class="form-control cantidad" maxlength="50"  required></td>
 				
 															<td><input type="text" name="total[]"  placeholder="Total" class="form-control total" maxlength="50"  disabled  required></td>
-															<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a></td>
+															<td><input type="button" class="btn btn-danger remove" value="X"></td>
 														</tr>
 	
 													</tbody>
@@ -164,7 +167,7 @@ function addRow() {
 				'<td><input type="text" name="precio_unitario[]"  placeholder="Precio unitario" class="form-control precio_unitario" maxlength="50"  required>'+
 				'<td><input type="text" name="cantidad[]"  placeholder="Cantidad" class="form-control cantidad" maxlength="50"  required>'+
 				'<td><input type="text" name="total[]"  placeholder="Total" class="form-control total"  disabled maxlength="50"  required>'+
-				'<td><a href="#" class="btn btn-danger remove"> <i class="glyphicon glyphicon-remove"></i></a></td>'+
+				'<td><input type="button" class="btn btn-danger remove" value="X"></td>'+
 				'</tr>';
 			$('tbody').append(tr);
 };

@@ -38,13 +38,13 @@ class CreateOrdenDeCompraMatTable extends Migration
 
             $table->foreign('ID_MATERIAL', 'FK_RELATIONSHIP_7')
                 ->references('ID_MATERIAL')->on('material')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('RUT', 'FK_RELATIONSHIP_8')
                 ->references('RUT')->on('proveedor')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

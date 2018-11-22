@@ -49,25 +49,42 @@
                   <table class="table table-hover table-striped" id="example"> 
                       <thead>
                           <tr>
+       
+                        
                               <th>Cod Petición</th>
+
+                              
                               <th>Cliente</th>
                               <th>Entrega Cotización</th>
                               <th>Fecha Cotización</th>
                               <th>Estado</th>
+                      
                               <th>Acciones</th>
                           </tr>
                       </thead>
                       <tbody>
                           @foreach($cotizacion as $cot)
                               <tr>
-
+                                @if($cot->COD_PETICION_OFERTA != null)
                                 <td>{{ $cot->COD_PETICION_OFERTA }}</td>
+                                @else 
+                                <td><em> SIN CODIGO</em></td>
+                                @endif
                                   <td>{{ $cot->NOMBRE_COMPLETO }}</td>
                                   <td>{{ $cot->FECHA_RESPUESTA_COTIZACION }}</td>
 
                                   <td>{{ $cot->FECHA_LLEGADA }}</td>
-                                    <td>{{$cot->ESTADO}}</td>
-                             
+
+                                  @if($cot->ESTADO=="En Espera")
+                                    <td style="background:#E5F78C ;">{{$cot->ESTADO}}</td>
+                                    @endif
+                                   @if($cot->ESTADO=="Aceptada")
+                                   <td style="background:#91F57F ;">{{$cot->ESTADO}}</td>
+                                @endif
+                                @if($cot->ESTADO=="Rechazada")
+                                   <td style="background:#F78A8A ;">{{$cot->ESTADO}}</td>
+                                @endif
+
                                   
                                   <td>
                                       @can('cotizacion.show')
@@ -96,5 +113,26 @@
 	</div>
     
 </body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#valor").prettynumber();   
+    });
+    </script>
+<script type="text/javascript">
+(function($) {
+	$.fn.prettynumber = function(options) {
+		var opts = $.extend({}, $.fn.prettynumber.defaults, options);
+		return this.each(function() {
+			$this = $(this);
+			var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
+			var str = $this.html();
+			$this.html($this.html().toString().replace(new RegExp("(^\\d{"+($this.html().toString().length%3||-1)+"})(?=\\d{3})"),"$1"+o.delimiter).replace(/(\d{3})(?=\d)/g,"$1"+o.delimiter));
+		});
+	};
+	$.fn.prettynumber.defaults = {
+		delimiter       : '.'	
+	};
+})(jQuery);
+</script>
 
 </html>

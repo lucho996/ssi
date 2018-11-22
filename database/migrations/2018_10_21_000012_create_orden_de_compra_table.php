@@ -34,8 +34,8 @@ class CreateOrdenDeCompraTable extends Migration
 
             $table->foreign('RUT_CLIENTE', 'FK_RELATIONSHIP_41')
                 ->references('RUT_CLIENTE')->on('clientes')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

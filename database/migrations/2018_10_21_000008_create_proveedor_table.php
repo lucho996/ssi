@@ -27,6 +27,8 @@ class CreateProveedorTable extends Migration
             $table->string('NOMBRE', 50)->nullable()->default(null);
             $table->string('DIRECCION', 50)->nullable()->default(null);
             $table->string('CIUDAD', 50)->nullable()->default(null);
+            $table->string('NOMBRE_CONTACTO', 50)->nullable()->default(null);
+            $table->string('TELEFONO_CONTACTO', 50)->nullable()->default(null);
             $table->integer('TELEFONO')->nullable()->default(null);
             $table->string('CORREO', 50)->nullable()->default(null);
         });

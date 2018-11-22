@@ -34,8 +34,8 @@ class CreateFacturaProveedorTable extends Migration
 
             $table->foreign('RUT', 'FK_RELATIONSHIP_10')
                 ->references('RUT')->on('proveedor')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

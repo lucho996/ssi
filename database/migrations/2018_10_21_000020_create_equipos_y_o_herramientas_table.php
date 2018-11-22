@@ -29,7 +29,9 @@ class CreateEquiposYOHerramientasTable extends Migration
             $table->string('UNIDAD_E', 30)->nullable()->default(null);
             $table->integer('CANTIDAD_DIAS_E')->nullable()->default(null);
             $table->integer('VALOR_TOTAL_E')->nullable()->default(null);
-
+            $table->integer('PRECIO_UNITARIO')->nullable()->default(null);
+            $table->string('USER_C',30)->nullable()->default(null);
+            
             $table->index(["ID_PRODUCTO"], 'FK_UTILIZA');
 
             $table->index(["ID_INVENTARIO"], 'FK_RELATIONSHIP_3');
@@ -37,13 +39,13 @@ class CreateEquiposYOHerramientasTable extends Migration
 
             $table->foreign('ID_INVENTARIO', 'FK_RELATIONSHIP_3')
                 ->references('ID_INVENTARIO')->on('inventario')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('ID_PRODUCTO', 'FK_UTILIZA')
                 ->references('ID_PRODUCTO')->on('producto')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

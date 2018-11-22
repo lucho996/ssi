@@ -27,7 +27,9 @@ class CreateManoDeObraTable extends Migration
             $table->integer('ID_PRODUCTO')->nullable()->default(null)->unsigned();
             $table->integer('RUTP')->nullable()->default(null)->unsigned();
             $table->integer('CANTIDAD_HORAS')->nullable()->default(null);
+            $table->integer('H_H')->nullable()->default(null);
             $table->integer('TOTAL_MANO_OBRA')->nullable()->default(null);
+            $table->string('USER_C',30)->nullable()->default(null);
 
             $table->index(["RUTP"], 'FK_REALIZA');
 
@@ -36,13 +38,13 @@ class CreateManoDeObraTable extends Migration
 
             $table->foreign('ID_PRODUCTO', 'FK_ES_PRODUCIDO')
                 ->references('ID_PRODUCTO')->on('producto')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('RUTP', 'FK_REALIZA')
                 ->references('RUTP')->on('personal')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

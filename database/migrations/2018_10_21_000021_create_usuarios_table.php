@@ -32,8 +32,8 @@ class CreateUsuariosTable extends Migration
 
             $table->foreign('RUTP', 'usuarios_RUTP')
                 ->references('RUTP')->on('personal')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

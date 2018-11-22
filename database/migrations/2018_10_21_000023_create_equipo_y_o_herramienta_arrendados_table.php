@@ -31,14 +31,14 @@ class CreateEquipoYOHerramientaArrendadosTable extends Migration
             $table->string('UNIDAD', 20)->nullable()->default(null);
             $table->integer('CANTIDAD')->nullable()->default(null);
             $table->integer('VALOR_TOTAL')->nullable()->default(null);
-
+            $table->string('USER_C',30)->nullable()->default(null);
             $table->index(["ID_PRODUCTO"], 'FK_RELATIONSHIP_15');
 
 
             $table->foreign('ID_PRODUCTO', 'FK_RELATIONSHIP_15')
                 ->references('ID_PRODUCTO')->on('producto')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

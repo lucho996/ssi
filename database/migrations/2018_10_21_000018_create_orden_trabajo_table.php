@@ -33,8 +33,8 @@ class CreateOrdenTrabajoTable extends Migration
 
             $table->foreign('ID_PRODUCTO', 'FK_RELATIONSHIP_16')
                 ->references('ID_PRODUCTO')->on('producto')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

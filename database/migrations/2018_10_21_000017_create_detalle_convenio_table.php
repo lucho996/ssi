@@ -38,13 +38,13 @@ class CreateDetalleConvenioTable extends Migration
 
             $table->foreign('ID_CONVENIO', 'FK_RELATIONSHIP_33')
                 ->references('ID_CONVENIO')->on('convenios')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('ID_PRODUCTO', 'FK_RELATIONSHIP_34')
                 ->references('ID_PRODUCTO')->on('producto')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

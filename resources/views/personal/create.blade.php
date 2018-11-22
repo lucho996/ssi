@@ -8,6 +8,9 @@
 		.badge {
 			float: right;
 		}
+		thead th input { 
+	background:url('/images/png/mas.png' ) no-repeat; border:none;  width:40px; height:40px;; 
+	background-size: 40px;}
 	</style>
 </head>
 
@@ -76,8 +79,8 @@
 					<td><input type="text" name="direccion" class="form-control" placeholder="Dirección"></td>
 				</tr>
                 <tr>
-					<td><input type="text" name="nombre_conyuge" class="form-control" placeholder="Nombre Conyuge" onkeypress='return validar(event)'></td>
-					<td><input type="text" name="telefono_conyuge" class="form-control" placeholder="Telefono Conyuge" onkeypress='return validarNumericos(event)'></td>
+					<td><input type="text" name="nombre_conyuge" class="form-control" placeholder="Persona Emergencia" onkeypress='return validar(event)'></td>
+					<td><input type="text" name="telefono_conyuge" class="form-control" placeholder="Telefono Emergencia" onkeypress='return validarNumericos(event)'></td>
 				</tr>
 			
 
@@ -100,7 +103,7 @@
 					<th>Rut</th>
 					<th>Nombre</th>
 					<th>Fecha Nacimiento</th>
-					<th><a href="#" class="add" style="margin-left:8px; "><span class="btn btn-primary">+</span></a></th>
+					<th><input type="button"  id="boton"  class="add"></th>
 
 				
 			</thead>
@@ -111,7 +114,7 @@
 				<td><input type="text" name="rut[]" class="form-control rut" placeholder="RUT"></td>
 				<td><input type="text" name="nombre_completo[]"class="form-control nombre_completo" placeholder="Nombre Completo" </td>
 				<td><input type="date" name="fecha_nacimiento[]"class="form-control fecha_nacimiento" placeholder="Fecha Nacimiento" ></td>
-				<td><a href="#" class="btn btn-danger removee">X</a></td>
+				<td><input type="button" class="btn btn-danger remove" value="X"></td>
 			</tr>
 			</tbody>
 
@@ -129,11 +132,14 @@
 							<br>
 		
 							
-		<a href="#" class="addRow" style="margin-left:8px; "><span class="btn btn-success">Agregar Cargo</span></a>
+							
 									
 								
 			<table class="table " id="tablacargo" style="width: 350px;">
 					<tr>
+							<td><input type="button"  value="Agregar Cargo"  class="btn btn-success addRow"></td>
+					</tr>
+				<tr>
 							<td>
 							<select name="cargo[]" style="height: 35px;"  class="form-control cargo" required>
 							<option value="" selected="true" disabled="true">Seleccionar Cargos</option>
@@ -143,7 +149,7 @@
 							</select>
 							</td>
 							<td>
-							<a href="#" class="btn btn-danger remove">X</a>
+							<input type="button" class="btn btn-danger remove" value="X">
 							</td>
 			
 							</tr>
@@ -222,7 +228,7 @@
 				'</select>'+
 				'</td>'+
 				'<td>'+
-				'<a href="#" class="btn btn-danger remove">X</a>'+
+				'<input type="button" class="btn btn-danger remove" value="X">'+
 				'</td>'+
 
 				'</tr>';
@@ -256,7 +262,7 @@
 				'<td><input type="text" name="rut[]" class="form-control rut" placeholder="RUT"></td>'+
 				'<td><input type="text" name="nombre_completo[]"class="form-control nombre_completo" placeholder="Nombre Completo" </td>'+
 				'<td><input type="date" name="fecha_nacimiento[]"class="form-control fecha_nacimiento" placeholder="Fecha Nacimiento" ></td>'+
-				'<td><a href="#" class="btn btn-danger removee">X</a>'+
+				'<td><input type="button" class="btn btn-danger remove" value="X">'+
 				'</tr>';
 				
 

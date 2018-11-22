@@ -29,25 +29,75 @@
 			<table class="table table-bordered">
 			<tbody>
 			<tr>
-				<td style="text-align:right;"><strong>Id:</strong> </td>
-				<td>{{$producto->ID_PRODUCTO}}</td>
+
 				<td style="text-align:right;"><strong>Descripción:</strong> </td>
 				<td>{{$producto->DESCRIPCION}}</td>
-			</tr>
-			<tr>
 				<td style="text-align:right;"><strong>Tipo de Producto:</strong> </td>
 				<td>{{$producto->TIPO_PRODUCTO}}</td>
-				<td style="text-align:right;"><strong>Plano del Producto:</strong> </td>
-				<td><a href="/planos/{{$producto->PLANO_PRODUCTO }}"><img src="/images/png/pdf.png" style="width:30px;" alt=""></a></td>
 			</tr>
 			<tr>
-				<td style="text-align:right;"><strong>Fecha de entrega:</strong> </td>
-				<td>{{$producto->FECHA_DE_ENTREGA_PRODUCTO}}</td>
-				<td style="text-align:right;"><strong>Estado:</strong> </td>
-				<td>{{$producto->ESTADO}}</td>
-			</tr>	
+					<td style="text-align:right;"><strong>Fecha de entrega:</strong> </td>
+					<td>{{$producto->FECHA_DE_ENTREGA_PRODUCTO}}</td>
+					<td style="text-align:right;"><strong>Estado:</strong> </td>
+					<td>{{$producto->ESTADO}}</td>
+				</tr>
+			<tr>
+				@if($producto->PLANO_PRODUCTO != null)
+				<td style="text-align:right;"><strong>Plano del Producto:</strong> </td>
+				<td><a href="/planos/{{$producto->PLANO_PRODUCTO }}"><img src="/images/png/pdf.png" style="width:30px;" alt=""></a></td>
+				@else 
+				<td style="text-align:right;"><strong>Plano del Producto:</strong> </td>
+				<td><em>Sin Plano</em></td>
+				@endif
+				<td style="text-align:right;"><strong>Cod Sap:</strong> </td>
+				<td>{{$producto->CODIGO_SAP}}</td>				
+			</tr>
+			
+			
+
+	
 			</tbody>	
-			</table>  
+			</table> 
+			
+			<table class="table table-bordered">
+					<tbody>
+					
+					<tr>
+							@if($producto->GASTOS_GENERALES != null)
+							<td style="text-align:right;"><strong>Gastos Generales:</strong> </td>
+							<td>${{$producto->GASTOS_GENERALES }}</td>
+							@else 
+							<td style="text-align:right;"><strong>Gastos Generales:</strong> </td>
+							<td><em>Sin Cotizar</em></td>
+							@endif
+		
+							@if($producto->UTILIDADES != null)
+							<td style="text-align:right;"><strong>Utilidades:</strong> </td>
+							<td>${{$producto->UTILIDADES }}</td>
+							@else 
+							<td style="text-align:right;"><strong>Utilidades:</strong> </td>
+							<td><em>Sin Cotizar</em></td>
+							@endif
+							
+						</tr>
+						<tr>
+								@if($producto->TOTAL != null)
+								<td style="text-align:right;"><strong>Total:</strong> </td>
+								<td>${{$producto->TOTAL }}</td>
+								@else 
+								<td style="text-align:right;"><strong>Total:</strong> </td>
+								<td><em>Sin Cotizar</em></td>
+								@endif
+						</tr>
+			
+					</tbody>	
+					</table>  
+
+
+
+
+
+
 			
 
 		

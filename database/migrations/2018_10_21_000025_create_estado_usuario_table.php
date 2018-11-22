@@ -36,13 +36,13 @@ class CreateEstadoUsuarioTable extends Migration
 
             $table->foreign('RUTP', 'FK_RELATIONSHIP_39')
                 ->references('RUTP')->on('usuarios')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('ID_ESTADO_USER', 'FK_RELATIONSHIP_40')
                 ->references('ID_ESTADO_USER')->on('estado')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
