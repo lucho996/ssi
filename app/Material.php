@@ -39,11 +39,9 @@ class Material extends Model
     {
         return $this->belongsTo('App\Producto', 'ID_PRODUCTO', 'ID_PRODUCTO');
     }
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function ordenDeCompraMats()
-    {
-        return $this->hasMany('App\OrdenDeCompraMat', 'ID_MATERIAL', 'ID_MATERIAL');
-    }
+
 }

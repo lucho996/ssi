@@ -1,9 +1,6 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * @property int $ID_CONVENIO
  * @property string $FECHA_INICIO
@@ -26,8 +23,7 @@ class Convenio extends Model
     /**
      * @var array
      */
-    protected $fillable = ['FECHA_INICIO', 'FECHA_TERMINO', 'TOTAL', 'NETO'];
-
+    protected $fillable = ['FECHA_INICIO', 'FECHA_TERMINO', 'TOTAL', 'NETO','N_CONVENIO','FECHA_EMISION','CONDICION_PAGO','NOMBRE_PERSONA_ACARGO','NUMERO_PERSONA','CORREO_PERSONA'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -35,7 +31,6 @@ class Convenio extends Model
     {
         return $this->hasMany('App\ClienteConvenio', 'ID_CONVENIO', 'ID_CONVENIO');
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -43,7 +38,6 @@ class Convenio extends Model
     {
         return $this->hasMany('App\DetalleConvenio', 'ID_CONVENIO', 'ID_CONVENIO');
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

@@ -27,42 +27,43 @@
                 </div>
                
                 <div class="panel-body">
-                <form action="{{ route('clientes.update', $clientes->RUT_CLIENTE)}}" method="POST">
+                <form action="{{ route('convenio.update', $convenio->ID_CONVENIO)}}" method="POST">
                
                           {{ csrf_field() }}
                           <input name="_method" type="hidden" value="PUT">
-                      <p>   
-                          <input type="text" name="rut" value="{{ $clientes->RUT_CLIENTE }}" placeholder="Rut" class="form-control" onkeypress='return validaNumericos(event)' maxlength="9" minlength="9" required>
-                      </p>
-                      <p>
-                          <input type="text" name="nombre" value="{{ $clientes->NOMBRE_COMPLETO }}" placeholder="Nombre" maxlength="50" class="form-control" onkeypress='return validar(event)' required>
-                      </p>
-                      <p>
-                          <input type="text" name="direccion" value="{{ $clientes->DIRECCION }}" placeholder="Dirección" maxlength="50" class="form-control" required>
-                      </p>	
-                      <p>
-                          <input type="text" name="ciudad" value="{{ $clientes->CIUDAD }}" placeholder="Ciudad" maxlength="50" class="form-control" onkeypress='return validar(event)'>
-                      </p>
-                      <p>
-                          <input type="text" name="comuna" placeholder="Comuna" value="{{ $clientes->COMUNA }}"class="form-control" onkeypress='return validar(event)'>
-                      </p>
-                      <p>
-                          <input type="text" name="giro" placeholder="Giro" value="{{ $clientes->GIRO }}" class="form-control" onkeypress='return validar(event)' required>
-                      </p>
-                      <p>
-                          <input type="text" name="telefono" placeholder="Telefono" value="{{ $clientes->TELEFONO }}" maxlength="9" minlength="9" class="form-control" onkeypress='return validaNumericos(event)'>
-      
-                      </p>
-                      <p>
-                            <select name="tipo" style="height: 35px;" class="form-control" >
-                                    <option value="Fijo" @if($clientes->TIPO =='Fijo') selected @endif>Fijo</option>
-                                    <option value="Esporadico" @if($clientes->TIPO =='Esporadico') selected @endif>Esporadico</option> 
-                            </select>
-
-
-
-                          
-                      </p>
+                          <p>
+                                <select name="cliente" style="height:30px ;" class="form-control" >
+                                        @foreach($clientes as $cliente)
+                                            <option value="{{$cliente->RUT_CLIENTE}}">{{$cliente->NOMBRE_COMPLETO}}</option>
+                                        @endforeach
+                        
+                                </select>				
+                            </p>
+                            <p>
+                                <input type="text" name="numero_convenio"placeholder="N° convenio" class="form-control" required>
+                            </p>
+                            <p>
+                                <input type="text" name="fecha_emision"placeholder="Fecha Emision" class="form-control"onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_emision"  required>
+                            </p>
+                            <p>
+                                <input type="text" name="fecha_inicio" placeholder="Fecha inicio de convenio" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_inicio" class="form-control" required>
+                            </p>
+                            <p>
+                                <input type="text" name="fecha_final" placeholder="Fecha final de convenio" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_inicio" class="form-control">
+                
+                            </p>
+                            <p>
+                                <input type="text" name="condicion_pago"placeholder="Condiciones de pago" class="form-control" required>
+                            </p>
+                            <p>
+                                <input type="text" name="nombre_persona"placeholder="Nombre de persona a cargo" class="form-control" required>
+                            </p>
+                            <p>
+                                <input type="text" name="telefono_persona"placeholder="Télefono de persona a cargo" class="form-control" required>
+                            </p>
+                            <p>
+                                <input type="text" name="correo_persona"placeholder="Correo de persona a cargo" class="form-control" required>
+                            </p>
                       <p>
                           <input type="submit" value="Actualizar" class="btn btn-success">
                           <a href="/clientes" class="btn btn-default">Regresar</a>

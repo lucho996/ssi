@@ -72,15 +72,15 @@
 				</tr>
 				<tr>
 					<td><input type="text" name="titulos"  onkeypress='return validar(event)' placeholder="Titulo" class="form-control" ></td>
-					<td><input type="text" name="correo" placeholder="Correo" class="form-control"></td>
+					<td><input type="email" maxlength="50" name="correo" placeholder="Correo" class="form-control"></td>
 				</tr>
 				<tr>
 					<td><input type="text" name="fecha_nac" class="form-control" placeholder="Fecha de nacimiento" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" required></td>
-					<td><input type="text" name="direccion" class="form-control" placeholder="Dirección"></td>
+					<td><input type="text" name="direccion" class="form-control" maxlength="40" placeholder="Dirección"></td>
 				</tr>
                 <tr>
-					<td><input type="text" name="nombre_conyuge" class="form-control" placeholder="Persona Emergencia" onkeypress='return validar(event)'></td>
-					<td><input type="text" name="telefono_conyuge" class="form-control" placeholder="Telefono Emergencia" onkeypress='return validarNumericos(event)'></td>
+					<td><input type="text" name="nombre_conyuge" class="form-control" placeholder="Persona Emergencia" maxlength="30" onkeypress='return validar(event)'></td>
+					<td><input type="text" name="telefono_conyuge" class="form-control" placeholder="Telefono Emergencia" maxlength="9" minlength="9" onkeypress='return validarNumericos(event)'></td>
 				</tr>
 			
 
@@ -180,7 +180,7 @@
 					<tr>
 						<td><input type="text" name="colacion" placeholder="Colación" maxlength="30" class="form-control" onkeypress='return validarNumerico(event)' required></td>
 						<td><input type="text" name="fecha_inicio_c" class="form-control" placeholder="Inicio de Contrato" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" required></td>
-						<td><input type="text" name="fecha_termino_c" class="form-control" placeholder="Final de Contrato" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" required></td>
+						<td><input type="text" name="fecha_termino_c" class="form-control" placeholder="Final de Contrato" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" ></td>
 
 					</tr>
 					<tr>

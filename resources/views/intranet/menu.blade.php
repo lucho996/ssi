@@ -19,7 +19,9 @@
                 <a href="#" class="btn_menu">Menu</a>
                 <ul class="menu">
                     <li><a href="/intranet/index">Inicio</a></li>
-                    
+                    @can('iva')
+                    <li><a href="/iva">IVA</a></li>
+                    @endcan
                     <li><a href="#">Gestion Usuarios</a>
                     <ul>
                     @can('users')
@@ -39,6 +41,7 @@
                     @can('inventario')
                     <li><a href="/inventario">Inventario</a></li>
                     @endcan
+
                     @can('proveedor')
                     <li><a href="/proveedor">Proveedor</a></li>
                     @endcan
@@ -49,8 +52,13 @@
                     </ul>
                     </li>
                     @endcan
-                    @can('convenio')
-                    <li><a href="/convenio">Convenios</a></li>
+                    @can('cotizacion')
+                    <li><a href="#">Convenio</a>
+                    <ul>
+                        
+                        <li><a href="/convenio">Ingresar Convenio </a></li>
+                    </ul>
+                    </li>
                     @endcan
                 </ul>
             </div>

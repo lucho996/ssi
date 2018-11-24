@@ -102,9 +102,17 @@ class CotizacionController extends Controller
     public function store(Request $request)
     {
        // dd($request);
+       $obtiva = \DB::table('iva')
+       ->select('ID_IVA')
+       ->where('ESTADO','=', 'Activo')
+       ->pluck('ID_IVA')->first();
+
+       
+
         $cotizacion = new Cotizacion;
         
         $cotizacion->RUT_CLIENTE =$request->Input('cliente');
+        $cotizacion->ID_IVA = $obtiva;
         $cotizacion->COD_PETICION_OFERTA =$request->Input('codigo_pet_oferta');
         $cotizacion->FECHA_LLEGADA = Carbon::now();
         $cotizacion->FECHA_RESPUESTA_COTIZACION =$request->Input('fecha_resp_coti');

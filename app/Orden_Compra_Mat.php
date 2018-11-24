@@ -30,19 +30,18 @@ class Orden_Compra_Mat extends Model
     /**
      * @var array
      */
-    protected $fillable = ['ID_MATERIAL', 'RUT', 'FECHA_EMISION', 'CONDICIONES_PAGO', 'VALOR_NETO', 'VALOR_TOTAL'];
+    protected $fillable = ['ID_IVA','RUT','ID_PRODUCTO', 'FECHA_EMISION', 'CONDICIONES_PAGO', 'VALOR_NETO', 'VALOR_TOTAL'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function material()
-    {
-        return $this->belongsTo('App\Material', 'ID_MATERIAL', 'ID_MATERIAL');
-    }
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function proveedor()
+    
+
+    public function iva()
     {
-        return $this->belongsTo('App\Proveedor', 'RUT', 'RUT');
+        return $this->belongsTo('App\Iva', 'ID_IVA', 'ID_IVA');
     }
 }

@@ -44,7 +44,7 @@
   			<form  action="{{ action('InventarioController@store')}}" method="post">
 					{{ csrf_field() }}
                 <p>
-                    <input type="text" name="nombre" placeholder="Nombre" maxlength="50" class="form-control" onkeypress='return validar(event)' required>
+                    <input type="text" name="nombre" placeholder="Nombre" maxlength="50" class="form-control"  required>
                 </p>
 			    <p>
 					<input type="text" name="marca" placeholder="Marca" maxlength="50" class="form-control" onkeypress='return validar(event)' required>
@@ -53,7 +53,7 @@
 					<select name="ubicacion" style="height:35px ;" class="form-control" >
 						<option>Taller Abastible</option>
 						<option>Taller Petroquim</option>
-						<option>Taller</option>          
+						<option>Maestranza</option>          
 					</select>
 				</p>
 

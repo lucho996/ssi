@@ -52,48 +52,196 @@
 				<td style="text-align:right;"><strong>Cod Sap:</strong> </td>
 				<td>{{$producto->CODIGO_SAP}}</td>				
 			</tr>
+			<tr>
+					
+					<td style="text-align:right;"><strong>Cantidad:</strong> </td>
+					<td>{{$producto->CANTIDAD}}</td>				
+				</tr>
 			
 			
 
 	
 			</tbody>	
 			</table> 
-			
+
+
+			<div class="panel panel-default" style="margin-top:20px ;">
+					<div class="panel-heading">
+						<h5><em>Mano de Obra</em></h4>
+					</div>
+		  
+					<div class="panel-body">
 			<table class="table table-bordered">
+				<thead>
+					<th>Rut Personal</th>
+					<th>Hora Hombre</th>
+					<th>Cantidad Horas</th>
+					<th>Total</th>
+				</thead>
 					<tbody>
+							
+					@foreach ($mano_obra as $mano_obra)
+							
 					
 					<tr>
-							@if($producto->GASTOS_GENERALES != null)
-							<td style="text-align:right;"><strong>Gastos Generales:</strong> </td>
-							<td>${{$producto->GASTOS_GENERALES }}</td>
-							@else 
-							<td style="text-align:right;"><strong>Gastos Generales:</strong> </td>
-							<td><em>Sin Cotizar</em></td>
-							@endif
+					<td>{{$mano_obra->RUTP}}</td>
+					<td>{{$mano_obra->H_H}}</td>
+					<td>{{$mano_obra->CANTIDAD_HORAS}}</td>
+					<td>{{$mano_obra->TOTAL_MANO_OBRA}}</td>
+					</tr>	
+					@endforeach
+					
+					
 		
-							@if($producto->UTILIDADES != null)
-							<td style="text-align:right;"><strong>Utilidades:</strong> </td>
-							<td>${{$producto->UTILIDADES }}</td>
-							@else 
-							<td style="text-align:right;"><strong>Utilidades:</strong> </td>
-							<td><em>Sin Cotizar</em></td>
-							@endif
-							
-						</tr>
+			
+					</tbody>	
+					</table> 
+					</div>
+				</div>
+
+				<div class="panel panel-default" style="margin-top:20px ;">
+						<div class="panel-heading">
+							<h5><em>Material</em></h4>
+						</div>
+			  
+						<div class="panel-body">
+				<table class="table table-bordered">
+					<thead>
+						<th>RUT</th>
+						<th>Nombre</th>
+						<th>Telefono</th>
+
+						<th>Acción</th>
+					</thead>
+						<tbody>
+								
+						@foreach ($material as $material)
+								
+						
 						<tr>
-								@if($producto->TOTAL != null)
-								<td style="text-align:right;"><strong>Total:</strong> </td>
-								<td>${{$producto->TOTAL }}</td>
-								@else 
-								<td style="text-align:right;"><strong>Total:</strong> </td>
-								<td><em>Sin Cotizar</em></td>
-								@endif
-						</tr>
+						<td>{{$material->RUT}}</td>
+						<td>{{$material->NOMBRE}}</td>
+						<td>{{$material->TELEFONO}}</td>
+
+						<td>
+						<a href="/producto/orden_compra_m/{{$material->RUT}}/{{$producto->ID_PRODUCTO}}">Orden de Compra</a>
+						</td>
+						</tr>	
+						@endforeach
+						
+						
+			
+				
+						</tbody>	
+						</table> 
+						</div>
+					</div>
+
+					<div class="panel panel-default" style="margin-top:20px ;">
+							<div class="panel-heading">
+								<h5><em>Herramienta o Equipos</em></h4>
+							</div>
+				  
+							<div class="panel-body">
+					<table class="table table-bordered">
+						<thead>
+							<th>Equipo</th>
+							<th>Unidad</th>
+							<th>Cantidad</th>
+							<th>Precio Unitario</th>
+							<th>Total</th>
+							
+						</thead>
+							<tbody>
+									
+							@foreach ($equipo as $equipo)
+									
+							
+							<tr>
+							<td>{{$equipo->NOMBRE}}</td>
+							<td>{{$equipo->UNIDAD_E}}</td>
+							<td>{{$equipo->CANTIDAD_DIAS_E}}</td>
+							<td>{{$equipo->PRECIO_UNITARIO}}</td>
+							<td>{{$equipo->VALOR_TOTAL_E}}</td>
+							
+							</tr>	
+							@endforeach
+							
+							
+				
+					
+							</tbody>	
+							</table> 
+							</div>
+						</div>
+
+						<div class="panel panel-default" style="margin-top:20px ;">
+								<div class="panel-heading">
+									<h5><em>Herramienta o Equipos Arrendados</em></h4>
+								</div>
+					  
+								<div class="panel-body">
+						<table class="table table-bordered">
+							<thead>
+									<th>Equipo</th>
+									<th>Unidad</th>
+									<th>Cantidad</th>
+									<th>Precio Unitario</th>
+									<th>Total</th>
+							</thead>
+								<tbody>
+										
+								@foreach ($equipoa as $equipoa)
+										
+								
+								<tr>
+								<td>{{$equipoa->NOMBRE}}</td>
+								<td>{{$equipoa->UNIDAD}}</td>
+								<td>{{$equipoa->CANTIDAD}}</td>
+								<td>{{$equipoa->VALOR}}</td>
+								<td>{{$equipoa->VALOR_TOTAL}}</td>
+
+								</tr>	
+								@endforeach
+								
+								
+					
+						
+								</tbody>	
+								</table> 
+								</div>
+							</div>
+
+						
+<center>
+			<table class="table table-bordered" style="width:40% ;">
+				
+					<tbody>
+							<tr>
+									@if($producto->TOTAL != null)
+									<td style="text-align:right;"><strong>Total Neto:</strong> </td>
+							<td >$<p style="display: inline;" id="number3">{{$producto->TOTAL}}</p></td>
+									@else 
+									<td style="text-align:right;"><strong>Total Neto:</strong> </td>
+									<td><em>Sin Cotizar</em></td>
+									@endif
+							</tr>
+
+							<tr>
+									@if($producto->TOTAL != null)
+									<td style="text-align:right;"><strong>Total:</strong> </td>
+							<td >$<p style="display: inline;" id="number2">{{$producto->TOTAL * $producto->CANTIDAD}}</p></td>
+									@else 
+									<td style="text-align:right;"><strong>Total Neto:</strong> </td>
+									<td><em>Sin Cotizar</em></td>
+									@endif
+							</tr>
+
 			
 					</tbody>	
 					</table>  
-
-
+				
+			
 
 
 
@@ -102,9 +250,46 @@
 
 		
 								<a href="javascript:history.back(-1);" class="btn btn-default" title="Ir la página anterior">Regresar</a>
-		</div>
+							</center>
+							</div>
 	</div>
 		</div>
 		</div>
 </body>
+<script type="text/javascript" >
+	(function($) {
+		$.fn.prettynumber = function(options) {
+			var opts = $.extend({}, $.fn.prettynumber.defaults, options);
+			return this.each(function() {
+				$this = $(this);
+				var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
+				var str = $this.html();
+				$this.html($this.html().toString().replace(new RegExp("(^\\d{"+($this.html().toString().length%3||-1)+"})(?=\\d{3})"),"$1"+o.delimiter).replace(/(\d{3})(?=\d)/g,"$1"+o.delimiter));
+			});
+		};
+		$.fn.prettynumber.defaults = {
+			delimiter       : '.'	
+		};
+	})(jQuery);
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#number").prettynumber();   
+	});
+	</script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#number2").prettynumber();   
+			});
+			</script>
+				<script type="text/javascript">
+					$(document).ready(function(){
+						$("#number3").prettynumber();   
+					});
+					</script>
+									<script type="text/javascript">
+										$(document).ready(function(){
+											$("#number4").prettynumber();   
+										});
+										</script>
 </html>

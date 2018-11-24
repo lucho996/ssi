@@ -43,6 +43,8 @@ class ProveedorController extends Controller
         $proveedor->CIUDAD =$request->Input('ciudad');
         $proveedor->TELEFONO =$request->Input('telefono');
         $proveedor->CORREO =$request->Input('correo');
+        $proveedor->NOMBRE_CONTACTO =$request->Input('nom_contact');
+        $proveedor->TELEFONO_CONTACTO =$request->Input('tel_contact');
         try{
             if($proveedor->save()){
                 Session::flash('message','Guardado Correctamente');
@@ -101,6 +103,8 @@ class ProveedorController extends Controller
         $proveedor->CIUDAD =$request->Input('ciudad');
         $proveedor->TELEFONO =$request->Input('telefono');
         $proveedor->CORREO =$request->Input('correo');
+        $proveedor->NOMBRE_CONTACTO =$request->Input('nom_contact');
+        $proveedor->TELEFONO_CONTACTO =$request->Input('tel_contact');
         try{
             if($proveedor->save()){
                 Session::flash('message','Guardado Correctamente');

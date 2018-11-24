@@ -41,8 +41,14 @@
                                 <input type="text" name="telefono" value="{{$proveedor->TELEFONO}}" placeholder="Telefono" maxlength="9" minlength="9" class="form-control" onkeypress='return validaNumericos(event)' >
                             </p>
                             <p>
-                                <input type="text" name="correo" value="{{$proveedor->CORREO}}" placeholder="Correo" maxlength="50" class="form-control" >
+                                <input type="email" name="correo" value="{{$proveedor->CORREO}}" placeholder="Correo" maxlength="50" class="form-control" >
                             </p>	
+                            <p>
+                                    <input type="text" name="nom_contact" value="{{$proveedor->NOMBRE_CONTACTO}}" placeholder="Nombre Contacto" maxlength="30" class="form-control" >
+                                </p>
+                                <p>
+                                    <input type="text" name="tel_contact"value="{{$proveedor->TELEFONO_CONTACTO}}" placeholder="Telefono Contacto" maxlength="9" minlength="9" class="form-control" onkeypress='return validaNumericos(event)'  >
+                                    </p>	
                             <p>
                                 <input type="submit" value="Actualizar" class="btn btn-success">
                                 <a href="/proveedor" class="btn btn-default">Regresar</a>

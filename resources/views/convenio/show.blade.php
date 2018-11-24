@@ -31,41 +31,45 @@
 
   		<div class="panel-body">
 				
-				@if(!@empty($clientes))
+				@if(!@empty($convenio))
 
 		<table class="table table-bordered">
 			<tbody>
+					<thead>
+							<td style="text-align:right;"><strong>NOMBRE PERSONA A CARGO:</strong> </td>
+							<td style="text-align:right;"><strong>Rut:</strong> </td>
+							<td style="text-align:right;"><strong>Rut:</strong> </td>
+							<td style="text-align:right;"><strong>Rut:</strong> </td>
+							<td style="text-align:right;"><strong>Rut:</strong> </td>
+							<td style="text-align:right;"><strong>Rut:</strong> </td>>
+							<td style="text-align:right;"><strong>Rut:</strong> </td>
+							<td style="text-align:right;"><strong>Rut:</strong> </td>
+							<td style="text-align:right;"><strong>Rut:</strong> </td>
+							   <!--<input type="button" value="Agregar" class="addRow"/>-->
+						   
+					   </thead>
 				<tr>
-					<td style="text-align:right;"><strong>Rut:</strong> </td>
-					<td>{{$clientes ->RUT_CLIENTE}}</td>
-					<td style="text-align:right;"><strong>Comuna:</strong> </td>
-					<td>{{$clientes ->COMUNA}}</td>		
-				</tr>
-				<tr>
-					<td style="text-align:right;"><strong>Nombre:</strong> </td>
-					<td>{{$clientes ->NOMBRE_COMPLETO}}</td>
-					<td style="text-align:right;"><strong>Giro:</strong> </td>
-					<td>{{$clientes ->GIRO}}</td>		
-				</tr>
-				<tr>
-					<td style="text-align:right;"><strong>Dirección:</strong> </td>
-					<td>{{$clientes ->DIRECCION}}</td>
-					<td style="text-align:right;"><strong>Telefono:</strong> </td>
-					<td>{{$clientes ->TELEFONO}}</td>		
-				</tr>
-				<tr>
-					<td style="text-align:right;"><strong>Ciudad:</strong> </td>
-					<td>{{$clientes ->CIUDAD}}</td>
-					<td style="text-align:right;"><strong>Tipo:</strong> </td>
-					<td>{{$clientes ->TIPO}}</td>		
-				</tr>
+					
+					
+					<td>{{$convenio->NOMBRE_PERSONA_ACARGO}}</td>
+					<td>{{$convenio->FECHA_INICIO}}</td>
+					<td>{{$convenio->FECHA_TERMINO}}</td>
+					<td>{{$convenio->TOTAL}}</td>
+					<td>{{$convenio->NETO}}</td>
+					<td>{{$convenio->N_CONVENIO}}</td>
+					<td>{{$convenio->FECHA_EMISION}}</td>
+					<td>{{$convenio->CONDICION_PAGO}}</td>
+					<td>{{$convenio->NUMERO_PERSONA}}</td>
+					<td>{{$convenio->CORREO_PERSONA}}</td>
+
+			
 			</tbody>
 		</table>
 
 		@else
 		<p>No existe el cliente</p>		
 		@endif
-        <a href="/clientes" class="btn btn-default">Regresar</a>
+        <a href="/convenio" class="btn btn-default">Regresar</a>
 		</div>
 	</div>
 		</div>

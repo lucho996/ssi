@@ -25,6 +25,7 @@ class CreateMaterialTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('ID_MATERIAL');
             $table->integer('ID_PRODUCTO')->nullable()->default(null)->unsigned();
+          
             $table->integer('CANTIDAD')->nullable()->default(null);
             $table->string('NOMBRE', 50)->nullable()->default(null);
             $table->integer('PRECIO_UNITARIO')->nullable()->default(null);
@@ -39,6 +40,8 @@ class CreateMaterialTable extends Migration
                 ->references('ID_PRODUCTO')->on('producto')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+             
         });
     }
 

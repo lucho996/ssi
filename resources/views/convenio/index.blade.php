@@ -24,14 +24,17 @@
         <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                   <div id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav" style="display:inline; float:right;">
+                        <ul class="nav navbar-nav" style="display: inline;">
                         @can('convenio')
-                        <li class="active"><a href="/convenio">Todos</a></li>
-                        @endcan
-                        @can('convenio.create')
-                        <li ><a href="/convenio/create">Nuevo</a></li>
-                        @endcan
-                        </ul>
+                      <li  class="active"><a href="/convenio">Todos</a></li>
+                      @endcan
+                   
+                      @can('convenio.cotizarconvenio')
+                    <li>
+                            <li ><a href="/convenio/cotizarconvenio">Nuevo Convenio</a></li>	
+                    </li>
+                    @endcan
+                  </ul>
                   </div>
               </div>
           </nav>
@@ -59,7 +62,7 @@
                               <tr>
 
 
-                                <td>{{ $convenio->RUT_CLIENTE }}</td>
+                                <td>{{ $convenio->NOMBRE_PERSONA_ACARGO }}</td>
                                 <td>{{ $convenio->NOMBRE_COMPLETO }}</td>
                                 <td>{{ $convenio->FECHA_INICIO }}</td>
                                 <td>{{ $convenio->FECHA_TERMINO }}</td>
@@ -67,6 +70,16 @@
                                 <td>
                                     @can('producto.index2')
                                     <a href="/producto/index2/{{$convenio->ID_CONVENIO}}"><img src="images/png/productos.png" alt="" style="width:20px;"></a>
+                                    @endcan
+                                    @can('convenio.show')
+                                    <a href="/convenio/show/{{ $convenio->ID_CONVENIO }}"><img src="/images/png/ver.png" style="width:20px;" alt=""></a>    
+                                    @endcan
+                                    @can('convenio.edit')
+                                    <a href="/convenio/edit/{{ $convenio->ID_CONVENIO }}"><img src="/images/png/editar.png"style="width:20px;" alt=""></a>
+                                    @endcan
+                                   
+                                    @can('convenio.guia')
+                                    <a href="/convenio/guia/{{$convenio->ID_CONVENIO}}"><img src="/images/png/orden.png"style="width:20px;" alt=""></a>      
                                     @endcan
                                 </td>
                                 

@@ -78,8 +78,8 @@
 								<tr>
 										@foreach ($iva as $iva)
 										@if($iva->IVA != null)
-										<td style="text-align:right;"><strong>IVA:</strong> </td>
-										<td>{{$iva->IVA}}</td>
+										<td style="text-align:right;"><strong>+IVA:</strong> </td>
+										<td id="number">{{$iva->IVA}}%</td>
 										@else 
 										<td style="text-align:right;"><strong>IVA:</strong> </td>
 										<td>Sin Cotizar</td>
@@ -87,7 +87,7 @@
 										@endforeach
 										@if($cotizacion ->VALOR_NETO != null)
 										<td style="text-align:right;"><strong>Valor Neto:</strong> </td>
-										<td>{{$cotizacion ->VALOR_NETO}}</td>
+										<td >$<div id="number5" style="display: inline;">{{$cotizacion ->VALOR_NETO}}</div></td>
 										@else 
 										<td style="text-align:right;"><strong>Valor Neto:</strong> </td>
 										<td><em>Sin Cotizar</em></td>	
@@ -107,7 +107,7 @@
 										@endif
 										@if($cotizacion ->VALOR_TOTAL != null)
 										<td style="text-align:right;"><strong>Valor Total:</strong> </td>
-										<td>{{$cotizacion ->VALOR_TOTAL}}</td>
+										<td >$<div id="number6" style="display: inline;">{{$cotizacion ->VALOR_TOTAL}}</div></td>
 										@else 
 										<td style="text-align:right;"><strong>Valor Total:</strong> </td>
 										<td><em>Sin Cotizar</em></td>
@@ -131,4 +131,35 @@
 		</div>
 		
 </body>
+<script type="text/javascript" >
+(function($) {
+	$.fn.prettynumber = function(options) {
+		var opts = $.extend({}, $.fn.prettynumber.defaults, options);
+		return this.each(function() {
+			$this = $(this);
+			var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
+			var str = $this.html();
+			$this.html($this.html().toString().replace(new RegExp("(^\\d{"+($this.html().toString().length%3||-1)+"})(?=\\d{3})"),"$1"+o.delimiter).replace(/(\d{3})(?=\d)/g,"$1"+o.delimiter));
+		});
+	};
+	$.fn.prettynumber.defaults = {
+		delimiter       : '.'	
+	};
+})(jQuery);
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#number5").prettynumber();   
+});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#number6").prettynumber();   
+	});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#number7").prettynumber();   
+		});
+		</script>
 </html>

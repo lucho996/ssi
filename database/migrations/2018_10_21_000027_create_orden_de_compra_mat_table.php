@@ -24,25 +24,36 @@ class CreateOrdenDeCompraMatTable extends Migration
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('ID_ORDEN_COMPRA');
-            $table->integer('ID_MATERIAL')->nullable()->default(null)->unsigned();
+            $table->integer('ID_PRODUCTO')->nullable()->default(null)->unsigned();
             $table->integer('RUT')->nullable()->default(null)->unsigned();
+            $table->integer('ID_IVA')->nullable()->default(null)->unsigned();
             $table->dateTime('FECHA_EMISION')->nullable()->default(null);
             $table->string('CONDICIONES_PAGO', 50)->nullable()->default(null);
             $table->integer('VALOR_NETO')->nullable()->default(null);
             $table->integer('VALOR_TOTAL')->nullable()->default(null);
 
-            $table->index(["ID_MATERIAL"], 'FK_RELATIONSHIP_7');
+        
 
-            $table->index(["RUT"], 'FK_RELATIONSHIP_8');
+            $table->index(["ID_IVA"], 'ID_IVA_FK');
+            $table->index(["RUT"], 'RUT_PRO_FK');
+            $table->index(["ID_PRODUCTO"], 'ID_PROD_FK');
+  
 
 
-            $table->foreign('ID_MATERIAL', 'FK_RELATIONSHIP_7')
-                ->references('ID_MATERIAL')->on('material')
+                $table->foreign('ID_IVA', 'ID_IVA_FK')
+                ->references('ID_IVA')->on('iva')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('RUT', 'FK_RELATIONSHIP_8')
+                
+                $table->foreign('RUT', 'RUT_PRO_FK')
                 ->references('RUT')->on('proveedor')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+                
+                $table->foreign('ID_PRODUCTO', 'ID_PROD_FK')
+                ->references('ID_PRODUCTO')->on('producto')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 class CreateConveniosTable extends Migration
 {
     /**
@@ -11,7 +9,6 @@ class CreateConveniosTable extends Migration
      * @var string
      */
     public $set_schema_table = 'convenios';
-
     /**
      * Run the migrations.
      * @table convenios
@@ -28,9 +25,14 @@ class CreateConveniosTable extends Migration
             $table->date('FECHA_TERMINO')->nullable()->default(null);
             $table->integer('TOTAL')->nullable()->default(null);
             $table->integer('NETO')->nullable()->default(null);
+            $table->integer('N_CONVENIO')->nullable()->default(null);
+            $table->date('FECHA_EMISION')->nullable()->default(null);
+            $table->string('CONDICION_PAGO')->nullable()->default(null);
+            $table->string('NOMBRE_PERSONA_ACARGO')->nullable()->default(null);
+            $table->integer('NUMERO_PERSONA')->nullable()->default(null);
+            $table->string('CORREO_PERSONA')->nullable()->default(null);
         });
     }
-
     /**
      * Reverse the migrations.
      *

@@ -27,9 +27,13 @@
 								  <li  ><a href="/convenio">Todos</a></li>
 								  @endcan
 								  @can('convenio.create')
-								  <li class="active"><a href="/convenio/create">Nuevo</a></li>				  
+								  <li class="active"><a href="/convenio/create">Nuevo existente</a></li>				  
 								  @endcan
-								
+								  @can('convenio.cotizarconvenio')
+								<li>
+										<li ><a href="/convenio/cotizarconvenio">Nuevo Convenio</a></li>	
+								</li>
+								@endcan
 							  </ul>
 						  </div>
 					  </div>
@@ -51,22 +55,39 @@
 						</div>
 				
 					<div class="panel-body">
-	
-					<p>
-						<select name="cliente" style="height:30px ;" class="form-control" >
-								@foreach($clientes as $cliente)
-									<option value="{{$cliente->RUT_CLIENTE}}">{{$cliente->NOMBRE_COMPLETO}}</option>
-								@endforeach
-				
-						</select>				
-					</p>
-					<p>
-						<input type="text" name="fecha_inicio" placeholder="Fecha inicio de convenio" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_inicio" class="form-control" required>
-					</p>
-					<p>
-						<input type="text" name="fecha_final" placeholder="Fecha final de convenio" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_inicio" class="form-control">
-		
-					</p>
+							<p>
+									<select name="cliente" style="height:30px ;" class="form-control" >
+											@foreach($clientes as $cliente)
+												<option value="{{$cliente->RUT_CLIENTE}}">{{$cliente->NOMBRE_COMPLETO}}</option>
+											@endforeach
+							
+									</select>				
+								</p>
+								<p>
+									<input type="text" name="numero_convenio"placeholder="N° convenio" class="form-control" required>
+								</p>
+								<p>
+									<input type="text" name="fecha_emision"placeholder="Fecha Emision" class="form-control"onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_emision"  required>
+								</p>
+								<p>
+									<input type="text" name="fecha_inicio" placeholder="Fecha inicio de convenio" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_inicio" class="form-control" required>
+								</p>
+								<p>
+									<input type="text" name="fecha_final" placeholder="Fecha final de convenio" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_inicio" class="form-control">
+					
+								</p>
+								<p>
+									<input type="text" name="condicion_pago"placeholder="Condiciones de pago" class="form-control" required>
+								</p>
+								<p>
+									<input type="text" name="nombre_persona"placeholder="Nombre de persona a cargo" class="form-control" required>
+								</p>
+								<p>
+									<input type="text" name="telefono_persona"placeholder="Télefono de persona a cargo" class="form-control" required>
+								</p>
+								<p>
+									<input type="text" name="correo_persona"placeholder="Correo de persona a cargo" class="form-control" required>
+								</p>
 				</div>
 			</div>
 			
@@ -79,8 +100,9 @@
 						<div class="form-group">
 							<table class="table">
 													<thead>
-														
+															<th>Código SAP</th>
 															<th>Descripción</th>
+															<th>Unidad</th>
 															<th>Plano</th>
 															<th>Precio Unitario</th>
 															<th>Cantidad</th>
@@ -90,8 +112,13 @@
 													</thead>
 													<tbody>
 														<tr>
+															<td><input type="text" name="codsap[]"  placeholder="Código Sap" class="form-control codsap" maxlength="50"  required></td>
+														
 															<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required></td>
+															<td><input type="text" name="unidad[]"  placeholder="Unidad" class="form-control unidad" maxlength="50"  required></td>
+														
 															<td><input type="file" name="plano[]" accept="application/pdf" class="plano"></td>
+														
 															<td><input type="text" name="precio_unitario[]"  placeholder="Precio unitario" class="form-control precio_unitario" maxlength="50"  required></td>
 															<td><input type="text" name="cantidad[]"  placeholder="Cantidad" class="form-control cantidad" maxlength="50"  required></td>
 				
@@ -140,7 +167,6 @@
 
 
 <script type="text/javascript">
-
 $('tbody').delegate('.cantidad,.precio_unitario','keyup', function(){
 var tr =$(this).parent().parent();
 var cantidad = tr.find('.cantidad').val();
@@ -162,13 +188,14 @@ $('.addRow').on('click',function() {
 });
 function addRow() {
 	var tr=		'<tr>'+
+				'<td><input type="text" name="codsap[]"  placeholder="Código Sap" class="form-control codsap" maxlength="50"  required></td>'+
 				'<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required></td>'+
 				'<td><input type="file" name="plano[]" accept="application/pdf" class="plano"></td>'+
-				'<td><input type="text" name="precio_unitario[]"  placeholder="Precio unitario" class="form-control precio_unitario" maxlength="50"  required>'+
-				'<td><input type="text" name="cantidad[]"  placeholder="Cantidad" class="form-control cantidad" maxlength="50"  required>'+
-				'<td><input type="text" name="total[]"  placeholder="Total" class="form-control total"  disabled maxlength="50"  required>'+
+				'<td><input type="text" name="precio_unitario[]"  placeholder="Precio unitario" class="form-control precio_unitario" maxlength="50"  required></td>'+
+				'<td><input type="text" name="cantidad[]"  placeholder="Cantidad" class="form-control cantidad" maxlength="50"  required></td>'+
+				'<td><input type="text" name="total[]"  placeholder="Total" class="form-control total" maxlength="50"  disabled  required></td>'+
 				'<td><input type="button" class="btn btn-danger remove" value="X"></td>'+
-				'</tr>';
+			'</tr>';
 			$('tbody').append(tr);
 };
 $('.remove').live('click', function() {

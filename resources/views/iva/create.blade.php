@@ -24,11 +24,11 @@
   		<div class="container-fluid">
     		<div  id="bs-example-navbar-collapse-1">
 				  <ul class="nav navbar-nav" style="display: inline;">
-					@can('proveedor')
-					<li><a href="/proveedor">Todos</a></li>	
+					@can('iva')
+					<li><a href="/iva">Todos</a></li>	
 					@endcan
-					@can('proveedor.create')
-					<li class="active"><a href="/proveedor/create">Nuevo</a></li>	
+					@can('iva.create')
+					<li class="active"><a href="/iva/create">Nuevo</a></li>	
 					@endcan
         			
         			
@@ -39,14 +39,14 @@
 
 	<div class="panel panel-success" style="margin-top:20px;">
   		<div class="panel-heading">
-  			<h4>Ingresar Nuevo Proveedor</h4>
+  			<h4>Ingresar Nuevo Iva</h4>
   		</div>
 
   		<div class="panel-body">
-  			<form  action="{{ action('ProveedorController@store')}}" method="post">
+  			<form  action="{{ action('IvaController@store')}}" method="post">
 					{{ csrf_field() }}
 				<p>
-					<input type="text" name="rut" placeholder="Rut" maxlength="9" minlength="9" class="form-control" onkeypress='return validaNumericos(event)' required>
+					<input type="text" name="IVA" placeholder="Rut" maxlength="9" minlength="9" class="form-control" onkeypress='return validaNumericos(event)' required>
 				</p>
                 <p>
                     <input type="text" name="nombre" placeholder="Nombre" maxlength="50" class="form-control" onkeypress='return validar(event)' required>
@@ -54,21 +54,7 @@
 			    <p>
 					<input type="text" name="direccion" placeholder="Dirección" maxlength="50" class="form-control" required>
 				</p>
-				<p>
-					<input type="text" name="ciudad" placeholder="Ciudad" maxlength="50" class="form-control" onkeypress='return validar(event)' required>
-				</p>
-				<p>
-					<input type="text" name="telefono" placeholder="Telefono" maxlength="9" minlength="9" class="form-control" onkeypress='return validaNumericos(event)' >
-				</p>
-				<p>
-					<input type="email" name="correo" placeholder="Correo" maxlength="50" class="form-control" >
-				</p>
-				<p>
-						<input type="text" name="nom_contact" placeholder="Nombre Contacto" maxlength="30" class="form-control" >
-					</p>
-					<p>
-							<input type="text" name="tel_contact" placeholder="Telefono Contacto" maxlength="9" minlength="9" class="form-control" onkeypress='return validaNumericos(event)'  >
-						</p>	
+				
                 <p>
 					<input type="submit" value="Guardar" class="btn btn-success">
 				</p>
