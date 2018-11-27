@@ -66,17 +66,15 @@
                                             <input type="text" name="CODIGO_SAP" class="form-control" value="Sin Codigo Sap" readonly>
                                         </p>
                                         @endif
-                                        <P>
-                                                <input type="text" name="plano" placeholder="Plano" readonly value="{{$producto->PLANO}}" class="form-control">			
-                                        </P>
+          
                             <p>
                                 <input type="text" name="descripcion" placeholder="descripcion" readonly value="{{$producto->DESCRIPCION}}" class="form-control">			
                             </p>
                             <p>
-                                <input type="text" value="{{$productos->UNIDAD}}"name="unidad" placeholder="Unidad" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required readonly>
+                                <input type="text" value="{{$producto->UNIDAD}}"name="unidad" placeholder="Unidad" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required readonly>
                             </p>
                            <P>
-                                <input type="text" value="{{$productos->CANTIDAD}}"name="cantidad" placeholder="Cantidad" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required readonly>
+                                <input type="text" value="{{$producto->CANTIDAD}}"name="cantidad" placeholder="Cantidad" maxlength="11" class="form-control" onkeypress='return validarNumericos(event)' required readonly>
                            </P>
                                
                                     
@@ -92,54 +90,54 @@
 								
 					<div class="form-group">
 						<table class="table" id="material">
-												<thead>
-														<th>Proveedor</th>
-														<th>Descripción</th>
-														<th>Cantidad</th>
-														<th>Precio unitario</th>
-														<th>Valor total</th>
-														<th><input type="button"  id="boton"  class="addRow"></th>
-														<!--<input type="button" value="Agregar" class="addRow"/>-->
-													
-												</thead>
-												<tbody>
-													<tr>
-															<td><select name="proveedor[]" class="form-control proveedor" style="width:130px; height: 35px;"required >
-																<option value="" selected="true" disabled="true">Seleccione Proveedor</option>
-																@foreach($proveedor as $key =>$value)
-																<option value="{{$value->RUT}}">{{$value->NOMBRE}}</option>
-																@endforeach
-														</select>
-															</td>
-														<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required>
-														</td>
-														<td><input name="cantidadm[]" style="height:35px;" class="form-control cantidadm" type="text" placeholder="Cantidad" required onkeypress="return validaNumericos(event);">
+						<thead>
+								<th>Proveedor</th>
+								<th>Descripción</th>
+								<th>Cantidad</th>
+								<th>Precio unitario</th>
+								<th>Valor total</th>
+								<th><input type="button"  id="boton"  class="addRow"></th>
+								<!--<input type="button" value="Agregar" class="addRow"/>-->
+							
+						</thead>
+						<tbody>
+							<tr>
+									<td><select name="proveedor[]" class="form-control proveedor" style="width:130px; height: 35px;"required >
+										<option value="" selected="true" disabled="true">Seleccione Proveedor</option>
+										@foreach($proveedor as $key =>$value)
+										<option value="{{$value->RUT}}">{{$value->NOMBRE}}</option>
+										@endforeach
+								</select>
+									</td>
+								<td><input type="text" name="descripcion[]"  placeholder="Descripción" class="form-control descripcion" maxlength="50"  required>
+								</td>
+								<td><input name="cantidadm[]" style="height:35px;" class="form-control cantidadm" type="text" placeholder="Cantidad" required onkeypress="return validaNumericos(event);">
 
 
-																
-													</td>
-														<td>
-																<input type="text" name="preciounitariom[]" placeholder="Precio unitario" class="form-control preciounitariom" required  onkeypress="return validaNumericos(event);">
-														</td>
-														<td>	<input type="text"  name="valortotalm[]" id="valorM"  class="form-control valortotalm"  readonly></td>
-														<td><input type="button" class="btn btn-danger remove" value="X"></td>
-															</td>
-													</tr>
-												</tbody>
-												<tfoot>
-													<tr>
-														<td style="border: none;"></td>
-														<td style="border: none;"></td>
-														
-														<td style="border: none;"></td>
-														<td><b>Total</b></td>
-														<td>$<b class="totalmater" ></b></td>
-														<td></td>
-													</tr>
-												</tfoot>
-												
-											</table>
-										</div>
+										
+							</td>
+								<td>
+										<input type="text" name="preciounitariom[]" placeholder="Precio unitario" class="form-control preciounitariom" required  onkeypress="return validaNumericos(event);">
+								</td>
+								<td>	<input type="text"  name="valortotalm[]" id="valorM"  class="form-control valortotalm"  readonly></td>
+								<td><input type="button" class="btn btn-danger remove" value="X"></td>
+									</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td style="border: none;"></td>
+								<td style="border: none;"></td>
+								
+								<td style="border: none;"></td>
+								<td><b>Total</b></td>
+								<td>$<b class="totalmater" ></b></td>
+								<td></td>
+							</tr>
+						</tfoot>
+						
+					</table>
+				</div>
 									
 								
 							

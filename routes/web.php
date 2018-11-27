@@ -151,6 +151,9 @@ Route::post('/producto/edit/{ID_PRODUCTO}', 'ProductoController@edit')
 Route::get('/producto/show/{ID_PRODUCTO}', 'ProductoController@show')
 ->middleware('permission:producto.show');
 
+Route::get('/producto/show2/{ID_PRODUCTO}', 'ProductoController@show2')
+->middleware('permission:producto.show2');
+
 Route::post('/producto/store_ocm', 'ProductoController@store_ocm')
 ->middleware('permission:producto.orden_compra_m');
 
@@ -264,8 +267,13 @@ Route::resource('cotizacion', 'CotizacionController')
 
 Route::get('/convenio/cotizarconvenio2/{ID_CONVENIO}', 'ProductoController@create3')
 ->middleware('permission:convenio.cotizarconvenio2');
+
+
+
 Route::get('/convenio/cotizarconvenio2', 'ConvenioController@create3')
 ->middleware('permission:convenio.cotizarconvenio2');
+
+
 Route::get('/convenio/cotizarconvenio', 'ConvenioController@create2')
 ->middleware('permission:convenio.cotizarconvenio');
 Route::get('/convenio/show', 'ConvenioController@show2')
@@ -276,8 +284,10 @@ Route::post('/convenio/edit/{ID_CONVENIO}', 'ConvenioController@edit')
 ->middleware('permission:convenio.edit');
 Route::get('/convenio/show/{ID_CONVENIO}', 'ConvenioController@show')
 ->middleware('permission:convenio.show');
+
 Route::post('/convenio/store3', array('as'=>'store3','uses'=>'ConvenioController@store3'))
 ->middleware('permission:convenio.cotizarconvenio3');
+
 Route::get('/producto/create/{ID_PRODUCTO}', 'ProductoController@create')
 ->middleware('permission:producto.create');
 Route::post('/convenio/update/{ID_CONVENIO}', 'ConvenioController@update')

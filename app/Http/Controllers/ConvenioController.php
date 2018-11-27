@@ -135,13 +135,17 @@ public function store3(Request $request)
     $convenio->NOMBRE_PERSONA_ACARGO=$request->Input('nombre_persona');
     $convenio->NUMERO_PERSONA=$request->Input('telefono_persona');
     $convenio->CORREO_PERSONA=$request->Input('correo_persona');
+
     if($convenio->save()){
+        $idconv=$convenio->ID_CONVENIO;
         $suma = 0;
         $id=$convenio->ID_CONVENIO;
         $cc = new Cliente_Convenio;
         $cc->ID_CONVENIO = $id;
         $cc->RUT_CLIENTE = $request->cliente;
         $cc->save();
+
+
         $desc =$request->descripcion;
         $count = count($desc);
         $files = $request->all();
@@ -157,24 +161,22 @@ public function store3(Request $request)
                 $file[$i]->move(public_path().'/planos/',$name);
                 
             }}
-            $producto->CODIGO_SAP=$request->codsap[$i];
+           $producto->CODIGO_SAP=$request->codsap[$i];
            $producto->DESCRIPCION=$request->descripcion[$i];
            $producto->PLANO_PRODUCTO=$name;
            
            $producto->ESTADO_CONV="CONVENIO";
            $producto->ESTADO="FALTA COTIZACION"; 
            $producto->save();
-           $id=$convenio->ID_CONVENIO;
-           $id_product= $producto->ID_PRODUCTO;
-            
-           $dc = new Detalle_Convenio;
-           $dc->ID_CONVENIO = $id;
-           $dc->ID_PRODUCTO = $id_product;
-           $dc->UNIDAD=$request->unidad[$i];
-           $dc->CANTIDAD = $request->cantidad[$i];
-           $dc->PRECIO_UNITARIO = $request->cantidad[$i];
-          $dc->UNIDAD=$request->unidad[$i];
-           $dc->save();
+           
+              $id_prod = $producto->ID_PRODUCTO;
+            $detalle_conv = new Detalle_Convenio;
+            $detalle_conv->ID_PRODUCTO = $id_prod;
+            $detalle_conv->ID_CONVENIO = $idconv;
+            $detalle_conv->UNIDAD = $request->unidad[$i];
+            $detalle_conv->CANTIDAD = $request->cantidad[$i];
+            $detalle_conv->save();
+        
                 
            
     }
@@ -195,8 +197,28 @@ public function store3(Request $request)
      */
     public function show($ID_CONVENIO = null)
     {
-        $convenio= Convenio::where('ID_CONVENIO',$ID_CONVENIO)->first();
-        return view('convenio.show')->with('convenio',$convenio);
+        $cotizacion =  \DB::table('convenios')
+        ->select('*')
+        ->join('orden_de_compra','cotizacion.ID_ORDEN_COMPRA','=','orden_de_compra.ID_ORDEN_COMPRA')
+        ->where('cotizacion.ID_COTIZACION', '=', $ID_COTIZACION)
+        ->get();
+        
+        
+        Convenio::where('ID_CONVENIO', $ID_CONVENIO)->first();
+        /*$orden = \DB::table('convenios')
+        ->select('*')
+        ->join('orden_de_compra','cotizacion.ID_ORDEN_COMPRA','=','orden_de_compra.ID_ORDEN_COMPRA')
+        ->where('cotizacion.ID_COTIZACION', '=', $ID_COTIZACION)
+        ->get();
+        */
+        $iva = \DB::table('iva')
+        ->select('IVA')
+        ->where('ESTADO', '=', 'Activo')
+        ->get();
+ 
+        
+        return view('convenio.show')->with('cotizacion',$cotizacion)->with('iva',$iva);
+
     }
     /**
      * Show the form for editing the specified resource.

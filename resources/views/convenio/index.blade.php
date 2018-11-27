@@ -52,7 +52,7 @@
                                 <th>Nombre Cliente</th>
                               <th>Fecha Inicio</th>
                               <th>Fecha Termino</th>
-                              <th>Total</th>
+                   
                               <th>Acciones</th>
                           </tr>
 
@@ -66,7 +66,7 @@
                                 <td>{{ $convenio->NOMBRE_COMPLETO }}</td>
                                 <td>{{ $convenio->FECHA_INICIO }}</td>
                                 <td>{{ $convenio->FECHA_TERMINO }}</td>
-                                <td>{{ $convenio->TOTAL }}</td>
+                               
                                 <td>
                                     @can('producto.index2')
                                     <a href="/producto/index2/{{$convenio->ID_CONVENIO}}"><img src="images/png/productos.png" alt="" style="width:20px;"></a>

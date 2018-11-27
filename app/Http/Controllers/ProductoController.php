@@ -179,8 +179,28 @@ class ProductoController extends Controller
     return Redirect::back();   
     }
 
+public function create3($ID_CONVENIO){
+    $inventario= Inventario::all();
+        $personal=Personal::all();
+        $producto = Producto::findOrFail($ID_CONVENIO);
+
+        $producto = \DB::table('detalle_convenio')
+        ->select('*')
+        ->join('producto','producto.ID_PRODUCTO','=','detalle_convenio.ID_PRODUCTO')
+        ->where('producto.ID_PRODUCTO','=', $ID_CONVENIO)
+        ->get()->first();
+
+        $clientes = Clientes::all();
+        $proveedor=Proveedor::all();
+        $cargo = \DB::table('cargo')
+        ->select('*')
+        ->get();
+        return view('convenio.cotizarconvenio2')->with('clientes',$clientes)->with('producto',$producto)->with(compact('personal'))->with('proveedor',$proveedor)->with('inventario',$inventario)->with('cargo',$cargo);
+}
+
     public function store5(Request $request)
     {
+        //dd($request);
         $idproducto=$request->Input('idproducto');
         $ID_COTI = \DB::table('detalle_convenio')
         ->select('ID_CONVENIO')
@@ -211,10 +231,13 @@ class ProductoController extends Controller
                 $material->TOTAL=$request->cantidadm[$i]*$request->preciounitariom[$i];
                 $material->ESTADO="ESPERA-OC";
                 if($material->save()){
-                $oc = new Orden_Compra_Mat;
+                $oc = new OC_detalle;
                 $proveedor=$request->proveedor[$i];
                 $oc->ID_MATERIAL=$material->ID_MATERIAL;
                 $oc->RUT=$proveedor;
+                $oc->CANTIDAD=$request->cantidadm[$i];
+                $oc->PRECIO_UNITARIO=$request->preciounitariom[$i];
+                $oc->TOTAL=$request->cantidadm[$i]*$request->preciounitariom[$i];
                 $oc->save();
             
             }
@@ -316,7 +339,7 @@ class ProductoController extends Controller
                    
                   
                       \DB::table('detalle_convenio')->where('ID_PRODUCTO',$idproducto)->update(array(
-                       'TOTAL'=>$total,
+                       'TOTAL'=>$total, 'VALOR_UNITARIO' => $totalfinal,
                ));
                
                
@@ -366,7 +389,7 @@ try{
         ->get();
 
         
-        return view('producto.index2')->with('producto',$producto);
+        return view('producto.index2')->with('producto',$producto)->with('ID_CONVENIO',$ID_CONVENIO);
 }catch (\Exception $e) {
     return $e->getMessage();
 }
@@ -675,6 +698,77 @@ try{
         return view('producto.orden_compra_m')->with('materiall',$materiall)->with('material',$material)->with('ID_PRODUCTO',$ID_PRODUCTO)->with('RUT',$RUT);
     }
 
+    public function show2($ID_PRODUCTO = null)
+    {
+       // $producto =  Producto::where('ID_PRODUCTO', $ID_PRODUCTO)->first();
+   
+        $producto = \DB::table('detalle_convenio')
+        ->select('*')
+        ->join('producto','detalle_convenio.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+        ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+         ->get()->first();
+
+
+       //  OC_detalle;
+
+         $material = \DB::table('proveedor')
+         ->select('proveedor.RUT','proveedor.NOMBRE','proveedor.TELEFONO')
+         ->join('oc_detalle','proveedor.RUT','=','oc_detalle.RUT')
+         ->join('material','material.ID_MATERIAL','=','oc_detalle.ID_MATERIAL')
+         ->join('producto','material.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+         ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+         ->groupBy('proveedor.RUT','proveedor.NOMBRE','proveedor.TELEFONO')
+          ->get();
+
+          $mano_obra = \DB::table('mano_de_obra')
+          ->select('*')
+          ->where('ID_PRODUCTO','=', $ID_PRODUCTO)
+           ->get();
+          
+           
+           $equipo = \DB::table('equipos_y_o_herramientas')
+           ->select('*')
+           ->join('inventario','equipos_y_o_herramientas.ID_INVENTARIO','=','inventario.ID_INVENTARIO')
+           ->where('ID_PRODUCTO','=', $ID_PRODUCTO)
+            ->get();
+
+            $equipoa = \DB::table('equipo_y_o_herramienta_arrendados')
+            ->select('*')
+ 
+            ->where('ID_PRODUCTO','=', $ID_PRODUCTO)
+             ->get();
+
+
+        $materialestotal = \DB::table('material')
+        ->select(\DB::raw('SUM(TOTAL)AS TOTAL'))
+        ->where('ID_PRODUCTO','=', $ID_PRODUCTO)
+         ->pluck('TOTAL')->first();
+         
+         $manoobratotal = \DB::table('mano_de_obra')
+         ->select(\DB::raw('SUM(TOTAL_MANO_OBRA)AS TOTAL'))
+         ->where('ID_PRODUCTO','=', $ID_PRODUCTO)
+         ->pluck('TOTAL')->first();
+
+         $equipototal = \DB::table('equipos_y_o_herramientas')
+         ->select(\DB::raw('SUM(VALOR_TOTAL_E)AS TOTAL'))
+         ->where('ID_PRODUCTO','=', $ID_PRODUCTO)
+         ->pluck('TOTAL')->first();
+
+         $equipoatotal = \DB::table('equipo_y_o_herramienta_arrendados')
+         ->select(\DB::raw('SUM(VALOR_TOTAL)AS TOTAL'))
+         ->where('ID_PRODUCTO','=', $ID_PRODUCTO)
+         ->pluck('TOTAL')->first();
+
+         $sumas = $materialestotal+ $manoobratotal+ $equipototal+$equipoatotal ;
+
+         return view('producto.show2')->with('producto',$producto)->with('mano_obra',$mano_obra)->with('material',$material)->with('equipo',$equipo)->with('equipoa',$equipoa);
+
+        /*return view('producto.show', [
+            'producto' => $producto,'sumas'=>$sumas, 'material'=>$material, 'equipo'=>$equipo, 'equipoa'=>$equipoa,
+        ])->with('mano_obra',$mano_obra);*/
+    }
+
+
     public function show($ID_PRODUCTO = null)
     {
        // $producto =  Producto::where('ID_PRODUCTO', $ID_PRODUCTO)->first();
@@ -921,28 +1015,36 @@ try{
    
     public function destroy_pro(Request $request, $ID_PRODUCTO)
     {
-        $id_convenio=$request->Input('convenio');
-        
+        $ID_CONVENIO=$request->Input('idconvenio');
+
+
+     
+    
         $hola = \DB::table('detalle_convenio')
                ->select(\DB::raw('count(convenios.ID_CONVENIO) as convenio'))
                ->join('producto','detalle_convenio.ID_PRODUCTO','=','producto.ID_PRODUCTO')
                ->join('convenios','detalle_convenio.ID_CONVENIO','=','convenios.ID_CONVENIO')
-               ->where('convenios.ID_CONVENIO','=',$id_convenio)
+               ->where('convenios.ID_CONVENIO','=',$ID_CONVENIO)
                ->pluck('convenio')->first();
           
                //\DB::raw('')
         $producto = Producto::find($ID_PRODUCTO);
-if($hola== 1){
-    return back()->with('info','Usuario Eliminado');
-}else{
-    $producto->delete();
-    $dtc = \DB::table('detalle_convenio')
-    ->select(\DB::raw('SUM(VALOR_UNITARIO*CANTIDAD)AS TOTAL'))
-    ->where('ID_CONVENIO','=',$id_convenio)
-    ->pluck('TOTAL')->first();
-    $dato = $dtc;
-       \DB::table('convenios')->where('ID_CONVENIO',$id_convenio)->update(array(
-        'TOTAL'=>$dato,
+        if($hola== 1){
+         return back()->with('info','Usuario Eliminado');
+        }else{
+          $producto->delete();
+          $dtc = \DB::table('detalle_convenio')
+          ->select(\DB::raw('SUM(TOTAL)AS TOTAL'))
+             ->where('ID_CONVENIO','=',$ID_CONVENIO)
+          ->pluck('TOTAL')->first();
+          $iva = \DB::table('iva')
+        ->select('IVA')
+        ->where('ESTADO', '=','Activo' )
+        ->pluck('IVA')->first();
+        $valordeliva = ($dtc*$iva)/100;
+        $valormasiva= $dtc + $valordeliva; 
+              \DB::table('convenios')->where('ID_CONVENIO',$ID_CONVENIO)->update(array(
+              'NETO'=>$dtc, 'TOTAL'=>$valormasiva
 ));
     return back()->with('info','Usuario Eliminado');
 

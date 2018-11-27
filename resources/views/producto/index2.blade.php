@@ -66,15 +66,15 @@
                                           <td>{{ $producto->ESTADO }}</td>
                                             
                                             <td>
-                                                  {!! Form::open(['route' =>['producto.destroy', $producto->ID_PRODUCTO],
+                                                  {!! Form::open(['route' =>['producto.destroy_pro', $producto->ID_PRODUCTO],
                                                   'method'=>'DELETE', 'onsubmit' => 'return confirm("¿Estas Seguro si desea ELIMINAR?")'])!!}
-                                                <input type="hidden" name="idcoti" value=" ">
-                                               @can('producto.show')
-                                                <a href="/producto/show/{{ $producto->ID_PRODUCTO }}"><img src="/images/png/ver.png" alt="" style="width:20px;"></a>
+                                                <input type="hidden" name="idconvenio" value="{{$ID_CONVENIO}}">
+                                               @can('producto.show2')
+                                                <a href="/producto/show2/{{ $producto->ID_PRODUCTO }}"><img src="/images/png/ver.png" alt="" style="width:20px;"></a>
                                                 @endcan
                                                
-                                                @can('producto.edit')
-                                                <a href="/producto/edit/{{ $producto->ID_PRODUCTO }}"><img src="/images/png/editar.png" alt="" style="width:20px;"></a>   
+                                                @can('producto.edit2')
+                                                <a href="/producto/edit2/{{ $producto->ID_PRODUCTO }}"><img src="/images/png/editar.png" alt="" style="width:20px;"></a>   
                                                 @endcan
                                                 @if($producto->ESTADO != "COTIZADO")
                                                 @can('convenio.cotizarconvenio2')

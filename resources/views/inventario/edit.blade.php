@@ -34,7 +34,7 @@
                       </p>
                       <p>
                             <select name="ubicacion" style="height: 35px;" class="form-control" >
-                                    <option value="Taller" @if($inventario->UBICACION =='Taller') selected @endif>Taller</option>
+                                    <option value="Maestranza" @if($inventario->UBICACION =='Maestranza') selected @endif>Maestranza</option>
                                     <option value="Taller Abastible" @if($inventario->UBICACION =='Taller Abastible') selected @endif>Taller Abastible</option> 
                                     <option value="Taller Petroquim" @if($inventario->UBICACION =='Taller Petroquim') selected @endif>Taller Petroquim</option> 
                             </select>

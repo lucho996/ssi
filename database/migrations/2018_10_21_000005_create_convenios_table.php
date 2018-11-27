@@ -25,7 +25,7 @@ class CreateConveniosTable extends Migration
             $table->date('FECHA_TERMINO')->nullable()->default(null);
             $table->integer('TOTAL')->nullable()->default(null);
             $table->integer('NETO')->nullable()->default(null);
-            $table->integer('N_CONVENIO')->nullable()->default(null);
+            $table->string('N_CONVENIO',50)->nullable()->default(null);
             $table->date('FECHA_EMISION')->nullable()->default(null);
             $table->string('CONDICION_PAGO')->nullable()->default(null);
             $table->string('NOMBRE_PERSONA_ACARGO')->nullable()->default(null);
