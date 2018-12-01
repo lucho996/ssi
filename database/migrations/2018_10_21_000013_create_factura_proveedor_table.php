@@ -29,13 +29,7 @@ class CreateFacturaProveedorTable extends Migration
             $table->dateTime('FECHA_INGRESO')->nullable()->default(null);
             $table->string('RUTA', 50)->nullable()->default(null);
 
-            $table->index(["RUT"], 'FK_RELATIONSHIP_10');
-
-
-            $table->foreign('RUT', 'FK_RELATIONSHIP_10')
-                ->references('RUT')->on('proveedor')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+ 
         });
     }
 

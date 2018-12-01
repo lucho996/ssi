@@ -16,11 +16,10 @@
 </head>
 
 <body >
-	<div style="width: 1100px; margin:0px auto;">
-		<div style="width: 200px; float:left;  position:relative;">
+	<div style="width:100%; max-width: 1100px; margin:0px auto;">
 		@include('intranet.menu')
-		</div>
-	<div style="width: 850px; float: right; position:relative;"> 
+	
+	<div style="width:100%; max-width: 1100px; float: right; position:relative;"> 
 	        <nav class="navbar navbar-default" role="navigation">
 					<div class="container-fluid">
 			
@@ -45,7 +44,7 @@
 
       
                 <div class="panel-body">
-
+                        <div class="table-responsive">
                   <table class="table table-hover table-striped" id="example"> 
                       <thead>
                           <tr>
@@ -99,12 +98,14 @@
                                       @can('cotizacion.guia')
                                       <a href="/cotizacion/guia/{{$cot->ID_COTIZACION}}"><img src="/images/png/orden.png"style="width:20px;" alt=""></a>      
                                       @endcan
+                                      <a href="/cotizacion/PDFgeneral/{{$cot->ID_COTIZACION}}"><img src="/images/png/pdf.png" style="width:20px;" alt=""></a>
                       
                                   </td>
                               </tr>
                           @endforeach
                       </tbody>
                   </table>
+                        </div>
             
                 </div>
             </div>

@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>Clientes</title>
 
 </head>
@@ -13,11 +13,10 @@
 </style>
 <body >
 
-	<div style="width: 1100px; margin:0px auto;">
-			<div style="width: 200px; float:left;  position:relative;">
+	<div style="width:100%; max-width: 1100px; margin:0px auto;">
 			@include('intranet.menu')
-			</div>
-		<div style="width: 850px; float: right; position:relative;"> 
+		
+		<div style="width:100%; max-width: 1100px; float: right; position:relative;"> 
 				<nav class="navbar navbar-default" role="navigation">
 						<div class="container-fluid">
 				
@@ -97,7 +96,8 @@
 						<div class="panel-body">
 									
 						<div class="form-group">
-								<table class="table">
+								<div class="table-responsive">	
+								<table class="table" style="width:100%">
 										<thead>
                                                 <th>Cod Sap</th>
                                                 <th>Descripción</th>
@@ -114,13 +114,13 @@
 												<!--<input type="button" value="Agregar" class="addRow"/>-->
 											
 										</thead>
-										<tbody>
+										<tbody style="width:100%;">
 											<tr>
-													<td><input type="text" name="codsap[]" style="width: 70px;" class="form-control codsap" onkeypress="return validaNumericos(event)" maxlength="11"></td>
+													<td><input type="text" name="codsap[]" style="width:100%; max-width: 70px;" class="form-control codsap" onkeypress="return validaNumericos(event)" maxlength="11"></td>
                                                     <td><input type="text" name="descripcion[]"  class="form-control descripcion" maxlength="50"  required>
 													</td>
-                                                    <td><input type="text" name="unidad[]" style="width: 50px;" class="form-control unidad" onkeypress="return validar(event)" maxlength="30" required></td>
-                                                    <td><input type="text" name="cantidad[]" class="form-control cantidad"  onkeypress="return validaNumericos(event)" maxlength="11" required></td>
+                                                    <td><input type="text" name="unidad[]" style="width:100%; max-width: 50px;" class="form-control unidad" onkeypress="return validar(event)" maxlength="30" required></td>
+                                                    <td><input type="text" name="cantidad[]" style="width:100%;"class="form-control cantidad"  onkeypress="return validaNumericos(event)" maxlength="11" required></td>
 												
 													
 													
@@ -128,14 +128,15 @@
 													
 												
 												<td>	
-													<input type="file"  name="plano[]" id="plano" style="width: 140px;" accept="application/pdf"  class="plano">		
+													<input type="file"  name="plano[]" id="plano" style="width:100%; max-width: 140px;" accept="application/pdf"  class="plano">		
 												</td>
 												
-												<td><input type="button" class="btn btn-danger remove" value="X"></td>
+												<td><input type="button" style="width:100%;" class="btn btn-danger remove" value="X"></td>
 											</tr>
 										</tbody>
 										
 									</table>
+								</div>
 							
 													
                                     <p>
@@ -184,19 +185,18 @@ $('.addRow').on('click',function() {
 	addRow();
 });
 function addRow() {
-	var tr=	'<tr>'+
-            '<td><input type="text" name="codsap[]" style="width: 70px;" class="form-control codsap" onkeypress="return validaNumericos(event)" maxlength="11"></td>'+
-            '<td><input type="text" name="descripcion[]"  class="form-control descripcion" maxlength="50"  required>'+
-            '</td>'+
-            '<td><input type="text" name="unidad[]" style="width: 50px;" class="form-control unidad" onkeypress="return validar(event)" maxlength="30" required></td>'+
-            '<td><input type="text" name="cantidad[]" class="form-control cantidad"  onkeypress="return validaNumericos(event)" maxlength="11" required></td>'+ 
-        
-     '<td>'+
-           ' <input type="file"  name="plano[]" id="plano" style="width: 140px;" accept="application/pdf"  class="plano">'+		
-       '</td>'+
-       
-       '<td><input type="button" class="btn btn-danger remove" value="X"></td>'+
-    '</tr>';
+var tr=	'<tr>'+
+		'<td><input type="text" name="codsap[]" style="width:100%; max-width: 70px;" class="form-control codsap" onkeypress="return validaNumericos(event)" maxlength="11"></td>'+
+		'<td><input type="text" name="descripcion[]"  class="form-control descripcion" maxlength="50"  required>'+
+		'</td>'	+	
+		'<td><input type="text" name="unidad[]" style="width:100%; max-width: 50px;" class="form-control unidad" onkeypress="return validar(event)" maxlength="30" required></td>'+
+		'<td><input type="text" name="cantidad[]" style="width:100%;"class="form-control cantidad"  onkeypress="return validaNumericos(event)" maxlength="11" required></td>'+
+	'<td>	'+
+		'<input type="file"  name="plano[]" id="plano" style="width:100%; max-width: 140px;" accept="application/pdf"  class="plano">'	+
+	'</td>'+
+	
+	'<td><input type="button" style="width:100%;" class="btn btn-danger remove" value="X"></td>'+
+'</tr>';
 			$('tbody').append(tr);
 };
 $('.remove').live('click', function() {

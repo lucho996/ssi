@@ -19,6 +19,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Redirect;
 use App\Detalle_C;
+use App\Factura_Proveedor;
+use App\Orden_trabajo;
+use App\Seguimiento_trabajo;
 
 class ProductoController extends Controller
 {
@@ -45,6 +48,55 @@ class ProductoController extends Controller
         return view('producto.index')->with('producto',$producto)->with('coti',$coti);
         
     }
+
+    public function store_factura_p(Request $request){
+
+
+        $ID_PRODUCTO = $request->Input('id_productoo');
+        $RUT = $request->Input('rutt');
+
+        $id_orden = \DB::table('orden_de_compra_mat')
+        ->select('orden_de_compra_mat.ID_ORDEN_COMPRA as ID')
+        ->join('proveedor','proveedor.RUT', '=','orden_de_compra_mat.RUT')
+        ->join('producto','orden_de_compra_mat.ID_PRODUCTO', '=','producto.ID_PRODUCTO')
+        ->where('producto.ID_PRODUCTO', '=',$ID_PRODUCTO )
+        ->where('proveedor.RUT', '=',$RUT )
+        ->pluck('ID')->first();
+       
+
+
+        $name = null;
+        if($request->hasFile('factura')){
+        $file = $request->file('factura');
+        $name= time().$file->getClientOriginalName();
+        $file->move(public_path().'/factura/',$name);
+        }
+
+        $factura = new Factura_Proveedor;
+        $factura->NUMERO_FACTURA = $request->Input('numero_factura');
+        $factura->RUTA = $name;
+        $factura->FECHA_INGRESO = Carbon::now();
+        if($factura->save()){
+            $ID_FACTURA = $factura->ID_FACTURA;
+
+            \DB::table('orden_de_compra_mat')->where('ID_ORDEN_COMPRA',$id_orden)->update(array(
+                'ID_FACTURA'=>$ID_FACTURA,
+             ));
+
+            Session::flash('message','Guardado Correctamente');
+            Session::flash('class','success');
+
+        }else{
+            Session::flash('message','Error al Adjuntar Factura');
+            Session::flash('class','danger');
+        }
+
+
+        return Redirect::back();
+
+       
+    }
+
      public function store_ocm(Request $request){
 
         
@@ -353,7 +405,8 @@ public function create3($ID_CONVENIO){
                      ));
                      $OBTIVA = \DB::table('iva')
                      ->select('IVA')
-                     ->where('ESTADO','=', "Activo")
+                     ->join('convenios','iva.ID_IVA','=','convenios.ID_IVA')
+                     ->where('convenios.ID_CONVENIO','=', $ID_COTI)
                      ->pluck('IVA')->first();
              
                      $obtneto = \DB::table('convenios')
@@ -693,11 +746,39 @@ try{
         ->where('proveedor.RUT','=',$RUT)
         ->pluck('ESTADO')->first();
     
-      
+        $ID_ORDEN_COMPRA = \DB::table('orden_de_compra_mat')
+        ->select('orden_de_compra_mat.ID_ORDEN_COMPRA as ID_ORDEN_COMPRA')
+        ->join('producto','orden_de_compra_mat.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+        ->join('proveedor','orden_de_compra_mat.RUT','=','proveedor.RUT')
+        ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+        ->where('proveedor.RUT','=',$RUT)
+        ->pluck('ID_ORDEN_COMPRA')->first();
+
+        $RUTA = \DB::table('orden_de_compra_mat')
+        ->select('factura_proveedor.RUTA as RUTA')
+        ->join('producto','orden_de_compra_mat.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+        ->join('proveedor','orden_de_compra_mat.RUT','=','proveedor.RUT')
+        ->join('factura_proveedor','orden_de_compra_mat.ID_FACTURA','=','factura_proveedor.ID_FACTURA')
+        ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+        ->where('proveedor.RUT','=',$RUT)
+        ->pluck('RUTA')->first();
+
+        $FACTURA = \DB::table('orden_de_compra_mat')
+        ->select('orden_de_compra_mat.ID_FACTURA as ID_FACTURA')
+        ->join('producto','orden_de_compra_mat.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+        ->join('proveedor','orden_de_compra_mat.RUT','=','proveedor.RUT')
+        ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+        ->where('proveedor.RUT','=',$RUT)
+        ->pluck('ID_FACTURA')->first();
+  
         
-        return view('producto.orden_compra_m')->with('materiall',$materiall)->with('material',$material)->with('ID_PRODUCTO',$ID_PRODUCTO)->with('RUT',$RUT);
+        return view('producto.orden_compra_m')->with('FACTURA',$FACTURA)->with('RUTA',$RUTA)->with('materiall',$materiall)->with('material',$material)->with('ID_PRODUCTO',$ID_PRODUCTO)->with('RUT',$RUT)->with('ID_ORDEN_COMPRA',$ID_ORDEN_COMPRA);
     }
 
+
+
+
+    
     public function show2($ID_PRODUCTO = null)
     {
        // $producto =  Producto::where('ID_PRODUCTO', $ID_PRODUCTO)->first();
@@ -1053,9 +1134,343 @@ try{
         
     }
 
-    public function orden_trabajo($ID_PRODUCTO){
+    public function showsegumiento($ID_PRODUCTO){
+        $seguimiento = \DB::table('seguimiento_trabajo')
+        ->select('seguimiento_trabajo.ID_SEGUIMIENTO','orden_trabajo.ID_OT','seguimiento_trabajo.ESTADO','seguimiento_trabajo.DESCRIPCION','seguimiento_trabajo.FECHA','producto.ID_PRODUCTO')
+        ->join('orden_trabajo','orden_trabajo.ID_OT','=','seguimiento_trabajo.ID_OT')
+        ->join('producto','producto.ID_PRODUCTO', '=','orden_trabajo.ID_PRODUCTO')
+      
+        ->where('producto.ID_PRODUCTO', '=',$ID_PRODUCTO )
+        ->get();
 
-        return view('producto.orden_trabajo');
+       
+        $ot = \DB::table('orden_trabajo')
+        ->select('*')
+        ->join('producto','producto.ID_PRODUCTO', '=','orden_trabajo.ID_PRODUCTO')
+      
+        ->where('producto.ID_PRODUCTO', '=',$ID_PRODUCTO )
+        ->get()
+        ->first();
+    
+      
+        $producto = \DB::table('producto')
+        ->select('ID_PRODUCTO')
+        
+      
+        ->where('producto.ID_PRODUCTO', '=',$ID_PRODUCTO )
+        ->get()
+        ->first();
+        
+        
+        return view('producto.ot_seg')->with('seguimiento',$seguimiento)->with('ot',$ot)->with('producto',$producto);
+
+    }
+    public function orden_trabajo($ID_PRODUCTO){
+        $ot = new Orden_trabajo;
+        $ot->ID_PRODUCTO=$ID_PRODUCTO;
+        $date = Carbon::now();
+        $date = $date->format('d-m-Y');
+        $ot->FECHA_INICIO=Carbon::now();
+
+        $ot->save();
+        $idot=$ot->ID_OT;
+        $fechainicio=$ot->FECHA_INICIO;
+        
+        $cliente = \DB::table('clientes')
+        ->select('clientes.RUT_CLIENTE','clientes.NOMBRE_COMPLETO')
+        ->join('cotizacion','clientes.RUT_CLIENTE','=','cotizacion.RUT_CLIENTE')
+       
+        ->join('detalle_cotizacion','cotizacion.ID_COTIZACION','=','detalle_cotizacion.ID_COTIZACION')
+        ->join('producto','detalle_cotizacion.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+       
+       
+        
+       
+        ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)->get();
+
+        $cargopersona = \DB::table('cargo_personal')
+        ->select('personal.NOMBREP','cargo.CARGO')
+        ->join('cargo','cargo_personal.ID_CARGO','=','cargo.ID_CARGO')
+        ->join('personal','cargo_personal.RUTP','=','personal.RUTP')
+        ->join('mano_de_obra','mano_de_obra.RUTP','=','personal.RUTP')
+        ->join('producto','producto.ID_PRODUCTO','=','mano_de_obra.ID_PRODUCTO')
+       
+        ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)->get();
+     
+        $materiales = \DB::table('material')
+        ->select('material.DESCRIPCION','material.CANTIDAD')
+        ->join('producto','producto.ID_PRODUCTO','=','material.ID_PRODUCTO')
+         ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)->get();
+        
+        
+         $equiposyherramientas = \DB::table('equipos_y_o_herramientas')
+         ->select('inventario.NOMBRE','equipos_y_o_herramientas.UNIDAD_E','equipos_y_o_herramientas.CANTIDAD_DIAS_E')
+        
+         ->join('inventario','equipos_y_o_herramientas.ID_INVENTARIO','=','inventario.ID_INVENTARIO')
+         ->join('producto','equipos_y_o_herramientas.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+          ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)->get();
+
+
+          $equiposyherramientasA = \DB::table('equipo_y_o_herramienta_arrendados')
+         ->select('equipo_y_o_herramienta_arrendados.NOMBRE','equipo_y_o_herramienta_arrendados.UNIDAD','equipo_y_o_herramienta_arrendados.CANTIDAD','equipo_y_o_herramienta_arrendados.MARCA')
+        
+         
+         
+          ->where('equipo_y_o_herramienta_arrendados.ID_PRODUCTO','=',$ID_PRODUCTO)->get();
+          
+            
+          $view = view('producto.orden_trabajo')->with('fechainicio',$date)->with('idot',$idot)->with('cargopersona',$cargopersona)->with('materiales',$materiales)->with('equiposyherramientas',$equiposyherramientas)->with('equiposyherramientasA',$equiposyherramientasA)->with('cliente',$cliente);
+            //dd($view);
+         $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view)->setPaper('letter');
+        return $pdf->stream('Orden_de_trabajo'.$idot.'.pdf');
+
+        }
+
+        public function store_seg_coti(Request $request){
+
+           $sg= new Seguimiento_trabajo;
+           $sg->ID_OT=$request->Input('ID_OT');
+           $sg->ESTADO=$request->Input('estado');
+           $sg->DESCRIPCION = $request->Input('desc');
+           $sg->FECHA=Carbon::now();
+            $sg->save();
+        return back()->with('message',' Seguimiento registrado');
+                         
+        }
+
+        public function ver_orden_trabajo($ID_PRODUCTO){
+         
+
+            $date = \DB::table('orden_trabajo')
+            ->select('FECHA_INICIO')
+            ->where('orden_trabajo.ID_PRODUCTO', '=',$ID_PRODUCTO )
+            ->get()
+           
+            ->pluck('FECHA_INICIO')->first();
+            
+            $idot = \DB::table('orden_trabajo')
+            ->select('ID_OT')
+            ->where('orden_trabajo.ID_PRODUCTO', '=',$ID_PRODUCTO )
+            ->get()
+            ->pluck('ID_OT')->first();
+            
+
+            $cliente = \DB::table('clientes')
+            ->select('clientes.RUT_CLIENTE','clientes.NOMBRE_COMPLETO')
+            ->join('cotizacion','clientes.RUT_CLIENTE','=','cotizacion.RUT_CLIENTE')
+           
+            ->join('detalle_cotizacion','cotizacion.ID_COTIZACION','=','detalle_cotizacion.ID_COTIZACION')
+            ->join('producto','detalle_cotizacion.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+           
+           
+            
+           
+            ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)->get();
+    
+            $cargopersona = \DB::table('cargo_personal')
+            ->select('personal.NOMBREP','cargo.CARGO')
+            ->join('cargo','cargo_personal.ID_CARGO','=','cargo.ID_CARGO')
+            ->join('personal','cargo_personal.RUTP','=','personal.RUTP')
+            ->join('mano_de_obra','mano_de_obra.RUTP','=','personal.RUTP')
+            ->join('producto','producto.ID_PRODUCTO','=','mano_de_obra.ID_PRODUCTO')
+           
+            ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)->get();
+         
+            $materiales = \DB::table('material')
+            ->select('material.DESCRIPCION','material.CANTIDAD')
+            ->join('producto','producto.ID_PRODUCTO','=','material.ID_PRODUCTO')
+             ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)->get();
+            
+            
+             $equiposyherramientas = \DB::table('equipos_y_o_herramientas')
+             ->select('inventario.NOMBRE','equipos_y_o_herramientas.UNIDAD_E','equipos_y_o_herramientas.CANTIDAD_DIAS_E')
+            
+             ->join('inventario','equipos_y_o_herramientas.ID_INVENTARIO','=','inventario.ID_INVENTARIO')
+             ->join('producto','equipos_y_o_herramientas.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+              ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)->get();
+    
+    
+              $equiposyherramientasA = \DB::table('equipo_y_o_herramienta_arrendados')
+             ->select('equipo_y_o_herramienta_arrendados.NOMBRE','equipo_y_o_herramienta_arrendados.UNIDAD','equipo_y_o_herramienta_arrendados.CANTIDAD','equipo_y_o_herramienta_arrendados.MARCA')
+            
+             
+             
+              ->where('equipo_y_o_herramienta_arrendados.ID_PRODUCTO','=',$ID_PRODUCTO)->get();
+              
+                
+              $view = view('producto.orden_trabajo')->with('fechainicio',$date)->with('idot',$idot)->with('cargopersona',$cargopersona)->with('materiales',$materiales)->with('equiposyherramientas',$equiposyherramientas)->with('equiposyherramientasA',$equiposyherramientasA)->with('cliente',$cliente)->__toString();
+                //dd($view);
+             $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view)->setPaper('letter');
+            return $pdf->stream('Orden_de_trabajo'.$idot.'.pdf');
+    
+            }
+
+
+
+            public function update_ot($ID_PRODUCTO){
+                $datea = Carbon::now();
+           
+             
+                \DB::table('orden_trabajo')->where('ID_PRODUCTO',$ID_PRODUCTO)->update(array(
+                    'FECHA_TERMINO'=>$datea,
+                 ));
+                return back()->with('info','Trabajo Terminado');
+                
+            }
+
+
+
+
+    public function PDFinterna($ID_PRODUCTO)
+    {
+        $producto = \DB::table('producto')
+        ->select('producto.descripcion','producto.gastos_generales','producto.utilidades','producto.total')
+        ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+         ->get()->first();
+ 
+         
+
+         $material = \DB::table('material')
+         ->select('material.DESCRIPCION','material.cantidad','material.precio_unitario','material.total')
+         ->join('producto','material.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+         ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+          ->get();
+          
+ 
+          $material_suma = \DB::table('material')
+          ->select(\DB::raw('sum(material.total) TOTAL_MATERIAL'))
+          ->join('producto','material.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+          ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+           ->get()->first();
+
+           $mano_obra = \DB::table('mano_de_obra')
+           ->select('mano_de_obra.USER_C','cargo.cargo','mano_de_obra.h_h','mano_de_obra.cantidad_horas','mano_de_obra.total_mano_obra')
+           ->join('personal','personal.RUTP','=','mano_de_obra.RUTP')
+           ->join('cargo_personal','personal.RUTP','=','cargo_personal.RUTP')
+           ->join('cargo','cargo.ID_CARGO','=','cargo_personal.ID_CARGO')
+           ->join('producto','mano_de_obra.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+           ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+            ->get();
+
+           $user = \DB::table('mano_de_obra')
+           ->select('mano_de_obra.USER_C')
+           ->join('personal','personal.RUTP','=','mano_de_obra.RUTP')
+           ->join('cargo_personal','personal.RUTP','=','cargo_personal.RUTP')
+           ->join('cargo','cargo.ID_CARGO','=','cargo_personal.ID_CARGO')
+           ->join('producto','mano_de_obra.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+           ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+            ->get()->first();
+
+           
+ 
+            
+           $mano_obra_suma = \DB::table('mano_de_obra')
+           ->select(\DB::raw('sum(mano_de_obra.total_mano_obra) TOTAL_MANO_OBRA'))
+   
+           ->join('producto','mano_de_obra.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+           ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+            ->get()->FIRST();
+            
+ 
+ 
+            $equipo_interno = \DB::table('equipos_y_o_herramientas')
+            ->select('inventario.nombre','inventario.valor','equipos_y_o_herramientas.CANTIDAD_DIAS_E','equipos_y_o_herramientas.VALOR_TOTAL_E')
+            ->join('inventario','inventario.ID_INVENTARIO','=','equipos_y_o_herramientas.ID_INVENTARIO')
+            
+            ->join('producto','equipos_y_o_herramientas.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+            ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+             ->get();
+
+             
+          
+             
+            $equipo_interno_suma = \DB::table('equipos_y_o_herramientas')
+            ->select(\DB::raw('sum(equipos_y_o_herramientas.VALOR_TOTAL_E) TOTAL_EQ'))
+    
+            ->join('producto','equipos_y_o_herramientas.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+            ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+             ->get()->FIRST();
+ 
+ 
+ 
+             $equipo_interno_arrendado = \DB::table('equipo_y_o_herramienta_arrendados')
+             ->select('equipo_y_o_herramienta_arrendados.nombre','equipo_y_o_herramienta_arrendados.unidad','equipo_y_o_herramienta_arrendados.cantidad','equipo_y_o_herramienta_arrendados.VALOR','equipo_y_o_herramienta_arrendados.VALOR_TOTAL')
+     
+             
+             ->join('producto','equipo_y_o_herramienta_arrendados.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+             ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+              ->get();
+       
+              
+             $equipo_interno_arrendado_suma = \DB::table('equipo_y_o_herramienta_arrendados')
+             ->select(\DB::raw('sum(equipo_y_o_herramienta_arrendados.VALOR_TOTAL) TOTAL_EQA'))
+     
+             ->join('producto','equipo_y_o_herramienta_arrendados.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+             ->where('producto.ID_PRODUCTO','=', $ID_PRODUCTO)
+              ->get()->FIRST();
+
+
+
+        $view = view('cotizacion.internaPDF')->with('producto',$producto)->with('material',$material)->with('material_suma',$material_suma)
+                                            ->with('mano_obra',$mano_obra)->with('mano_obra_suma',$mano_obra_suma)->with('equipo_interno',$equipo_interno)
+                                            ->with('equipo_interno_suma',$equipo_interno_suma)->with('equipo_interno_arrendado',$equipo_interno_arrendado)
+                                            ->with('equipo_interno_arrendado_suma',$equipo_interno_arrendado_suma)
+                                            ->with('user',$user);
+        $pdf = \App::make('dompdf.wrapper');
+       $pdf->loadHTML($view)->setPaper('letter');
+       return $pdf->stream('Cotizacion Detallas de producto.pdf');
+        
+    }
+
+
+
+    public function pdfOC(Request $request)
+        
+    {
+
+        $date = Carbon::now();
+        $date = $date->format('d-m-Y');
+
+        $ID_PRODUCTO = $request->Input('id_productoo');
+        $RUT=$request->Input('rutt');
+
+        $oc1 = \DB::table('producto')
+         ->select('proveedor.NOMBRE','proveedor.TELEFONO','proveedor.NOMBRE_CONTACTO') 
+         ->join('material','material.ID_PRODUCTO','=','producto.ID_PRODUCTO') 
+         ->join('oc_detalle','oc_detalle.ID_MATERIAL','=','material.ID_MATERIAL') 
+         ->join('proveedor','proveedor.RUT','=','oc_detalle.RUT') 
+        ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)
+        ->where('proveedor.RUT','=',$RUT)
+        ->get()->first();
+  
+        $oc2 = \DB::table('producto')
+         ->select('material.CANTIDAD','material.DESCRIPCION','material.PRECIO_UNITARIO','material.TOTAL') 
+         ->join('material','material.ID_PRODUCTO','=','producto.ID_PRODUCTO') 
+         ->join('oc_detalle','oc_detalle.ID_MATERIAL','=','material.ID_MATERIAL') 
+         ->join('proveedor','proveedor.RUT','=','oc_detalle.RUT') 
+        ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)
+        ->where('proveedor.RUT','=',$RUT)
+        ->get();
+
+        $oc3 = \DB::table('orden_de_compra_mat')
+        ->select('orden_de_compra_mat.CONDICIONES_PAGO','orden_de_compra_mat.VALOR_NETO','orden_de_compra_mat.VALOR_TOTAL','orden_de_compra_mat.ID_ORDEN_COMPRA',\DB::raw('ROUND((orden_de_compra_mat.VALOR_NETO * iva.IVA)/100) VALOR_IVA') )
+        ->join('iva','iva.ID_IVA','=','orden_de_compra_mat.ID_IVA') 
+        ->join('producto','producto.ID_PRODUCTO','=','orden_de_compra_mat.ID_PRODUCTO') 
+        ->join('proveedor','proveedor.RUT','=','orden_de_compra_mat.RUT') 
+        ->where('producto.ID_PRODUCTO','=',$ID_PRODUCTO)
+       ->where('proveedor.RUT','=',$RUT)
+       ->get()->first();
+
+        
+    
+        $view = view('producto.pdfOC')->with('oc1',$oc1)->with('oc2',$oc2)->with('oc3',$oc3)->with('date',$date);
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view)->setPaper('letter');
+        return $pdf->stream('Orden_de_Compra.pdf');
+       
+
     }
 
 

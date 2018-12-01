@@ -9,11 +9,11 @@
 
 <body >
 	@section('content')
-	<div style="width: 1100px; margin:0px auto;">
-		<div style="width: 200px; float:left;  position:relative;">
+	<div style="width:100%; max-width: 1100px; margin:0px auto;">
+		
 		@include('intranet.menu')
-		</div>    
-	<div style="width: 850px; float: right; position:relative;">
+		  
+	<div style="width:100%; max-width: 1100px; float: right; position:relative;">
 	<nav class="navbar navbar-default" role="navigation">
   		<div class="container-fluid">
     		<div id="bs-example-navbar-collapse-1">
@@ -58,7 +58,14 @@
                 <p>
 					<input type="text" name="telefono" placeholder="Telefono" maxlength="9" minlength="9" class="form-control" onkeypress='return validaNumericos(event)'>
 
-                </p>
+				</p>
+				<p>
+						<input type="text" name="nombre_contacto" placeholder="Nombre Contacto" maxlength="50" class="form-control" onkeypress='return validar(event)' required>
+					</p>
+				<p>
+						<input type="text" name="telefono_contacto" placeholder="Telefono Contacto" maxlength="9" minlength="9" class="form-control" onkeypress='return validaNumericos(event)'>
+	
+					</p>
                 <p>
                     <select name="tipo" style="height:30px ;" class="form-control" >
 

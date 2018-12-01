@@ -8,7 +8,9 @@ use App\Cliente_Convenio;
 use App\Detalle_Convenio;
 use App\Convenio;
 use Session;
+use App\Orden_de_compra;
 class ConvenioController extends Controller
+
 {
     /**
      * Display a listing of the resource.
@@ -49,7 +51,8 @@ class ConvenioController extends Controller
      */
     public function store(Request $request)
     {
-        
+
+ 
         $clientes = Clientes::all();
         $convenio = new Convenio;
         $convenio->N_CONVENIO=$request->Input('numero_convenio');
@@ -60,6 +63,8 @@ class ConvenioController extends Controller
         $convenio->NOMBRE_PERSONA_ACARGO=$request->Input('nombre_persona');
         $convenio->NUMERO_PERSONA=$request->Input('telefono_persona');
         $convenio->CORREO_PERSONA=$request->Input('correo_persona');
+       
+
         if($convenio->save()){
             $suma = 0;
             $id=$convenio->ID_CONVENIO;
@@ -124,6 +129,11 @@ class ConvenioController extends Controller
 }
 public function store3(Request $request)
 {
+    $iva = \DB::table('iva')
+    ->select('ID_IVA')
+    ->where('ESTADO','=','Activo')
+    ->pluck('ID_IVA')->first();
+
     
     $clientes = Clientes::all();
     $convenio = new Convenio;
@@ -135,6 +145,7 @@ public function store3(Request $request)
     $convenio->NOMBRE_PERSONA_ACARGO=$request->Input('nombre_persona');
     $convenio->NUMERO_PERSONA=$request->Input('telefono_persona');
     $convenio->CORREO_PERSONA=$request->Input('correo_persona');
+    $convenio->ID_IVA=$iva;
 
     if($convenio->save()){
         $idconv=$convenio->ID_CONVENIO;
@@ -197,14 +208,27 @@ public function store3(Request $request)
      */
     public function show($ID_CONVENIO = null)
     {
-        $cotizacion =  \DB::table('convenios')
-        ->select('*')
-        ->join('orden_de_compra','cotizacion.ID_ORDEN_COMPRA','=','orden_de_compra.ID_ORDEN_COMPRA')
-        ->where('cotizacion.ID_COTIZACION', '=', $ID_COTIZACION)
-        ->get();
+
+
+
+
         
+   
         
-        Convenio::where('ID_CONVENIO', $ID_CONVENIO)->first();
+
+        $cotizacion = \DB::table('convenios')
+
+
+        ->select('convenios.FECHA_INICIO','convenios.FECHA_TERMINO','convenios.TOTAL',
+        'convenios.NETO','convenios.N_CONVENIO','convenios.CONDICION_PAGO','convenios.NUMERO_PERSONA',
+        'convenios.CORREO_PERSONA','clientes.NOMBRE_COMPLETO','convenios.NOMBRE_PERSONA_ACARGO' )
+
+
+        ->join('cliente_convenio','convenios.ID_CONVENIO','=','cliente_convenio.ID_CONVENIO')
+        ->join('clientes','cliente_convenio.RUT_CLIENTE','=','clientes.RUT_CLIENTE')
+        ->where('convenios.ID_CONVENIO', '=', $ID_CONVENIO)
+        ->get()->first();
+        
         /*$orden = \DB::table('convenios')
         ->select('*')
         ->join('orden_de_compra','cotizacion.ID_ORDEN_COMPRA','=','orden_de_compra.ID_ORDEN_COMPRA')
@@ -226,12 +250,20 @@ public function store3(Request $request)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($ID_CONVENIO)
+    public function edit($ID_CONVENIO = null )
     {
+        $convenio = \DB::table('convenios')
+        ->select('cliente_convenio.RUT_CLIENTE','convenios.ID_CONVENIO','convenios.FECHA_INICIO','convenios.FECHA_TERMINO','convenios.TOTAL',
+        'convenios.NETO','convenios.N_CONVENIO','convenios.CONDICION_PAGO','convenios.NUMERO_PERSONA',
+        'convenios.CORREO_PERSONA','clientes.NOMBRE_COMPLETO','convenios.NOMBRE_PERSONA_ACARGO' )
+        ->join('cliente_convenio','convenios.ID_CONVENIO','=','cliente_convenio.ID_CONVENIO')
+        ->join('clientes','cliente_convenio.RUT_CLIENTE','=','clientes.RUT_CLIENTE')
+        ->where('convenios.ID_CONVENIO', '=', $ID_CONVENIO)
+        ->get()->first();
+
+        $clientes = Clientes::all();
         
-        $cc = Cliente_Convenio::findOrFail($RUT_CLIENTE);
-        $convenio = Convenio::findOrFail($ID_CONVENIO);
-        return view('convenio.edit')->with('convenio',$convenio);
+        return view('convenio.edit')->with('convenio',$convenio)->with('clientes',$clientes)->with('ID_CONVENIO',$ID_CONVENIO);
     }
     /**
      * Update the specified resource in storage.
@@ -240,9 +272,78 @@ public function store3(Request $request)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+    public function create_ordenc($ID_CONVENIO = NULL){
+     
+        $convenio = \DB::table('convenios')
+        ->select('cliente_convenio.RUT_CLIENTE','convenios.ID_CONVENIO')
+        ->join('cliente_convenio','convenios.ID_CONVENIO','=','cliente_convenio.ID_CONVENIO')
+        ->join('clientes','cliente_convenio.RUT_CLIENTE','=','clientes.RUT_CLIENTE')
+        ->where('convenios.ID_CONVENIO', '=', $ID_CONVENIO)
+        ->get()->first();
+            
+
+        return view('convenio.guia')->with('convenio',$convenio);
+    }
+
+    public function store_ordenc_convenio(Request $request){
+        
+        if($request->hasFile('ruta')!=null){
+                    
+            $file = $request->file('ruta');
+            $name = time().$file->getClientOriginalName();
+        
+            $file->move(public_path().'/orden_compra_cliente/',$name);  
+        }
+
+        if( $convenio = Convenio::find($request->Input('id_cot')) and  $convenio->ID_ORDEN_COMPRA == "" ){ 
+        $orden = new Orden_de_compra;
+        $orden->RUT_CLIENTE = $request->Input('run_c');
+        $orden->NUM_ORDEN_COMPRA = $request->Input('num_orden');
+        $orden->FECHA_INGRESO = Carbon::now();
+        $orden->RUTA = $name;
+        
+        if($orden->save()){ 
+        $convenio = Convenio::find($request->Input('id_cot'));
+        $convenio->ID_ORDEN_COMPRA = $orden->ID_ORDEN_COMPRA;
+      
+        $convenio->save();
+        Session::flash('message','Guardado Correctamente');
+        Session::flash('class','success');
+        }
+    }else{
+        Session::flash('message','Esta cotizacion ya tiene una Orden de compra asignada');
+        Session::flash('class','danger');
+    }
+        
+        return view('convenio.guia')->with('convenio',$convenio);
+    }
+
+    public function update(Request $request)
     {
-        //
+        $ID_CONVENIO=$request->Input('ID_CONVENIO');
+        $clientes = Clientes::all();
+        $convenio =  Convenio::find($ID_CONVENIO);
+        $convenio->FECHA_INICIO =$request->Input('fecha_inicio');
+        $convenio->FECHA_TERMINO =$request->Input('fecha_final');
+        $convenio->N_CONVENIO =$request->Input('n_convenio');
+        $convenio->CONDICION_PAGO =$request->Input('condicion_pago');
+        $convenio->NOMBRE_PERSONA_ACARGO =$request->Input('nombre_persona');
+        $convenio->NUMERO_PERSONA =$request->Input('telefono_persona');
+        $convenio->CORREO_PERSONA =$request->Input('correo_persona');
+        try{
+        if($convenio->save()){
+            Session::flash('message','Guardado Correctamente');
+            Session::flash('class','success');
+        }else{
+            Session::flash('message','Ha ocurrido un error');
+            Session::flash('class','danger');
+        }
+        }catch(\Exception $e) {
+        Session::flash($e);
+        Session::flash('class','danger');
+        }
+        return view('convenio.edit',compact('ID_CONVENIO'))->with('clientes',$clientes)->with('convenio',$convenio);
     }
     /**
      * Remove the specified resource from storage.

@@ -16,57 +16,52 @@
             @section('content')
                 
             
-                <div style="width: 1100px; margin:0px auto;">
-                    <div style="width: 200px; float:left;  position:relative;">
+                <div style="width:100%; max-width: 1100px; margin:0px auto;">
+                
                     @include('intranet.menu')
-                    </div>    
-                <div style="width: 850px; float: right; position:relative;">
+                   
+                <div style="width:100%; max-width: 1100px; float: right; position:relative;">
         <div class="panel panel-success" style="margin-top: 20px;">
                 <div class="panel-heading">
-                    <h4>Modificar cliente</h4>
+                    <h4>Modificar Convenio</h4>
                 </div>
                
                 <div class="panel-body">
-                <form action="{{ route('convenio.update', $convenio->ID_CONVENIO)}}" method="POST">
+                <form action="{{ route('convenio.update', $ID_CONVENIO)}}" method="POST">
                
                           {{ csrf_field() }}
                           <input name="_method" type="hidden" value="PUT">
                           <p>
-                                <select name="cliente" style="height:30px ;" class="form-control" >
-                                        @foreach($clientes as $cliente)
-                                            <option value="{{$cliente->RUT_CLIENTE}}">{{$cliente->NOMBRE_COMPLETO}}</option>
-                                        @endforeach
-                        
-                                </select>				
+                             <input type="hidden" name="ID_CONVENIO" value="{{$ID_CONVENIO}}"> 
+                       
+                             <input type="text" name="cliente" readonly class="form-control" value="{{$convenio->NOMBRE_COMPLETO}}" id="">
+                     		
                             </p>
                             <p>
-                                <input type="text" name="numero_convenio"placeholder="N° convenio" class="form-control" required>
+                            <input type="text" name="fecha_inicio" value="{{$convenio->FECHA_INICIO}}" placeholder="Fecha inicio de convenio" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_inicio" class="form-control" required>
                             </p>
                             <p>
-                                <input type="text" name="fecha_emision"placeholder="Fecha Emision" class="form-control"onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_emision"  required>
-                            </p>
-                            <p>
-                                <input type="text" name="fecha_inicio" placeholder="Fecha inicio de convenio" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_inicio" class="form-control" required>
-                            </p>
-                            <p>
-                                <input type="text" name="fecha_final" placeholder="Fecha final de convenio" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_inicio" class="form-control">
+                                <input type="text" name="fecha_final" value="{{$convenio->FECHA_TERMINO}}" placeholder="Fecha final de convenio" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="fecha_inicio" class="form-control">
                 
                             </p>
                             <p>
-                                <input type="text" name="condicion_pago"placeholder="Condiciones de pago" class="form-control" required>
+                                    <input type="text" name="n_convenio" value="{{$convenio->N_CONVENIO}}"placeholder="Numero de Convenio" class="form-control" required>
+                                </p>
+                            <p>
+                                <input type="text" name="condicion_pago" value="{{$convenio->CONDICION_PAGO}}"placeholder="Condiciones de pago" class="form-control" required>
                             </p>
                             <p>
-                                <input type="text" name="nombre_persona"placeholder="Nombre de persona a cargo" class="form-control" required>
+                                <input type="text" name="nombre_persona" value="{{$convenio->NOMBRE_PERSONA_ACARGO}}" placeholder="Nombre de persona a cargo" class="form-control" required>
                             </p>
                             <p>
-                                <input type="text" name="telefono_persona"placeholder="Télefono de persona a cargo" class="form-control" required>
+                                <input type="text" name="telefono_persona" value="{{$convenio->NUMERO_PERSONA}}" placeholder="Télefono de persona a cargo" class="form-control" required>
                             </p>
                             <p>
-                                <input type="text" name="correo_persona"placeholder="Correo de persona a cargo" class="form-control" required>
+                                <input type="text" name="correo_persona" value="{{$convenio->CORREO_PERSONA}}" placeholder="Correo de persona a cargo" class="form-control" required>
                             </p>
                       <p>
                           <input type="submit" value="Actualizar" class="btn btn-success">
-                          <a href="/clientes" class="btn btn-default">Regresar</a>
+                          <a href="/convenio" class="btn btn-default">Regresar</a>
                       </p>
                       
                

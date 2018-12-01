@@ -81,7 +81,7 @@ footer {
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/menu.js"></script>
 <br>
-<footer>
+<footer style="margin-top:300px;">
  
     <div style="width: 100%; height:150px; margin:0px auto;  background:#c3c3c3;">
         
@@ -91,9 +91,12 @@ footer {
             <div style="width: 100%; max-width: 150px; float:left;">
                 <img src="images/png/logo.png" class="logo" style="width:200px;  margin-top:20px; " alt="">
             </div>
-            <div style="width: 100%;  float:right; margin-top:40px; border-right: 4px solid #3c3c3c; opacity:0.6; ">
+            
+            
+            <div style="width: 100%; max-width:200px; float:right; margin-top:40px; border-right: 4px solid #3c3c3c; opacity:0.6; ">
                 <p style=" width: 100%;font-size:14px; font-family:'PT Sans Narrow', sans-serif;"><strong>1460 Bellavista</strong> </p>
                 <font face="Source Sans Pro" style="width: 100%;">Concepción, Región del Bío Bío</font>
+                <br>
                 <font face="Source Sans Pro" style="width: 100%;">(56-41) 2751155</font>
             </div>
             </div>

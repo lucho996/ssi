@@ -26,6 +26,8 @@ class CreateClientesTable extends Migration
             $table->integer('RUT_CLIENTE')->unsigned();
             $table->primary('RUT_CLIENTE');
             $table->string('NOMBRE_COMPLETO', 50)->nullable()->default(null);
+            $table->string('NOMBRE_CONTACTO', 50)->nullable()->default(null);
+            $table->integer('TELEFONO_CONTACTO')->nullable()->default(null);
             $table->string('DIRECCION', 50)->nullable()->default(null);
             $table->string('CIUDAD', 50)->nullable()->default(null);
             $table->string('COMUNA', 30)->nullable()->default(null);

@@ -29,17 +29,16 @@
     </style>
 </head>
 <body>
-		<div style="width: 1100px; margin:0px auto;">
-				<div style="width: 200px; float:left; position:relative;">
+		<div style="width:100%; max-width: 1100px; margin:0px auto;">
 				@include('intranet.menu')
-                </div>  
+               
                 
                 
-                <div style="width:800px; margin-left:250px; display: flex; flex-flow: row nowrap; justify-content: space-between;  position:relative;">
+               <!-- <div style="width:100%; max-width:1100px; margin-left:250px; display: flex; flex-flow: row nowrap; justify-content: space-between;  position:relative;">
                      
                     
                     <div style=" margin-top:30px; float:left;">
-                        <img src="/images/png/personal.png" style="width:140px;" alt="">
+                        <img src="/images/png/personal.png" style="width:100%; max-width:140px;" alt="">
                      <center>
                         <div class="globo">
                         <h3> <strong><FONT FACE="courier" >500000</FONT></strong> </h2>  
@@ -49,7 +48,7 @@
                     </div>
 
                     <div style="margin-top:30px; float:left;">
-                            <img src="/images/png/cliente-ssi.png" style="width:110px;" alt="">
+                            <img src="/images/png/cliente-ssi.png" style="width:100%; max-width:110px;" alt="">
                             <center>
                                     <div class="globo">
                                     <h3> <strong><FONT FACE="courier" >150</FONT></strong> </h2>  
@@ -60,7 +59,7 @@
                         </div>
                     
                         <div style=" margin-top:30px; float:left;">
-                                <img src="/images/png/convenios.png" style="width:120px;" alt="">
+                                <img src="/images/png/convenios.png" style="width:100%; max-width:120px;" alt="">
                                 <center>
                                         <div class="globo">
                                         <h3> <strong><FONT FACE="courier" >150</FONT></strong> </h2>  
@@ -76,7 +75,7 @@
 
 
 
-                <div style="width:100%; max-width:900px; display: flex; flex-flow: row nowrap; justify-content: space-between;  position:relative;">
+                <div style="width:100%; max-width:1100px; display: flex; flex-flow: row nowrap; justify-content: space-between;  position:relative;">
                      
                     
                         <div style="width:150px;  margin-top:30px; float:left;">
@@ -114,9 +113,9 @@
     
       
                       
-                    </div>
+                    </div>-->
   
-                    </div>
+                  
         
 
         

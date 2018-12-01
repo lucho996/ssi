@@ -4,8 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Clientes</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	
 
 	<style>
 		.badge {
@@ -18,11 +17,10 @@
 	@section('content')
 		
 
-		<div style="width: 1100px; margin:0px auto;">
-			<div style="width: 200px; float:left;  position:relative;">
+		<div style="width:100%; max-width: 1100px; margin:0px auto;">
 					@include('intranet.menu')
-			</div>    
-		<div style="width: 850px; float: right; position:relative;">
+		    
+		<div style="width:100%; max-width: 1100px; float: right; position:relative;">
 
 	<div class="panel panel-success" style="margin-top: 20px;">
   		<div class="panel-heading">
@@ -30,9 +28,9 @@
   		</div>
 
   		<div class="panel-body">
-				
+		
 				@if(!@empty($clientes))
-
+				<div class="table-responsive">	
 		<table class="table table-bordered">
 			<tbody>
 				<tr>
@@ -61,10 +59,11 @@
 				</tr>
 			</tbody>
 		</table>
-
+	</div>
 		@else
 		<p>No existe el cliente</p>		
 		@endif
+
         <a href="/clientes" class="btn btn-default">Regresar</a>
 		</div>
 	</div>

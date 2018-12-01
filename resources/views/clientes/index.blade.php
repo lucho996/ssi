@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Clientes</title>
     <style>
@@ -14,13 +14,15 @@
 </head>
 
 <body>
-
-        
-        <div style="width: 1100px; margin:0px auto;">
-        <div style="width: 200px; float:left; position:relative;">
+        <div style="width:100%; max-width: 1100px; margin:0px auto;">
         @include('intranet.menu')
-        </div>    
-        <div style="width: 850px; float: right; position:relative;">
+        </div>
+        <div style="width:100%; max-width: 1100px; margin:0px auto;">
+           
+             
+              
+                <div style="width:100%; max-width: 1100px; margin:0px auto;">
+        <div style="width:100%; max-width: 1100px; float: right; position:relative;">
         <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                   <div id="bs-example-navbar-collapse-1">
@@ -42,6 +44,7 @@
                 </div>
       
                 <div class="panel-body">
+                    	<div class="table-responsive">	
                   <table class="table" id="example">
                       <thead>
                           <tr>
@@ -70,6 +73,7 @@
                           @endforeach
                       </tbody>
                   </table>
+                    	</div>
                 </div>
             </div>
           @if(Session::has('message'))

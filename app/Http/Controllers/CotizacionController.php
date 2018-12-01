@@ -273,4 +273,43 @@ class CotizacionController extends Controller
     {
         //
     }
+
+
+
+
+
+    
+
+    public function PDFgeneral($ID_COTIZACION)    
+    {
+
+        $date = Carbon::now();
+        $date = $date->format('Y');
+        
+
+        $con_foreach = \DB::table('detalle_cotizacion')
+        ->select('detalle_cotizacion.CANTIDAD','producto.descripcion','producto.total','detalle_cotizacion.total as TotalFinal')
+        ->join('producto','detalle_cotizacion.ID_PRODUCTO','=','producto.ID_PRODUCTO')
+        ->join('cotizacion','cotizacion.ID_COTIZACION','=','detalle_cotizacion.ID_COTIZACION')
+        ->where('cotizacion.ID_COTIZACION','=',$ID_COTIZACION)->get();
+        
+
+        $sin_foreach = \DB::table('cotizacion')
+        ->select('clientes.NOMBRE_COMPLETO','clientes.NOMBRE_CONTACTO','cotizacion.FECHA_RESPUESTA_COTIZACION',
+        'cotizacion.valor_neto','cotizacion.VALOR_TOTAL',\DB::raw('ROUND((cotizacion.VALOR_NETO * iva.IVA)/100) as ValorIva'))
+        ->join('clientes','clientes.RUT_CLIENTE','=','cotizacion.RUT_CLIENTE')
+        ->join('iva','cotizacion.id_iva','=','iva.id_iva')
+        ->where('cotizacion.ID_COTIZACION','=',$ID_COTIZACION)->get()->first();
+        
+                 
+
+            
+        $view = view('cotizacion.generalPDF')->with('con_foreach',$con_foreach)->with('sin_foreach',$sin_foreach)->with('ID_COTIZACION',$ID_COTIZACION)->with('date',$date);
+         $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view)->setPaper('letter');
+        return $pdf->stream('Cotizacion General.pdf');
+        
+    }
+
+
 }

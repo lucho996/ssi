@@ -14,11 +14,10 @@
 </head>
 
 <body >
-	<div style="width: 1100px; margin:0px auto;">
-		<div style="width: 200px; float:left;  position:relative;">
+	<div style="width:100%; max-width: 1100px; margin:0px auto;">
 		@include('intranet.menu')
-		</div>
-	<div style="width: 850px; float: right; position:relative;"> 
+	
+	<div style="width:100%; max-width: 1100px; float: right; position:relative;"> 
 
           <div class="panel panel-success" style="margin-top:20px;">
                 <div class="panel-heading">
@@ -26,7 +25,7 @@
                 </div>
       
                 <div class="panel-body">
-                
+                        <div class="table-responsive">	
                         <table class="table" id="example">
                                 <thead>
                                     <tr>
@@ -94,6 +93,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
                 </div>
             </div>
         <form  action="{{ action('ProductoController@store_pro')}}" method="post" enctype="multipart/form-data">

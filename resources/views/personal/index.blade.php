@@ -21,11 +21,10 @@
 
 <body>
  
-    <div style="width: 1100px; margin:0px auto;">
-    <div style="width: 200px; float:left; position:relative;">
+    <div style="width:100%; max-width: 1100px; margin:0px auto;">
     @include('intranet.menu')
-    </div>    
-    <div style="width: 850px; float: right; position:relative;">
+  
+    <div style="width:100%; max-width: 1100px; float: right; position:relative;">
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                   <div id="bs-example-navbar-collapse-1">
@@ -50,6 +49,7 @@
                 </div>
       
                 <div class="panel-body">
+                    	<div class="table-responsive">	
                   <table class="table" id="example">
                       <thead>
                           <tr>
@@ -79,6 +79,7 @@
                           @endforeach
                       </tbody>
                   </table>
+                    	</div>
                 </div>
             </div>
 

@@ -108,10 +108,10 @@ ul.dropdown ul li a:hover{
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-        <nav class="navbar navbar-laravel" style="width:1100px; margin: 0px auto;">
+        <nav class="navbar navbar-laravel" style="width:100%; max-width:1100px; margin: 0px auto;">
            
             <div class="container">
-            <img src="/images/png/logo.png" style="width:100px ; float:left;" alt=""> 
+            <img src="/images/png/logo.png" style="width:100%; max-width:100px ; float:left;" alt=""> 
                 <div class="navbar-nav ml-auto" >
 
                 <ul class="dropdown" style="margin-right:100%;">

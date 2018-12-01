@@ -15,11 +15,10 @@
 </head>
 
 <body >
-	<div style="width: 1100px; margin:0px auto;">
-		<div style="width: 200px; float:left;  position:relative;">
+	<div style="width:100%; max-width: 1100px; margin:0px auto;">
 		@include('intranet.menu')
-		</div>
-    <div style="width: 850px; float: right; position:relative;"> 
+		
+    <div style="width:100%; max-width: 1100px; float: right; position:relative;"> 
 
         
           <div class="panel panel-success" style="margin-top:20px;">
@@ -28,6 +27,7 @@
                 </div>
      
                 <div class="panel-body">
+                    	<div class="table-responsive">	
                   <table class="table" id="example">
                       <thead>
                           <tr>
@@ -86,6 +86,10 @@
                                        <img src="/images/png/borrar.png" style="width:20px;" alt="">
                                      </button>
                                      @endcan
+                                     @can('producto.destroy_pro')
+                                     <a href="/producto/ot_seg/{{$producto->ID_PRODUCTO}}"><img src="/images/png/ot.png" style="width:20px;" alt=""></a>
+                                     @endcan
+                                     <a href="/producto/PDFinterna/{{ $producto->ID_PRODUCTO }}"><img src="/images/png/pdf.png" style="width:20px;" alt=""></a>
                                      
                                      {!!Form::close()!!}
                                       
@@ -94,6 +98,7 @@
                           @endforeach
                       </tbody>
                   </table>
+                    	</div>
                 </div>
             </div>
 
@@ -110,6 +115,7 @@
                                    <div class="panel-body">
                                                
                                    <div class="form-group">
+                                        <div class="table-responsive">	
                                        <table class="table">
                                                                <thead>
                                                                     <th>Cod Sap</th>
@@ -141,6 +147,7 @@
                                                                </tbody>
         
                                                            </table>
+                                        </div>
                                                        </div>
                                                    
                                                

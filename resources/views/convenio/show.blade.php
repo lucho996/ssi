@@ -13,63 +13,57 @@
 
 </head>
 <body >
-		<div style="width: 1100px; margin:0px auto;">
-			<div style="width: 200px; float:left;  position:relative;">
+		<div style="width:100%; max-width: 1100px;  margin:0px auto;">
 			@include('intranet.menu')
-			</div>    
-		<div style="width: 850px; float: right; position:relative;">
+		  
+		<div style="width:100%; max-width: 1100px;  float: right; position:relative;">
 
-	<div class="panel panel-success" style="margin-top: 20px;">
-  		<div class="panel-heading">
+	<div class="panel panel-success"  margin-top: 20px;">
+  		<div class="panel-heading" >
   			<h4>Información Cotizaciòn</h4>
   		</div>
 
   		<div class="panel-body">
-			  
+				<div class="table-responsive">	
 				<table class="table table-bordered">
 					<tbody>
 						<tr>
 							<td style="text-align:right;"><strong>Cliente:</strong> </td>
-							<td>{{$cotizacion ->RUT_CLIENTE}}</td>
-							<td style="text-align:right;"><strong>Fecha Limite Respuesta:</strong> </td>
-							<td>{{$cotizacion ->FECHA_RESPUESTA_COTIZACION}}</td>	
+							<td>{{$cotizacion ->NOMBRE_COMPLETO}}</td>
+							<td style="text-align:right;"><strong>Numero Convenio:</strong> </td>
+							<td>{{$cotizacion ->N_CONVENIO}}</td>	
 						</tr>
 						<tr>
-								<td style="text-align:right;"><strong>Fecha de Ingreso:</strong> </td>
-								<td>{{$cotizacion ->FECHA_LLEGADA}}</td>
-							<td style="text-align:right;"><strong>Descripción:</strong> </td>
-							<td>{{$cotizacion ->DESCRIPCION}}</td>	
+							<td style="text-align:right;"><strong>Fecha Inicio:</strong> </td>
+							<td>{{$cotizacion ->FECHA_INICIO}}</td>	
+							<td style="text-align:right;"><strong>Fecha Termino:</strong> </td>
+							<td>{{$cotizacion ->FECHA_TERMINO}}</td>
+							
 						</tr>
 
-						<tr>
+						<tr>		
+							<td style="text-align:right;"><strong>Persona a Cargo:</strong> </td>
+							<td>{{$cotizacion ->NOMBRE_PERSONA_ACARGO}}</td>
+
+							<td style="text-align:right;"><strong>Numero Persona a Cargo:</strong> </td>
+							<td>{{$cotizacion ->NUMERO_PERSONA}}</td>
 							
-							
-						
-			
-						
-							
-							@if($cotizacion ->COD_PETICION_OFERTA != null)
-							<td style="text-align:right;"><strong>Codigo Petición:</strong> </td>
-							<td>{{$cotizacion ->COD_PETICION_OFERTA}}</td>
-							@else 
-							<td style="text-align:right;"><strong>Codigo Petición:</strong> </td>
-							<td>Sin Codigo Petición</td>
-							@endif
 	
 						</tr>
 						<tr>
 	
 
-								<td style="text-align:right;"><strong>Estado:</strong> </td>
-								<td>{{$cotizacion ->ESTADO}}</td>	
+								<td style="text-align:right;"><strong>Correo Persona a Cargo:</strong> </td>
+								<td>{{$cotizacion ->CORREO_PERSONA}}</td>	
 								
 								
 							</tr>
 					</tbody>
 				</table>
+				</div>
 
-
-				<table class="table table-bordered" style="width: 430px; float:right;">
+				<div class="table-responsive">	
+				<table class="table table-bordered" style="width:100%;  float:right;">
 						<tbody>
 								<tr>
 										@foreach ($iva as $iva)
@@ -81,9 +75,9 @@
 										<td>Sin Cotizar</td>
 										@endif
 										@endforeach
-										@if($cotizacion ->VALOR_NETO != null)
+										@if($cotizacion ->NETO != null)
 										<td style="text-align:right;"><strong>Valor Neto:</strong> </td>
-										<td >$<div id="number5" style="display: inline;">{{$cotizacion ->VALOR_NETO}}</div></td>
+										<td >$<div id="number5" style="display: inline;">{{$cotizacion ->NETO}}</div></td>
 										@else 
 										<td style="text-align:right;"><strong>Valor Neto:</strong> </td>
 										<td><em>Sin Cotizar</em></td>	
@@ -94,16 +88,10 @@
 								</tr>
 
 								<tr>
-										@if($cotizacion ->PORC_DESCUENTO != null)
-										<td style="text-align:right;"><strong>Porcentaje Desc:</strong> </td>
-										<td>{{$cotizacion ->PORC_DESCUENTO}}</td>
-										@else 
-										<td style="text-align:right;"><strong>Porcentaje Desc:</strong> </td>
-										<td><em>N/A</em></td>
-										@endif
-										@if($cotizacion ->VALOR_TOTAL != null)
+										
+										@if($cotizacion ->TOTAL != null)
 										<td style="text-align:right;"><strong>Valor Total:</strong> </td>
-										<td >$<div id="number6" style="display: inline;">{{$cotizacion ->VALOR_TOTAL}}</div></td>
+										<td >$<div id="number6" style="display: inline;">{{$cotizacion ->TOTAL}}</div></td>
 										@else 
 										<td style="text-align:right;"><strong>Valor Total:</strong> </td>
 										<td><em>Sin Cotizar</em></td>
@@ -114,12 +102,14 @@
 								
 								
 						</tbody>
-						
-					</table>			
+					</table>
+					<td><a href="/convenio" class="btn btn-default">Regresar</a></td>
+
+				</div>		
 
 					
 		</div>
-		<td><a href="/cotizacion" class="btn btn-default">Regresar</a></td>
+		
 	</div>
 	
 

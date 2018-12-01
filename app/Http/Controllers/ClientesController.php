@@ -45,6 +45,8 @@ class ClientesController extends Controller
         $cliente->GIRO =$request->Input('giro');
         $cliente->TELEFONO =$request->Input('telefono');
         $cliente->TIPO =$request->Input('tipo');
+        $cliente->NOMBRE_CONTACTO =$request->Input('nombre_contacto');
+        $cliente->TELEFONO_CONTACTO =$request->Input('telefono_contacto');
         try{
             if($cliente->save()){
                 Session::flash('message','Guardado Correctamente');
@@ -111,6 +113,8 @@ class ClientesController extends Controller
         $clientes->GIRO =$request->Input('giro');
         $clientes->TELEFONO =$request->Input('telefono');
         $clientes->TIPO =$request->Input('tipo');
+        $clientes->NOMBRE_CONTACTO =$request->Input('nombre_contacto');
+        $clientes->TELEFONO_CONTACTO =$request->Input('telefono_contacto');
        
 		if ($clientes->save()) {
 			Session::flash('message','Actualizado correctamente!');

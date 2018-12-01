@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Caffeinated\Shinobi\Models\Role;
+use Session;
+use Mockery\CountValidator\Exception;
 
 class UserController extends Controller
 {
@@ -39,11 +41,17 @@ class UserController extends Controller
     {
 
         $request['password'] = bcrypt($request->password);
-
-
-      $user = User::create($request->all());
-        return redirect()->route('users.create', $user->id)
-        ->with('info','Usuario creado');
+        $user = new User;
+    try{
+      $user::create($request->all());
+      Session::flash('message','Guardado Correctamente');
+      Session::flash('class','success');
+    }catch(\Exception $e){
+    Session::flash('message','Usuario ya existe');
+    Session::flash('class','danger');
+    }
+      
+        return redirect()->route('users.create', $user->id);
     }
 
     /**

@@ -45,8 +45,7 @@ Route::post('/personal/edit/{RUTP}', 'PersonalController@edit')
 ->middleware('permission:personal.edit');
 Route::get('/personal/show/{RUTP}', 'PersonalController@show')
 ->middleware('permission:personal.show');
-Route::get('/personal/pdf/{RUTP}', 'PersonalController@pdf')
-->middleware('permission:personal.pdf');
+
 Route::delete('/personal/carga_familiar/{carga_familiar}', 'PersonalController@destroy')->name('personal.destroy')
 ->middleware('permission:personal.destroy');
 Route::put('/personal/updatee/{ID_CARGA_FAMILIAR}', 'PersonalController@updatee')->name('personal.updatee')
@@ -157,6 +156,10 @@ Route::get('/producto/show2/{ID_PRODUCTO}', 'ProductoController@show2')
 Route::post('/producto/store_ocm', 'ProductoController@store_ocm')
 ->middleware('permission:producto.orden_compra_m');
 
+Route::post('/producto/store_factura_p', 'ProductoController@store_factura_p')
+->middleware('permission:producto.orden_compra_m');
+
+
 
 Route::get('/producto/orden_compra_m/{RUT}/{ID_PRODUCTO}', 'ProductoController@orden_compra_m')
 ->middleware('permission:producto.orden_compra_m');
@@ -164,7 +167,27 @@ Route::get('/producto/orden_compra_m/{RUT}/{ID_PRODUCTO}', 'ProductoController@o
 Route::get('/findPrice2',array('as'=>'findPrice2','uses'=>'ProductoController@findPrice2'));
 
 
+//ot
+Route::post('/producto/orden_trabajo/{ID_PRODUCTO}', 'ProductoController@orden_trabajo')->name('producto.orden_trabajo')
+->middleware('permission:producto.orden_trabajo');
 
+Route::get('/producto/ver_orden_trabajo/{ID_PRODUCTO}', 'ProductoController@ver_orden_trabajo')->name('producto.ver_orden_trabajo') 
+->middleware('permission:producto.ver_orden_trabajo'); 
+
+Route::get('/producto/ot_seg/{ID_PRODUCTO}', 'ProductoController@showsegumiento')
+->middleware('permission:producto.ot_seg');
+
+Route::post('/producto/store_seg_coti', 'ProductoController@store_seg_coti')
+->middleware('permission:producto.ot_seg');
+
+
+
+Route::post('/producto/ver_orden_trabajo/{ID_PRODUCTO}', 'ProductoController@ver_orden_trabajo')
+->middleware('permission:producto.ver_orden_trabajo');
+
+Route::post('/producto/update_ot/{ID_PRODUCTO}', 'ProductoController@update_ot')->name('producto.update_ot') 
+->middleware('permission:producto.update_ot');
+//ot
 
 Route::post('/producto/update/{ID_PRODUCTO}', 'ProductoController@update')
 ->middleware('permission:producto.edit');
@@ -268,7 +291,10 @@ Route::resource('cotizacion', 'CotizacionController')
 Route::get('/convenio/cotizarconvenio2/{ID_CONVENIO}', 'ProductoController@create3')
 ->middleware('permission:convenio.cotizarconvenio2');
 
-
+Route::post('/convenio/store_orden', 'ConvenioController@store_ordenc_convenio')->name('store_ordenc_convenio')
+->middleware('permission:convenio.guia');
+Route::get('/convenio/guia/{ID_COTIZACION}', 'ConvenioController@create_ordenc')
+->middleware('permission:convenio.guia');
 
 Route::get('/convenio/cotizarconvenio2', 'ConvenioController@create3')
 ->middleware('permission:convenio.cotizarconvenio2');
@@ -342,6 +368,28 @@ Route::delete('roles/{role}', 'RoleController@destroy')->name('roles.destroy')
 
 Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit')
 ->middleware('permission:roles.edit');
+
+//RUTAS PDF
+    //Personal
+    Route::get('/personal/pdf/{RUTP}', 'PersonalController@pdf')
+    ->middleware('permission:personal.pdf');
+
+
+    //PDF Cotizacion General e Interna
+    Route::get('/cotizacion/PDFgeneral/{ID_COTIZACION}', 'CotizacionController@PDFgeneral')
+    ->middleware('permission:pdfgeneral.pdf');
+    Route::get('/producto/PDFinterna/{ID_PRODUCTO}', 'ProductoController@PDFinterna')
+    ->middleware('permission:pdfinterna.pdf');
+
+    //Orden de compra
+    Route::get('/producto/pdfOC', 'ProductoController@pdfOC')
+    ->middleware('permission:producto.pdfOC'); // PDF OC
+    Route::post('/producto/pdfOC', 'ProductoController@pdfOC')
+    ->middleware('permission:producto.pdfOC'); 
+
+
+
+
 
 });
 

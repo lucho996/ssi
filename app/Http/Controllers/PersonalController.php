@@ -183,7 +183,11 @@ class PersonalController extends Controller
         ])->with('carga',$carga)->with('cargo',$cargo);
 
     }
-    public function pdf($RUTP = null)
+
+
+
+    
+        public function pdf($RUTP = null)
     {
 
         $carga = \DB::table('carga_familiar')
@@ -207,13 +211,6 @@ class PersonalController extends Controller
             $pdf = \App::make('dompdf.wrapper');
             $pdf->loadHTML($view);
 return $pdf->stream('personal.pdf');
-       /* $pdf =PDF::loadview('personal.pdf',[
-
-        ]);*/
-
-
-
-
     
 
     }

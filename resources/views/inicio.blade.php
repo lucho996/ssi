@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Inicio</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -32,24 +32,34 @@
 
 
 
-                <div style="width:100%;  max-width:1100px; margin:0 auto;">
-                <div style="width:100%; max-width:900px; margin: 80px auto">
-                        <div style="width:250px; float:left;background:#8ba987 url('/images/png/div.png'); border-radius:25px 0px 25px 0px; opacity:0.9;">
+
+                <div style="width:100%; max-width:900px; margin: 80px auto;  display: flex; flex-flow: row nowrap; justify-content: space-between; position:relative;">
+                        
+                    
+                    
+                    
+                    <div style="width:100%; max-width:250px;height:100%; max-height:300px; float:left; background:#8ba987 url(''); border-radius:35px 35px 35px 35px; opacity:0.9;">
                             <div>
                                     
-                            <center><p style="font-family: 'Amaranth';font-size: 25px; color:#fff; opacity:0.8;">Nosotros</p></center> 
-                                <div class="panel-body" style="text-align: center;">
-                                    <p>asd</p> 
-                                    <a href="" style="color:#fff;">Leer Más</a>
-                            
+                                    <center><p style="font-family: 'Amaranth';font-size: 25px; color:#fff; opacity:0.8;">Nosotros</p></center> 
+                                    <div class="panel-body" >
+                                        <p align="justify" style="color:#fff; font-family: serif;"><img src="/images/png/abrircomillas.png" style="width:20px;" alt="">
+
+                                                                                Somo una PYME dedicada a la metalurgia, estamos radicados en la ciudad de Concepción, en la VIII region de Chile, principalmente
+                                                                                trabajamos solo en la región... <img src="/images/png/cerrarcomillas.png" style="width:20px;" alt=""></p> 
+                                 <center>  <a href="" style="color:#fff; text-align: center;"><img src="http://www.aptyer.org.ar/graficos/flechagris.png" style="width:50px ;" alt=""></a></center>   
+                                
                                 </div>   
                             </div>
                         </div>
-                        <div style="width:250px; float:right; background:#8ba987 url('/images/png/div.png'); border-radius:0px 25px 0px 25px; opacity:0.9;">
+                        
+                        
+                        
+                    <div style="width:100%; max-width:250px;height:100%; max-height:300px; float:left; background:#8ba987 url(''); border-radius:35px 35px 35px 35px; opacity:0.9;">
                                 <div >
                                         <center><p style="font-family: 'Amaranth';font-size: 25px; color:#fff; opacity:0.8;">Misión</p></center> 
                                     <div class="panel-body" >
-                                        <p align="justify" style="color:#fff; font-family: serif;"><img src="/images/png/abrircomillas.png" style="width:20px;" alt=""> Como empresa proveedora de Servicios de Ingeniería Mecánica y 
+                                        <p align="justify" style="width:100%; color:#fff; font-family: serif;"><img src="/images/png/abrircomillas.png" style="width:20px;" alt=""> Como empresa proveedora de Servicios de Ingeniería Mecánica y 
                                                                                     con experiencia en el mercado de la metalmecánica es proveer a 
                                                                                     nuestros clientes con la confección, reparación y/o modificación 
                                                                                     de diversas piezas industriales <img src="/images/png/cerrarcomillas.png" style="width:20px;" alt=""></p> 
@@ -59,7 +69,10 @@
                                 </div>
                         </div>
 
-                        <div style="width:250px;  margin:0px auto; background:#8ba987 url('/images/png/div.png'); border-radius:25px 0px 25px 0px; opacity:0.9;">
+                        
+                        
+                        
+                    <div style="width:100%; max-width:250px;height:100%; max-height:300px; float:left;  background:#8ba987 url(''); border-radius:35px 35px 35px 35px; opacity:0.9;">
                                 <div>
                                     <center><p style="font-family: 'Amaranth';font-size: 25px; color:#fff; opacity:0.8;">Visión</p></center> 
                                     <div class="panel-body">
@@ -71,13 +84,32 @@
                                     </div>   
                                 </div>
                         </div>
+                       
+            </div>
+            
+
+
+
+
+            <div style="width:100%; max-width:900px; margin: 80px auto;background:#8ba987 url('/images/png/div.png'); border-radius:30px; display: flex; flex-flow: row nowrap; justify-content: space-between; position:relative;">
+      
+                <div style="width:100% max-width:500px;  ">
+            <img src="/images/inicio/2.jpg" style="width:100% max-width:500px; border-radius:45px; height:300px; margin-left:20px;" alt="">         
                 </div>
 
-
-
-
-             
+                <div style="width:360px; ">                        
+                        <h1 style=" color:#fff; font-family: serif; margin-top:60px;">    
+                    <img src="/images/png/abrircomillas.png" style="width:40px;" alt=""> 
+                   Maquinas Profesionales y para todo tipo de perfiles.
+                    <img src="/images/png/cerrarcomillas.png" style="width:40px;" alt="">
+                  
+                </h1>
+                            
+                
             </div>
+            </div>
+            
+            
                
             <script type="text/javascript" src="js/wowslider.js"></script>
             <script type="text/javascript" src="js/script.js"></script>

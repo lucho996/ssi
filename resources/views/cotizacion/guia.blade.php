@@ -11,11 +11,10 @@
 	</style>
 </head>
 <body >
-	<div style="width: 1100px; margin:0px auto;">
-		<div style="width: 200px; float:left;  position:relative;">
+	<div style="width:100%; max-width: 1100px; margin:0px auto;">
 		@include('intranet.menu')
-		</div>
-	<div style="width: 850px; float: right; position:relative;"> 
+	
+	<div style="width:100%; max-width: 1100px; float: right; position:relative;"> 
             {!!Form::open(array('route'=>'store_orden', 'id'=>'frmsave', 'method'=>'post','files'=>true))!!}
                                 {{ csrf_field() }}
                     <div class="panel panel-success"style="width:100%; margin-top:20px;">

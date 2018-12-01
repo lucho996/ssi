@@ -25,6 +25,7 @@ class CreateOrdenDeCompraMatTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('ID_ORDEN_COMPRA');
             $table->integer('ID_PRODUCTO')->nullable()->default(null)->unsigned();
+            $table->integer('ID_FACTURA')->nullable()->default(null)->unsigned();
             $table->integer('RUT')->nullable()->default(null)->unsigned();
             $table->integer('ID_IVA')->nullable()->default(null)->unsigned();
             $table->dateTime('FECHA_EMISION')->nullable()->default(null);
@@ -39,6 +40,13 @@ class CreateOrdenDeCompraMatTable extends Migration
             $table->index(["ID_PRODUCTO"], 'ID_PROD_FK');
   
 
+            $table->index(["ID_FACTURA"], 'ID_FAC_FK');
+
+
+            $table->foreign('ID_FACTURA', 'ID_FAC_FK')
+                ->references('ID_FACTURA')->on('factura_proveedor')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
                 $table->foreign('ID_IVA', 'ID_IVA_FK')
                 ->references('ID_IVA')->on('iva')
